@@ -1,0 +1,136 @@
+<% layout('../layout') %>
+<%
+const archive = await firekylin.widget('Widget_Archive', {type: 'page'});
+const postArchive = await firekylin.widget('Widget_Custom_Archive', {type: 'archive'});
+const site = await firekylin.widget('Widget_Options');
+archive.next();
+
+const page = archive.row;
+const stripHTML = value => String(value || '').replace(/<[^>]*>/g, '').replace(/&[^;]+;/g, ' ').trim();
+const stats = postArchive.stack.map(post => {
+  const date = new Date(post.create_time);
+  return {
+    title: post.title,
+    slug: post.pathname,
+    year: date.getFullYear(),
+    month: `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`,
+    hour: date.getHours(),
+    week: date.getDay(),
+    comments: Number(post.comment_num) || 0,
+    count: Array.from(stripHTML(post.content || post.summary)).filter(character => !/\s/.test(character)).length
+  };
+});
+const totalComments = stats.reduce((total, post) => total + post.comments, 0);
+const totalWords = stats.reduce((total, post) => total + post.count, 0);
+const chartData = JSON.stringify(stats).replace(/</g, '\\u003c');
+%>
+
+<% block('title', () => { %><%= archive.have() ? archive.title() : '页面未找到' %> - <%= site.title() %><% }) %>
+<% block('headers', () => { %><% if (archive.have()) { %><link rel="canonical" href="<%= site.siteUrl + archive.permalink %>"><% } %><% }) %>
+
+<% block('content', () => { %>
+<% if (archive.have()) { %>
+<style>
+  .chart { margin-top: 15px; width: 100%; height: 350px; }
+</style>
+<div class="grid grid-cols-2 lg:grid-cols-8 gap-4 lg:pt-12">
+  <article class="col-span-2 lg:col-start-2 lg:col-span-6 bg-secondary-bg rounded px-6 py-8">
+    <h1 class="font-bold text-3xl text-primary-text"><%= archive.title() %></h1>
+    <div class="flex flex-wrap flex-row items-center my-2 text-tertiary-text">
+      <div class="mr-6 my-2">
+        <%~ include('../layouts/partials/fontawesome', {icon: 'calendar', className: 'mr-1'}) %>
+        <span><%= archive.date((site.themeConfig && site.themeConfig.dateFormat) || 'YYYY-MM-DD') %></span>
+      </div>
+    </div>
+    <% if (page.featuredImage) { %><div class="my-4"><img class="w-full entered" src="<%= page.featuredImage %>" alt=""></div><% } %>
+    <div class="content">
+      <h2>基本信息</h2>
+      <p id="basic-info" class="text-tertiary-text"><span>文章：<strong><a href="/"><%= stats.length %></a></strong> 篇</span>；<span>评论：<strong><%= totalComments %></strong> 条</span>；<span>总字数：<strong><%= totalWords %></strong></span>；</p>
+      <%~ archive.content() %>
+    </div>
+  </article>
+</div>
+
+<script src="https://lib.baomitu.com/echarts/5.0.0/echarts.min.js"></script>
+<script>
+(() => {
+  const data = <%~ chartData %>;
+
+  function showChart(id, title, type, values) {
+    const element = document.getElementById(id);
+    if (!element || typeof echarts === 'undefined') return;
+    const chart = echarts.init(element);
+    chart.setOption({
+      title: {text: title},
+      tooltip: {trigger: 'axis'},
+      xAxis: [{type: 'category', data: values.map(item => item[0])}],
+      yAxis: [{type: 'value'}],
+      grid: {left: 35, top: 45, right: 35, bottom: 35},
+      series: [{
+        type: 'bar',
+        name: type,
+        data: values.map(item => item[1]),
+        markLine: {data: [{type: 'average', name: '平均值'}], lineStyle: {color: '#4087bd'}},
+        itemStyle: {color: '#87cefa'}
+      }]
+    });
+    window.addEventListener('resize', () => chart.resize());
+  }
+
+  function groupBy(key) {
+    return data.reduce((result, article) => {
+      const value = article[key];
+      result[value] = (result[value] || 0) + 1;
+      return result;
+    }, {});
+  }
+
+  function yearStats() {
+    const groups = groupBy('year');
+    const years = Object.keys(groups).map(Number);
+    if (!years.length) return;
+    const values = [];
+    for (let year = Math.min(...years); year <= Math.max(...years); year++) values.push([year, groups[year] || 0]);
+    showChart('year-stat', '文章数 - 按年统计', '文章数', values);
+  }
+
+  function monthStats() {
+    const groups = groupBy('month');
+    const years = data.map(article => article.year);
+    if (!years.length) return;
+    const values = [];
+    for (let year = Math.min(...years); year <= Math.max(...years); year++) {
+      for (let month = 1; month <= 12; month++) {
+        const label = `${year}-${String(month).padStart(2, '0')}`;
+        values.push([label, groups[label] || 0]);
+      }
+    }
+    showChart('month-stat', '文章数 - 按月统计', '文章数', values);
+  }
+
+  function hourStats() {
+    const groups = groupBy('hour');
+    const values = Array.from({length: 24}, (_, hour) => [
+      `${String(hour).padStart(2, '0')}:00-${String(hour + 1).padStart(2, '0')}:00`,
+      groups[hour] || 0
+    ]);
+    showChart('hour-stat', '文章数 - 按时段统计', '文章数', values);
+  }
+
+  function weekStats() {
+    const groups = groupBy('week');
+    const labels = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+    const values = labels.map((label, day) => [label, groups[day] || 0]);
+    showChart('weekday-stat', '文章数 - 按星期几统计', '文章数', values);
+  }
+
+  yearStats();
+  monthStats();
+  hourStats();
+  weekStats();
+})();
+</script>
+<% } else { %>
+<article class="article-card page-card"><h1>页面未找到</h1><div class="content"><p>没有找到这个页面。</p></div></article>
+<% } %>
+<% }) %>
