@@ -1,0 +1,212 @@
+<% layout('../layout') %>
+<% 
+  const douban = await firekylin.widget('Widget_Custom_Douban', {
+    pageSize: 50,
+  });
+  const archive = await firekylin.widget('Widget_Archive', {type: 'page'}); 
+  const site = await firekylin.widget('Widget_Options'); 
+  archive.next(); 
+%>
+
+<% block('title', () => { %><%= archive.have() ? archive.title() : '页面未找到' %> - <%= site.title() %><% }) %>
+<% block('headers', () => { %>
+  <% if (archive.have()) { %>
+  <link rel="canonical" href="<%= site.siteUrl + archive.permalink %>">
+  <% } %>
+
+
+  <style>
+    .gFnzgG, .gFnzgG * {
+        box-sizing: border-box;
+    }
+    .fIuTG {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0px -2%;
+      background: none;
+      line-height: 100%;
+    }
+    .dfdORB {
+      width: 16%;
+      margin: 0px 2% 30px;
+      padding: 0px;
+      font-size: 15px;
+    }
+    .dfdORB a {
+        text-decoration: none;
+        color: rgb(51, 51, 51);
+    }
+    .kMthTr {
+        margin-top: 12px;
+        line-height: 1.3;
+    }
+    .eysHZq {
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        margin-top: 5px;
+        min-height: 16px;
+        line-height: 1;
+    }
+    .HPRth {
+        position: relative;
+        min-height: 87px;
+        overflow: hidden;
+        color: transparent;
+        background-color: rgb(238, 238, 238);
+        transition: all 0.3s ease 0s;
+    }
+    .HPRth:hover {
+        box-shadow: rgb(48 55 66 / 30%) 0px 1rem 2.1rem;
+    }
+    .jcTaHb {
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+    }
+    .lhtmRw {
+        margin-right: 1px;
+        width: 12px;
+        height: 12px;
+        color: rgb(252, 205, 89);
+    }
+    .gaztka {
+        margin-right: 1px;
+        width: 12px;
+        height: 12px;
+        color: rgb(238, 238, 238);
+    }
+    .iibjPt {
+        margin-left: 5px;
+        color: rgb(85, 85, 85);
+        font-size: 14px;
+    }
+    .jvCTkj {
+        margin-bottom: 10px;
+        /* white-space: pre-line; */
+    }
+    .kEoOHR {
+        display: inline-block;
+        margin-right: 15px;
+        text-decoration: none;
+        font-size: 17px;
+        color: rgb(21, 126, 251);
+    }
+    .dvtjjf {
+        display: inline-block;
+        margin-right: 5px;
+        color: rgb(85, 85, 85);
+        text-decoration: none;
+        font-size: 17px;
+        padding: 0 5px;
+    }
+    .dvtjjf.active {
+      background: rgba(85, 85, 85, 0.1);
+    }
+    .hide {
+      display: none;
+    }
+    .sort-by {
+      text-align: right;
+      margin-top: -15px;
+    }
+    .sort-by-item {
+      margin-left: 10px;
+      padding: 0 5px;
+      line-height: 20px;
+    }
+    .sort-by-item.active {
+      background: rgba(85, 85, 85, 0.1);
+    }
+    .sort-by-item svg {
+      margin-right: 5px;
+    }
+  </style>
+<% }) %>
+<% block('content', () => { %>
+<article class="article-card page-card">
+  <% if (archive.have()) { %>
+  <h1><%= archive.title() %></h1>
+  <div class="content">
+    <%~ archive.content() %>
+    
+    
+    <div class="sc-ksluID gFnzgG">
+      <div class="sc-bdnxRM jvCTkj">
+        <a href="<%= douban.getUrl({genre: '', page: 1}) %>" class="sc-gtsrHT kEoOHR" data-search="genres" data-method="contain" data-value="">全部</a>
+        <% const genres = douban.genres || []; %>
+        <% for (const genre of genres) { %>
+          <a href="<%= douban.getUrl({genre: genre, page: 1}) %>" class="sc-gtsrHT dvtjjf <%= douban.param('genre') === genre ? 'active' : '' %>" data-search="genres" data-method="contain" data-value="<%= genre %>"><%= genre %></a>
+        <% } %>
+      </div>
+
+      
+      <div class="sc-bdnxRM jvCTkj">
+        <a href="<%= douban.getUrl({year: '', page: 1}) %>" class="sc-gtsrHT kEoOHR" data-search="year" data-method="equal" data-value="">全部</a>
+        <% 
+          let year = (new Date()).getFullYear(); 
+          const endYear = 2009;
+          while(year >= endYear) {
+        %>
+        <a href="<%= douban.getUrl({year: year, page: 1}) %>" class="sc-gtsrHT dvtjjf <%= douban.param('year') == year ? 'active' : '' %>" data-search="year" data-method="equal" data-value="<%=year%>"><%=year%></a>
+        <% year--; } %>
+      </div>
+      
+      <div class="sc-bdnxRM jvCTkj">
+        <a href="<%= douban.getUrl({star: '', page: 1}) %>" class="sc-gtsrHT kEoOHR" data-search="star" data-method="equal" data-value="">全部</a>
+        <a href="<%= douban.getUrl({star: 5, page: 1}) %>" class="sc-gtsrHT dvtjjf <%= douban.param('star') == 5 ? 'active' : '' %>" data-search="star" data-method="equal" data-value="5">五星</a>
+        <a href="<%= douban.getUrl({star: 4, page: 1}) %>" class="sc-gtsrHT dvtjjf <%= douban.param('star') == 4 ? 'active' : '' %>" data-search="star" data-method="equal" data-value="4">四星</a>
+        <a href="<%= douban.getUrl({star: 3, page: 1}) %>" class="sc-gtsrHT dvtjjf <%= douban.param('star') == 3 ? 'active' : '' %>" data-search="star" data-method="equal" data-value="3">三星</a>
+        <a href="<%= douban.getUrl({star: 2, page: 1}) %>" class="sc-gtsrHT dvtjjf <%= douban.param('star') == 2 ? 'active' : '' %>" data-search="star" data-method="equal" data-value="2">二星</a>
+        <a href="<%= douban.getUrl({star: 1, page: 1}) %>" class="sc-gtsrHT dvtjjf <%= douban.param('star') == 1 ? 'active' : '' %>" data-search="star" data-method="equal" data-value="1">一星</a>
+        <a href="<%= douban.getUrl({star: 0, page: 1}) %>" class="sc-gtsrHT dvtjjf <%= douban.param('star') == 0 ? 'active' : '' %>" data-search="star" data-method="equal" data-value="0">零星</a>
+      </div>
+
+      <div class="sc-bdnxRM jvCTkj sort-by">
+        <a href="<%= douban.getUrl({order: 'time', page: 1}) %>" class="sort-by-item <%= douban.param('order') !== 'rating' ? 'active' : '' %>" data-order="time">
+          <%~ include('../layouts/partials/fontawesome', {icon: 'calendar-alt', className: ''}) %>观影时间排序
+        </a>
+        <a href="<%= douban.getUrl({order: 'rating', page: 1}) %>" class="sort-by-item <%= douban.param('order') == 'rating' ? 'active' : '' %>" data-order="rating">
+          <%~ include('../layouts/partials/fontawesome', {icon: 'star-half-alt', className: ''}) %>网友评分排序
+        </a>
+      </div>
+
+      <% if (douban.have()) { %>
+        <div class="sc-dIsUp fIuTG">
+          <% while (douban.next()) { %>
+            <div class="sc-gKAaRy dfdORB" data-year="<%=douban.year%>" data-star="<%=douban.star%>" data-rating="<%=douban.rating%>" data-genres="<%=douban.genres%>">
+              <a href="https://movie.douban.com/subject/<%= douban.id %>/" target="_blank">
+                <div class="sc-hKFxyN HPRth">
+                  <div class="lazyload-wrapper">
+                    <img class="lazy entered error" data-src="https://dou.img.lithub.cc/movie/<%=douban.id%>%>.jpg" referrer-policy="no-referrer" loading="lazy" alt="<%=douban.title%>" width="150" height="220" data-ll-status="error" src="https://dou.img.lithub.cc/movie/<%=douban.id%>.jpg">
+                  </div>
+                </div>
+                <div class="sc-iCoGMd kMthTr"><%=douban.title%></div>
+                <div class="sc-fujyAs eysHZq">
+                  <span class="sc-jSFjdj jcTaHb">
+                    <svg viewBox="0 0 24 24" width="24" height="24" class="sc-dlnjwi lhtmRw"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M12 18.26l-7.053 3.948 1.575-7.928L.587 8.792l8.027-.952L12 .5l3.386 7.34 8.027.952-5.935 5.488 1.575 7.928z"></path></svg>
+                    <svg viewBox="0 0 24 24" width="24" height="24" class="sc-dlnjwi lhtmRw"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M12 18.26l-7.053 3.948 1.575-7.928L.587 8.792l8.027-.952L12 .5l3.386 7.34 8.027.952-5.935 5.488 1.575 7.928z"></path></svg>
+                    <svg viewBox="0 0 24 24" width="24" height="24" class="sc-dlnjwi lhtmRw"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M12 18.26l-7.053 3.948 1.575-7.928L.587 8.792l8.027-.952L12 .5l3.386 7.34 8.027.952-5.935 5.488 1.575 7.928z"></path></svg>
+                    <svg viewBox="0 0 24 24" width="24" height="24" class="sc-dlnjwi lhtmRw"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M12 18.26l-7.053 3.948 1.575-7.928L.587 8.792l8.027-.952L12 .5l3.386 7.34 8.027.952-5.935 5.488 1.575 7.928z"></path></svg>
+                    <svg viewBox="0 0 24 24" width="24" height="24" class="sc-dlnjwi lhtmRw"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M12 18.26l-7.053 3.948 1.575-7.928L.587 8.792l8.027-.952L12 .5l3.386 7.34 8.027.952-5.935 5.488 1.575 7.928z"></path></svg>
+                  </span>
+                  <span class="sc-pNWdM iibjPt"><%=douban.rating%></span>
+                </div>
+              </a>
+            </div>
+          <% } %>
+        </div>
+      <% } %>
+    </div>  
+  </div>
+  <% if (douban.have()) { %>
+    <%~ include('../inc/pagination', {pagination: douban.pagination}) %>
+  <% } else { %>
+    <p>没有找到相关的豆瓣电影。</p>
+  <% } %>
+  <% } else { %>
+  <h1>页面未找到</h1><div class="content"><p>没有找到这个页面。</p></div>
+  <% } %>
+
+</article>
+<% }) %>
