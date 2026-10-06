@@ -2,7 +2,7 @@
   "name": "firekylin-blog",
   "private": true,
   "scripts": {
-    "start": "firekylin",
+    "start": "set -a && source .env && set +a &&firekylin",
     "dev": "firekylin -D",
     "build": "node ./scripts/build-static.js"
   },

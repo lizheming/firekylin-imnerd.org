@@ -5,3 +5,5 @@ data/.firekylin-initializing.json
 .vercel-static
 .vercel
 .env
+.env*
+package-lock.json

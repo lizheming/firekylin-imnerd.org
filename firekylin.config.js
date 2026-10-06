@@ -23,6 +23,10 @@ module.exports = {
     "user": FK_DB_USER,
     "password": FK_DB_PASSWORD,
     "port": FK_DB_PORT,
-    "prefix": FK_DB_PREFIX
+    "prefix": FK_DB_PREFIX,
+    ssl: {
+      minVersion: 'TLSv1.2',
+      rejectUnauthorized: true
+    }
   }
 };
