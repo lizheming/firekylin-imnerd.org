@@ -7,6 +7,6 @@
     "build": "node ./scripts/build-static.js"
   },
   "dependencies": {
-    "firekylin": "latest"
+    "firekylin": "^2.5.1"
   }
 }

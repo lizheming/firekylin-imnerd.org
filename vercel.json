@@ -46,6 +46,16 @@
       "dest": "/main.js"
     }
   ],
+  "crons": [
+    {
+      "path": "/crontab/sync_comment",
+      "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/admin/cron/rss",
+      "schedule": "0 * * * *"
+    }
+  ],
   "github": {
     "silent": true
   }
