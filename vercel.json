@@ -49,11 +49,11 @@
   "crons": [
     {
       "path": "/crontab/sync_comment",
-      "schedule": "*/5 * * * *"
+      "schedule": "0 0 * * *"
     },
     {
       "path": "/admin/cron/rss",
-      "schedule": "0 * * * *"
+      "schedule": "0 0 * * *"
     }
   ],
   "github": {
