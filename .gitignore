@@ -1,0 +1,7 @@
+node_modules/
+data/logs
+data/runtime
+data/.firekylin-initializing.json
+.vercel-static
+.vercel
+.env
