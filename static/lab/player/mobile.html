@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RedHeart FM Mobile</title>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="redheart-apple-icon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="redheart-apple-icon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <style>
+    * {margin:0;padding:0;box-sizing:border-box;}
+    .display {display:block!important;}
+    html, body {
+        height:100%;
+        width:100%;
+    }
+    header {
+        height:8%;
+        width:100%;
+        background:yellow;
+    }
+    header .search-input, header .search-input form {
+        height:100%;
+    }
+    .search-input input[type=text] {
+        display:block;
+        width:100%;
+        height:100%;
+        border:none;
+        padding:5px 10px;
+        font-size:1.3em;
+    }
+    #body {
+        height:70%;
+        width:100%;
+    }
+    #body>div {
+        height:100%;
+        width:100%;
+        display:none;
+    }
+    #body div.background-image {
+        height:92%;
+        display:block;
+        position:absolute;
+        z-index:-999;
+        overflow:hidden;
+    }
+    .album {
+        width:100%;
+        height:100%;
+        display:-webkit-flex;
+        display:flex;
+    }
+    #progress {
+        margin:auto;
+    }
+    #progress circle {
+        stroke-width: 12px;
+        transition: stroke-dashoffset 1s linear;
+    }
+    #progress circle.album {
+        stroke: #FFF;
+    }
+    #btn-background {
+        fill: rgba(255,255,255,0.5);
+    }
+    #progress .progress {
+        stroke: rgb(220,220,220);
+    }
+    #btn-play, #btn-pause {
+        display:none;
+        fill:slategray;
+    }
+    #body .playlist, #body .search-result {
+        overflow-y:auto;
+    }
+    .playlist, .search-result {
+    	background:rgba(255,255,255,0.5);
+    }
+    .playlist ul, .search-result ul {
+    	list-style-type:none;
+    }
+    .search-result li, .playlist li, .search-result>p{
+        line-height:3em;
+        padding:0 0 0 2%;
+        font-size:0.9em;
+        height:3em;
+        overflow:hidden;
+        font-family:Arial;
+        border-bottom:1px solid #DDD;
+    }
+    .search-result>p {
+    	text-align: center;
+    }
+    #body .lyric {
+        text-align:center;
+        background:rgba(255,255,255,0.5);
+        overflow-y:auto;
+        overflow-x:hidden;
+        color:#999;
+        line-height:1.5em;
+        font-size:1.2em;
+        font-weight:bold;
+        font-family:Microsoft Jhenghei;
+    }
+    #body .lyric ul {
+    	padding-top:50%;
+    	transition:all 1s;
+    }
+    #body .lyric .now {
+    	font-size:1.5em;
+    	color:#000;
+    }
+    footer {
+        height:22%;
+        width:100%;
+    }
+    .player-tools {
+        width:100%;
+        height:30%;
+        display:-webkit-flex;
+        display:flex;
+        padding: 2% 10%;
+    }
+    .player-tools>div {
+        height:100%;
+        margin:1% auto;
+    }
+    .other {
+    	display:none;
+    }
+    .player-tools .icon {
+        height:100%;
+    }
+    .player-control {
+        width:100%;
+        height:70%;
+        display:-webkit-flex;
+        display:flex;
+        fill:slategray;
+        background:rgba(255,255,255,0.2);
+    }
+    .player-control>div {
+        margin:auto;
+        overflow:hidden;
+    }
+    .player-control .icon {
+        height:80%;
+    }
+    .player-control .fav {
+        fill: rgba(237,20,61,0.7);
+    }
+    </style>
+    <script type="text/javascript">
+    if(location.protocol.indexOf("https")===-1) location.href = "https://"+location.host+location.pathname;
+    </script>
+</head>
+<body>
+    <svg display="none" width="300" height="300" viewBox="0 0 300 300" preserverAspectRatio="xMinyMin meet" xmlns="http://www.w3.org/2000/svg">
+     <symbol id="icon-playlist" viewBox="0 0 300 300" preserveAspectRatio="none">
+      <title>playlist</title>
+      <rect fill="#000000" stroke-width="50" x="-1" y="-1" width="300" height="300" stroke="#000000" fill-opacity="0"/>
+      <line fill="none" stroke-width="25" x1="50" y1="68.75" x2="250" y2="68.75" stroke="#000000"/>
+      <line fill="none" stroke-width="25" x1="50" y1="150" x2="250" y2="150" stroke="#000000"/>
+      <line fill="none" stroke-width="25" x1="50" y1="231.25" x2="250" y2="231.25" stroke="#000000"/>
+     </symbol>
+     <symbol id="icon-lyric" viewBox="0 0 300 300" preserveAspectRatio="none">
+      <title>lyric</title>
+      <line y2="52.5" x2="201.5" y1="52.5" x1="101.5" fill-opacity="0" stroke-width="25" stroke="#000000"/>
+      <line stroke-width="25" x1="51.5" y1="117.5" x2="251.5" y2="117.5" stroke="#000000"/>
+      <line y2="182.5" x2="201.5" y1="182.5" x1="101.5" fill-opacity="0" stroke-width="25" stroke="#000000"/>
+      <line stroke-width="25" x1="51.5" y1="247.5" x2="251.5" y2="247.5" stroke="#000000"/>
+     </symbol>
+     <symbol id="icon-more" viewBox="0 0 300 300" preserveAspectRatio="none">
+      <title>more</title>
+      <circle stroke="#000000" r="10" cy="150" cx="150" stroke-width="25" fill="#000000"/>
+      <circle stroke="#000000" r="10" cy="150" cx="75" stroke-width="25" fill="#000000"/>
+      <circle stroke="#000000" r="10" cy="150" cx="225" stroke-width="25" fill="#000000"/>
+     </symbol>
+     <symbol id="icon-next" viewBox="0 0 897 1024">
+        <title>to-end</title>
+        <path class="path1" d="M0 844.8v-695.296q0-41.984 21.504-47.104t65.536 18.432l549.888 347.136v-318.464q0-21.504 18.432-39.936t38.912-18.432h116.736q39.936 0 63.488 17.408t22.528 40.96v695.296q0 23.552-22.528 40.96t-63.488 17.408h-116.736q-21.504 0-38.912-18.432t-18.432-39.936v-289.792l-549.888 348.16q-44.032 19.456-65.536 4.096t-21.504-62.464z"></path>
+    </symbol>
+    </svg>
+    <svg display="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+    <symbol id="icon-fav" viewBox="0 0 959 1024">
+        <title>fav</title>
+        <path class="path1" d="M0 327.68q0-105.472 74.752-180.224t181.248-74.752q71.68 0 131.072 35.84t93.184 94.208q32.768-59.392 92.16-95.232t131.072-34.816q105.472 0 181.248 74.752t74.752 180.224q0 97.28-64.512 169.984l-351.232 412.672q-25.6 30.72-63.488 30.72t-64.512-30.72l-351.232-412.672q-64.512-72.704-64.512-169.984z"></path>
+    </symbol>
+    <symbol id="icon-unlike" viewBox="0 0 959 1024">
+        <title>unlike</title>
+        <path class="path1" d="M0 327.68q0-105.472 74.752-180.224t181.248-74.752q82.944 0 150.528 48.128l-14.336 256q0 12.288 9.216 20.48t21.504 9.216h10.24q12.288 0 18.432 8.192t3.072 20.48l-58.368 176.128q-4.096 12.288-2.048 13.312t9.216-8.192l198.656-273.408q7.168-9.216 4.096-16.384t-16.384-7.168h-78.848q-12.288 0-17.408-8.192t-1.024-18.432l83.968-187.392q58.368-32.768 126.976-32.768 105.472 0 181.248 74.752t74.752 180.224q0 96.256-64.512 169.984l-351.232 412.672q-25.6 30.72-63.488 30.72t-64.512-30.72l-350.208-412.672q-65.536-73.728-65.536-169.984z"></path>
+    </symbol>
+    <symbol id="icon-sina" viewBox="0 0 1020 1024">
+        <title>sina</title>
+        <path class="path1" d="M749.568 514.048q120.832 38.912 120.832 139.264 0 104.448-130.048 201.728t-320.512 97.28q-163.84 0-291.84-79.872t-128-200.704q0-133.12 149.504-286.72 94.208-94.208 190.464-132.096t137.216 3.072q36.864 36.864 10.24 118.784-4.096 14.336 8.192 14.336l16.384-2.048q75.776-34.816 137.216-34.816t86.016 34.816q24.576 36.864-2.048 102.4-6.144 18.432 16.384 24.576zM419.84 876.544q124.928-12.288 206.848-78.848t73.728-148.48q-10.24-81.92-102.4-131.072t-217.088-36.864-206.848 78.848-71.68 148.48q8.192 81.92 100.352 131.072t217.088 36.864zM1019.904 376.832v2.048q0 14.336-11.264 24.576t-25.6 10.24-24.576-10.24-10.24-24.576q0-98.304-69.632-166.912t-165.888-68.608q-16.384 0-26.624-10.24t-10.24-26.624q0-34.816 36.864-34.816 126.976 0 217.088 89.088t90.112 216.064zM876.544 372.736q4.096 14.336-4.096 27.648t-22.528 15.36q-34.816 4.096-43.008-28.672-8.192-38.912-36.864-67.584t-67.584-36.864q-34.816-8.192-26.624-40.96 8.192-36.864 43.008-28.672 59.392 12.288 102.4 56.32t55.296 103.424zM335.872 587.776q49.152-10.24 90.112 12.288t49.152 63.488q10.24 40.96-19.456 78.848t-80.896 46.080q-49.152 10.24-90.112-12.288t-49.152-63.488 20.48-77.824 79.872-47.104z"></path>
+    </symbol>
+    <symbol id="icon-remove" viewBox="0 0 1024 1024">
+    <title>remove</title>
+    <path class="path1" d="M800 128h-576c-53.020 0-96 42.98-96 96v32h768v-32c0-53.020-42.98-96-96-96zM632.32 64l14.116 101h-268.872l14.114-101h240.642zM640 0h-256c-26.4 0-50.99 21.392-54.642 47.538l-18.714 133.924c-3.654 26.146 14.956 47.538 41.356 47.538h320c26.4 0 45.010-21.392 41.358-47.538l-18.714-133.924c-3.654-26.146-28.244-47.538-54.644-47.538v0zM816 320h-608c-35.2 0-61.392 28.682-58.206 63.738l52.412 576.526c3.186 35.054 34.594 63.736 69.794 63.736h480c35.2 0 66.608-28.682 69.794-63.736l52.41-576.526c3.188-35.056-23.004-63.738-58.204-63.738zM384 896h-96l-32-448h128v448zM576 896h-128v-448h128v448zM736 896h-96v-448h128l-32 448z"></path>
+    </symbol>
+    <symbol id="icon-sync" viewBox="0 0 1024 1024">
+	<title>sync</title>
+	<path class="path1" d="M778.906 391.117c-14.080 0-27.955 1.229-41.421 3.482-33.587-109.824-137.626-189.85-260.915-189.85-150.426 0-272.333 119.194-272.333 266.24 0 13.107 1.024 26.010 2.918 38.656-7.219-0.819-14.49-1.382-21.965-1.382-102.246 0-185.19 81.101-185.19 181.043 0 99.994 82.944 181.043 185.19 181.043h593.715c135.424 0 245.094-107.315 245.094-239.616s-109.722-239.616-245.094-239.616zM582.246 611.84c-25.344 36.045-133.888 147.917-138.496 152.627-5.325 6.554-20.019 17.562-33.946 8.499-3.994-2.611-8.806-7.834-8.806-18.125 0-9.882 4.506-19.968 5.069-21.094l52.89-117.043c-9.933-3.942-26.982-10.854-40.243-16.64l-3.533-1.536c-13.414-5.632-30.106-12.749-30.106-31.13 0-8.755 4.198-18.995 12.749-31.181 25.344-36.045 133.888-147.866 138.496-152.627 5.325-6.554 19.968-17.562 33.946-8.55 3.994 2.611 8.806 7.834 8.806 18.125 0 9.882-4.506 19.968-5.069 21.094l-52.89 117.043c9.933 3.994 26.982 10.906 40.243 16.64l3.482 1.485c13.414 5.683 30.106 12.8 30.106 31.181 0.051 8.858-4.147 19.046-12.698 31.232z"></path>
+	</symbol>
+    </defs>
+    </svg>
+    <header>
+        <div class="search-input">
+        	<form>
+            <input type="text" name="song" placeholder="RedHeart FM" autocomplete="off">
+            <input type="submit" style="display:none"/>
+            </form>
+        </div>
+    </header>
+    <div id="body">
+        <div class="background-image">
+            <img src="//iphoto.sinaapp.com/photo.php?id=1418542644" alt="">
+        </div>
+        <div class="search-result"><ul></ul><p class="navi">更多...</p></div>
+        <div class="touch-toggle playlist">
+            <ul>
+            <li data-id="1769596315">Arrietty’s Song-instrumental Version(Arrietty’s Song) - Cécile Corbel</li>
+            <li data-id="3492972">Fade Out - Naomi</li>
+            <li data-id="385435">白衣飘飘的年代 - 高晓松</li>
+            <li data-id="1769951931">苦瓜 - 陈奕迅</li>
+            <li data-id="1772500734">1999 - KOYOTE</li>
+            <li data-id="1772500461">안녕 - 효린</li>
+            <li data-id="1771067723">初雪の日に - 水月陵</li>
+            <li data-id="3297252">Arizona - Kings of Leon</li>
+            <li data-id="1772455854">一个歌手的情书 (Live) - 中国好歌曲</li>
+            <li data-id="1770155401">当我唱起这首歌 - 小贱</li>
+            <li data-id="121485">我和我的祖国 - 李谷一</li>
+            <li data-id="1772492252">Love/Affection - 加藤ミリヤ</li>
+            <li data-id="1771889373">好好说再见 - 陶喆</li>
+            <li data-id="1267574">I Love You, Ono - Stereo Total</li>
+            <li data-id="3367930">Just Showed Up for My Own Life - Sara Groves</li>
+            <li data-id="6949">单车 - 陈奕迅</li>
+            <li data-id="2108213">小观园 - 塞宁</li>
+            <li data-id="1770301815">厦门之夏 - 旅行团</li>
+            <li data-id="1769964941">南无观世音菩萨 - 许巍</li>
+            <li data-id="1769235821">喜欢 - 群星</li>
+            <li data-id="3538637">風になる - 野見祐二</li>
+            <li data-id="7457">单车 (Live) - 陈奕迅</li>
+            <li data-id="19396">当爱已成往事 - 李宗盛</li>
+            <li data-id="1772084442">Roar - Katy Perry</li>
+            <li data-id="48074">Life's A Struggle - 宋岳庭</li>
+            <li data-id="3538637">風になる - 野見祐二</li>
+            <li data-id="7457">单车 (Live) - 陈奕迅</li>
+            <li data-id="19396">当爱已成往事 - 李宗盛</li>
+            <li data-id="1772084442">Roar - Katy Perry</li>
+            <li data-id="48074">Life's A Struggle - 宋岳庭</li>
+            <li data-id="84293">等一个晴天 - 蔡淳佳</li>
+            <li data-id="1771331004">你不知道的事 - 王力宏</li>
+            <li data-id="1073345">Bohemian Rhapsody - Queen</li>
+            <li data-id="3643973">POISON~言いたい事も言えないこんな世の中は~ - 反町隆史</li>
+            <li data-id="1772130329">安和桥 - 宋冬野</li>
+            <li data-id="1768913432">迟到千年 - 苏打绿</li>
+            <li data-id="1768943428">如燕 - 群星</li>
+            <li data-id="385434">青春无悔 - 高晓松</li>
+            <li data-id="385433">冬季校园 - 高晓松</li>
+            <li data-id="1772247291">偶尔 (Live Piano Session) - G.E.M.邓紫棋</li>
+            <li data-id="1771982803">一个人 - 陈珊妮</li>
+            <li data-id="1770478676">人家 - 赵雷</li>
+            <li data-id="1772276934">Let It Go - Christophe Beck</li>
+            <li data-id="3652570">Sitges Savepoint - Random</li>
+            <li data-id="1769383794">RADIO - 日本群星</li>
+            <li data-id="1772319370">我要我们在一起 (Live) - G.E.M.邓紫棋</li>
+            <li data-id="2199099">Look After You - The Fray</li>
+            <li data-id="2067242">好久不见 - 陈奕迅</li>
+            <li data-id="1770530872">We Will Rock You - Nickelback</li>
+            <li data-id="1772500461">안녕 - 효린</li>
+            <li data-id="1770406005">Os-宇宙人 (lapix remix) - 日本ACG</li>
+            <li data-id="1168274">Joey - Concrete Blonde</li>
+            <li data-id="167586">海上花 - 甄妮</li>
+            <li data-id="1005798">Hyper-Ballad - Björk</li>
+            <li data-id="1770967154">하루하루 (Live) - Y.G.Family</li>
+            <li data-id="382383">我要我们在一起 - 范晓萱</li>
+            <li data-id="1772312774">每次和你走在路上都会看见一只喵 (欢乐Demo版) - 刘瑞琦</li>
+            <li data-id="1772456394">凱歌、沈黙が眠る頃 [LIVE] - Dir en grey</li>
+            <li data-id="1772126199">Blush - Wolf Alice</li>
+            <li data-id="1772141275">活着 - 郝云</li>
+            <li data-id="188503">小伞带着我飞翔 - 群星</li>
+            <li data-id="1770742519">說了再見 ～ Real Valentine ～ - ATSUSHI</li>
+            <li data-id="1769828374">I Love You But In The End I Will Destroy You - Goonies Never Say Die</li>
+            <li data-id="3402258">MY ALL - 浜崎あゆみ</li>
+            <li data-id="383843">南方 - 达达</li>
+            <li data-id="1772491228">伤（Demo） - 释魂乐队</li>
+            <li data-id="1772068878">Five Hundred Miles - Soundtrack</li>
+            <li data-id="1771827431">Young & Beautiful - Lana Del Rey</li>
+            <li data-id="2079010">Bella Luna - Jason Mraz</li>
+            <li data-id="192864">别对我说失去Baby - 新裤子</li>
+            <li data-id="175788">小花帽 - 北京天使合唱团</li>
+            <li data-id="1769704369">月半弯 - 张学友</li>
+            <li data-id="1769458162">옥상달빛 - 옥상달빛</li>
+            <li data-id="2068000">Catch The Breeze - Slowdive</li>
+            <li data-id="1769089295">VCR - The xx</li>
+            <li data-id="1769064364">I Guess It's Gonna Rain Today - Sondre Lerche</li>
+            <li data-id="1772510595">画 (Live) - 中国好歌曲</li>
+            <li data-id="1771198348">December, 1963 (Oh, What a Night) - The Four Seasons</li>
+            <li data-id="1769399774">一丝不挂 - 陈奕迅</li>
+            <li data-id="176871">失恋阵线联盟 - 草蜢</li>
+            <li data-id="1769629865">Concerto for Violin and Strings in E, Op.8, No.1, R.269 "La Primavera" - 1. Allegro - Salvatore Accardo</li>
+            <li data-id="152460">友情卡片 - 徐怀钰</li>
+            <li data-id="1806051">Jesus Alegria Dos Homens - Baden Powell</li>
+            <li data-id="1191418">Without You - Mariah Carey</li>
+            <li data-id="1768982314">Cha, Cha - Winterplay</li>
+            <li data-id="2072704">山桃红 - 原声带</li>
+            <li data-id="7678">我怕你不肯 - 陈奕迅</li>
+            <li data-id="1772510600">空白的缘分 (Live) - 中国好歌曲</li>
+            <li data-id="1772471792">A Heart Gone Wild - 萨满</li>
+            <li data-id="1944857">Fallin' - Alicia Keys</li>
+            <li data-id="1025107">Take It Easy - Eagles</li>
+            <li data-id="1772381257">我不祝福 - 陶晶莹</li>
+            <li data-id="1771775959">Silver and Gold - Noah and the Whale</li>
+            <li data-id="1770008410">Yeah - Does It Offend You, Yeah?</li>
+            <li data-id="1770299857">Breath and Life - Audiomachine</li>
+            <li data-id="1772396712">Hot Summer - Various Artists</li>
+            <li data-id="1770692718">洗衣机 - 五月天</li>
+            <li data-id="1769119627">Turn it Up - Pixie Lott</li>
+            <li data-id="384633">白色球鞋 - 陈奕迅</li>
+            <li data-id="1003973">Here Comes the Sun (Remastered) - The Beatles</li>
+            <li data-id="1769474877">错过 - 王梓盈</li>
+            <li data-id="1772034614">调音歌 - 张松涛</li>
+            <li data-id="1770650374">Nostalgia (Instrumental) - Sound Online</li>
+            <li data-id="1771775958">Lifetime - Noah and the Whale</li>
+            <li data-id="1772301932">너에게 - 韩国原声带</li>
+            <li data-id="1731285">I'm Gonna Be (500 Miles) - The Proclaimers</li>
+            <li data-id="1770974759">Are You Gonna Love Me？ - MONKEY sequence 19</li>
+            <li data-id="1699478">Forever - Stratovarius</li>
+            <li data-id="1770478678">画 - 赵雷</li>
+            <li data-id="1769003800">Atoll Moao - Nujabes</li>
+            <li data-id="3422786">Don't Wait - Dala</li>
+            <li data-id="3679931">New Divide - Linkin Park</li>
+            <li data-id="1771749975">Illuminate the Sky - Martin Halla</li>
+            <li data-id="1771549317">Deck & Sheker (Original Mix) - Infected Mushroom</li>
+            <li data-id="3549123">天气晴 - 自然卷</li>
+            <li data-id="1770008410">Yeah - Does It Offend You, Yeah?</li>
+            <li data-id="1772510597">灰鸟 (Live) - 中国好歌曲</li>
+            <li data-id="1769658957">Broken Pieces - Apocalyptica</li>
+            <li data-id="1770831067">Let Her Go (Acoustic) - Passenger</li>
+            <li data-id="111358">你爱我吗? - 侯湘婷</li>
+            <li data-id="1771904640">You Are My Destiny - Paul Anka</li>
+            <li data-id="3422786">Don't Wait - Dala</li>
+            <li data-id="1771997898">Mi Mi Mi (Radio Edit) - SEREBRO</li>
+            <li data-id="1772242779">终于等到你 - 张靓颖</li>
+            <li data-id="1530925">Money (That's What I Want) [Single Edit] - The Flying Lizards</li>
+            <li data-id="3571276">LOVEずっきゅん - 相対性理論</li>
+            <li data-id="1772500461">안녕 - 효린</li>
+            <li data-id="2051498">喜欢你 - Beyond</li>
+            <li data-id="1769884140">You're In My Heart - Winterplay</li>
+            <li data-id="3215857">Invitation - Lina Nyberg</li>
+            <li data-id="1771425669">Houdini - Whiiite</li>
+            <li data-id="387351">儿歌 - 张悬</li>
+            <li data-id="1769874028">When Will My Life Begin - Alan Menken</li>
+            <li data-id="1769683194">On The Radio - Donna Summer</li>
+            <li data-id="1770201852">夜空中最亮的星 - 逃跑计划</li>
+            <li data-id="1769372852">1984 - andymori</li>
+            <li data-id="3337739">all over love - LOVE PSYCHEDELICO</li>
+            <li data-id="1770817228">PONPONPON - 96猫</li>
+            <li data-id="133658">随心所欲 - 罗琦</li>
+            <li data-id="1119374">Boy with a Coin - Iron & Wine</li>
+            <li data-id="1769927662">慢慢飞 - 龙神道</li>
+            <li data-id="2376417">Oxford Comma - Vampire Weekend</li>
+            <li data-id="2094751">Because Of You - Kelly Clarkson</li>
+            <li data-id="1771766273">いつもこの場所で - 彩音</li>
+            <li data-id="143776">不是真的爱我 - 孙燕姿</li>
+            <li data-id="1769122807">回到最初 - 蔡淳佳</li>
+            <li data-id="30892">小鸟 - 群星</li>
+            <li data-id="1769861059">Swallowtail Butterfly～あいのうた～ - 日本群星</li>
+            <li data-id="3570526">I Still Miss You - Akia</li>
+            <li data-id="1772475511">克卜勒 - 孙燕姿</li>
+            <li data-id="1772158920">老友记 - 金志文</li>
+            <li data-id="1769530668">大龄文艺女青年之歌 (淡定版) - 邵夷贝</li>
+            <li data-id="1769834090">Flower Dance - DJ OKAWARI</li>
+            <li data-id="1769017945">This Guy's in Love with You - Soundtrack</li>
+            <li data-id="141375">Dear Friend - 顺子</li>
+            <li data-id="1772068878">Five Hundred Miles - Soundtrack</li>
+            <li data-id="1772491978">卑微的荣耀 - 张恒远</li>
+            <li data-id="2591129">Siempre Me Quedará - Bebe</li>
+            <li data-id="1772500461">안녕 - 효린</li>
+            <li data-id="1772242779">终于等到你 - 张靓颖</li>
+            <li data-id="1770689765">Mr. Know It All (iTunes Session) - Kelly Clarkson</li>
+            <li data-id="141321">Dear Friend - 顺子</li>
+            <li data-id="1770478678">画 - 赵雷</li>
+            <li data-id="34092">暗涌 - 黄耀明</li>
+            <li data-id="1770730670">再见 再见 - 逃跑计划</li>
+            <li data-id="2068436">Fix You - Coldplay</li>
+            <li data-id="1771736164">beautiful glider - BUMP OF CHICKEN</li>
+            <li data-id="1769373072">邂逅 - 董运昌</li>
+            <li data-id="1770939975">ナギイチ - NMB48</li>
+            <li data-id="3638604">痴人 - 痴人</li>
+            <li data-id="3562321">白日梦蓝 - 刺猬</li>
+            <li data-id="1770707699">火 - 曾檐</li>
+            <li data-id="1769866643">BLUE DRAGON (TMD3 VER.) - 澤野弘之</li>
+            <li data-id="1771918274">桑吉尔多 - 浩子</li>
+            <li data-id="1769715287">晨星 - V.K克</li>
+            <li data-id="1769715286">精灵之歌 - V.K克</li>
+            <li data-id="1769715282">抹茶拿铁 - V.K克</li>
+            <li data-id="1769715278">香草泡泡的季节 - V.K克</li>
+            <li data-id="1769715284">纯白 - V.K克</li>
+            <li data-id="1769715280">狮子大张嘴 - V.K克</li>
+            <li data-id="1769715277">恋‧冬 - V.K克</li>
+            <li data-id="1772073264">Evolution era - V.K克</li>
+            <li data-id="1769715279">EPISODE I ~ 私たちは幸福が要る… - V.K克</li>
+            <li data-id="1771208116">Saika - Rabpit</li>
+            <li data-id="1769687148">untitled for piano - The Tumbled Sea</li>
+            <li data-id="1769248662">Landvetter - Moonlit Sailor</li>
+            <li data-id="1770141553">Goodbye - Circadian Eyes</li>
+            <li data-id="1769723881">Never Alone, Always Lonesome - Dorena</li>
+            <li data-id="3447573">夢路 - 増田俊郎</li>
+            <li data-id="3447574">「天辺の糸」 - 増田俊郎</li>
+            <li data-id="3447575">「筆の海」 - 増田俊郎</li>
+            <li data-id="3447576">「暁の蛇」 - 増田俊郎</li>
+            <li data-id="3447577">寂光 - 増田俊郎</li>
+            <li data-id="3447578">「沖つ宮」 - 増田俊郎</li>
+            <li data-id="3447579">「春と嘯く」 - 増田俊郎</li>
+            <li data-id="3447580">「虚繭取り」 - 増田俊郎</li>
+            <li data-id="3447581">月光 - 増田俊郎</li>
+            <li data-id="3447582">風の手枕 - 増田俊郎</li>
+            <li data-id="3447584">「籠のなか」 - 増田俊郎</li>
+            <li data-id="3447585">「山抱く衣」 - 増田俊郎</li>
+            <li data-id="3447586">「錆の鳴く聲」 - 増田俊郎</li>
+            <li data-id="3447587">月暈 - 増田俊郎</li>
+            <li data-id="3447589">眼福眼禍 - 増田俊郎</li>
+            <li data-id="3447590">綿胞子 - 増田俊郎</li>
+            <li data-id="3447592">「篝野行」 - 増田俊郎</li>
+            <li data-id="3447593">「草を踏む音」 - 増田俊郎</li>
+            <li data-id="3447594">「The Sore Feet Song」 - 増田俊郎</li>
+            <li data-id="3447595">「眇の魚」 - 増田俊郎</li>
+            <li data-id="3447596">「緑の座」 - 増田俊郎</li>
+            <li data-id="2085533">「枕小路」 - 増田俊郎</li>
+            <li data-id="2085535">「瞼の光」 - 増田俊郎</li>
+            <li data-id="2085536">「海境(うなさか)より」 - 増田俊郎</li>
+            <li data-id="2085537">理(ことわり) - 増田俊郎</li>
+            <li data-id="2085538">「雨がくる虹がたつ」 - 増田俊郎</li>
+            <li data-id="2085539">「旅をする沼」 - 増田俊郎</li>
+            <li data-id="2085541">「露を吸う群」 - 増田俊郎</li>
+            <li data-id="2085542">「一夜橋」 - 増田俊郎</li>
+            <li data-id="2085543">「重い実」 - 増田俊郎</li>
+            <li data-id="2085545">「硯に棲む白」 - 増田俊郎</li>
+            <li data-id="2085550">「緑の座」 - 増田俊郎</li>
+            <li data-id="2085546">「眇(すがめ)の魚」 - 増田俊郎</li>
+            <li data-id="2085531">悠久 - 増田俊郎</li>
+            <li data-id="1770193870">潮鳴り - TAMUSIC</li>
+            <li data-id="1769740975">鳥の詩（原曲出处：Air） - TAMUSIC</li>
+            <li data-id="1769787704">雨のち想い出 - 志倉千代丸</li>
+            <li data-id="1769058159">바람에 쓰는 편지 - July</li>
+            <li data-id="1769050046">Love Story meets Viva La Vida - Jon Schmidt</li>
+            <li data-id="3480740">風見鶏 - DEPAPEPE</li>
+            <li data-id="1769740095">鳥の詩 - TAMUSIC</li>
+            <li data-id="3480743">Wedding Bell - DEPAPEPE</li>
+            <li data-id="3480745">いい日だったね。 - DEPAPEPE</li>
+            <li data-id="1769133017">Merry Christmas Mr.Lawrence - 坂本龍一</li>
+            <li data-id="1768921143">Juste un Petit Coeur Qui Bat - Nicolas de Angelis</li>
+            <li data-id="3472227">夏の終わりに - 神山純一</li>
+            <li data-id="3467694">Acknowledgements - The Shanghai Restoration Project</li>
+            <li data-id="1768985165">Great Morning - Daveed</li>
+            <li data-id="3320668">100 years of choke - world's end girlfriend</li>
+            <li data-id="1769157449">everytime you kissed me - 梶浦由記</li>
+            <li data-id="1771128956">夏恋 - Otokaze</li>
+            <li data-id="2076836">诞生 - 西村由纪江</li>
+            <li data-id="1769715717">Lilac - Little Wing</li>
+            <li data-id="3462648">love song -piano- - Key Sounds Label</li>
+            <li data-id="1769962981">ひととき - 神前暁</li>
+            <li data-id="3517333">M01 - 梶浦由記</li>
+            <li data-id="3517336">M04 - 梶浦由記</li>
+            <li data-id="3517352">M21 - 梶浦由記</li>
+            <li data-id="3517345">M14 - 梶浦由記</li>
+            <li data-id="1769962989">すれ違い - 神前暁</li>
+            <li data-id="3517350">M19 - 梶浦由記</li>
+            <li data-id="3517349">M18 - 梶浦由記</li>
+            <li data-id="1771537697">gracefully - 梶浦由記</li>
+            <li data-id="1771537687">at our parting ~piano only - 梶浦由記</li>
+            <li data-id="1771537695">a tiny love - 梶浦由記</li>
+            <li data-id="1771537691">a tender feeling - 梶浦由記</li>
+            <li data-id="2121966">River Flows In You - Yiruma</li>
+            <li data-id="3440144">Kiss The Rain - Yiruma</li>
+            <li data-id="2121926">Do You? - Yiruma</li>
+            <li data-id="2121965">Love Me - Yiruma</li>
+            <li data-id="1769596315">Arrietty’s Song-instrumental Version(Arrietty’s Song) - Cécile Corbel</li>
+            <li data-id="2091604">The Winding Path - Kevin Kern</li>
+            <li data-id="3483231">Joy Of The Journey - Kevin Kern</li>
+            <li data-id="2891143">Silent Night - Danny Wright</li>
+            <li data-id="2091676">After the Rain - Kevin Kern</li>
+            <li data-id="2891147">White Christmas - Danny Wright</li>
+            <li data-id="2891149">What Child Is This? - Danny Wright</li>
+            <li data-id="1770018378">ゼロの使い魔~双月の騎士~::I SAY YES(wedding version) - 光宗信吉</li>
+            <li data-id="1769715718">Thin purple - Little Wing</li>
+            <li data-id="3662127">夜空ノムコウ - 宮西希</li>
+            <li data-id="1770034889">Bamboo - Piano Master</li>
+            <li data-id="1769466127">Life as a Flower - Vincent Diamante</li>
+            <li data-id="1769466133">Peaceful Repose - Vincent Diamante</li>
+            <li data-id="1769466128">Splash of Color - Vincent Diamante</li>
+            <li data-id="1769466134">Lazy Daydream - Vincent Diamante</li>
+            <li data-id="1769466132">Purification of the City - Vincent Diamante</li>
+            <li data-id="1769466131">Solitary Wasteland - Vincent Diamante</li>
+            <li data-id="1769092705">The Promise - Robin Spielberg</li>
+            <li data-id="1770064328">Act 1 : 01-Resphoina - Joe Hisaishi</li>
+            <li data-id="1769156290">夜想 - 光田康典;加藤正人</li>
+            <li data-id="1769027278">In un'altra vita - Ludovico Einaudi</li>
+            </ul>
+        </div>
+        <div class="touch-toggle player display">
+            <div class="album">
+                <svg id="progress" width="250" height="250" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <pattern id="background"  patternUnits="userSpaceOnUse" height="250" width="250" >
+                            <image xlink:href="http://png-2.findicons.com/files/icons/329/simple/256/audio_cd.png" x="0" y="0" width="250" height="250"></image>
+                        </pattern>
+                        <circle id="btn-background" fill="none" stroke="none" stroke-width="0" cx="125" cy="125" r="102"></circle>
+                    </defs>
+                    <circle class="album" r="108" cx="125" cy="125" fill="url(#background)" stroke-dasharray="680" stroke-dashoffset="0" stroke-linecap="round"></circle>
+                    <circle class="progress" r="108" cx="125" cy="125" fill="transparent" stroke-dasharray="680" stroke-dashoffset="680" stroke-linecap="round"></circle>
+                    <g id="btn-play" class="display">
+                        <use xlink:href="#btn-background"></use>
+                        <path stroke="none" d="m72.5,62.5v125l125,-62.5z"/>
+                    </g>
+                    <g id="btn-pause">
+                        <use xlink:href="#btn-background"></use>
+                        <path stroke="none" d="m62.5,62.5v125h31.25v-125h-31.25z"/>
+                        <path stroke="none" d="m187.5,62.5h-31.25v125h31.25z"/>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <div class="touch-toggle lyric">
+        	<ul></ul>
+        </div>
+    </div>
+    <footer>
+        <div class="player-tools">
+            <div class="icon-playlist">
+                <svg class="icon" preserverAspectRatio="none" viewBox="0 0 300 300">
+                    <use xlink:href="#icon-playlist"></use>
+                </svg>
+            </div>              
+            <div class="icon-lyric">
+                <svg class="icon" preserverAspectRatio="none" viewBox="0 0 300 300">
+                    <use xlink:href="#icon-lyric"></use>
+                </svg>
+            </div>
+            <div class="icon-more">
+                <svg class="icon" preserverAspectRatio="none" viewBox="0 0 300 300">
+                    <use xlink:href="#icon-more"></use>
+                </svg>
+            </div>
+        	<div class="icon-sync other">
+        		<svg class="icon" preserverAspectRatio="none" viewBox="0 0 300 300">
+        			<use xlink:href="#icon-sync"></use>
+        		</svg>
+        	</div>
+        	<div class="icon-sina other">
+        		<svg class="icon" preserverAspectRatio="none" viewBox="0 0 300 300">
+        			<use xlink:href="#icon-sina"></use>
+        		</svg>
+        	</div>
+        </div>
+        <div class="player-control">
+			<div class="icon-fav">
+				<svg class="icon" width="45" height="45">
+					<use xlink:href="#icon-fav"></use>
+				</svg>
+			</div>
+			<div class="icon-remove">
+				<svg class="icon" width="45" height="45">
+					<use xlink:href="#icon-remove"></use>
+				</svg>
+			</div>
+			<div class="icon-next">
+				<svg class="icon" width="45" height="45">
+					<use xlink:href="#icon-next"></use>
+				</svg>
+			</div>
+		</div>
+    </footer>
+    <div id="box"></div>
+    <script src="//lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js"></script>
+    <script src="//imnerd.org/lab/player/box/jquery.jplayer.js"></script>
+	<script>
+    	var events = {
+    		playlist: {
+    			click: function(e) {
+		            var now = document.querySelector("#body .display"), tar="playlist";
+		            now.classList.remove("display");
+		            if(now.classList.contains(tar)) tar = "player";
+		            document.querySelector("#body ."+tar).classList.add("display");
+    			}
+    		},
+    		lyric: {
+    			click: function() {
+		            var now = document.querySelector("#body .display"), tar="lyric";
+		            now.classList.remove("display");
+		            if(now.classList.contains(tar)) tar = "player";
+		            document.querySelector("#body ."+tar).classList.add("display");
+    			}
+    		},
+    		playlistItem: {
+    			click: function(e) {
+		            if(e.target.tagName.toLowerCase() != "li") return false;
+		            var id = e.target.getAttribute("data-id");
+		            location.hash = "#"+id;
+		            box.init(id);
+		        }
+    		},
+    		album: {
+    			click: function(e) {
+    				var btn = this.querySelector(".display");
+    				btn === null ? box.pause() : box.play();
+    				btn.classList.toggle("display");
+		        }
+    		},
+    		more: {
+    			click: function() {
+		            [].forEach.call(document.querySelectorAll(".player-tools .other"), function(item) {
+		            	item.classList.toggle("display");
+		            })
+		        }
+    		},
+    		dropbox: {
+    			click: function() {
+    				DropboxSync();
+    			}
+    		},
+    		fav: {
+    			click: function() {
+		            var box = document.querySelector("#box");
+		            var id = box.getAttribute("data-id"),
+                        title = box.getAttribute("data-title"),
+                        artist = box.getAttribute("data-artist");
+		            if(id===undefined) return false;
+		            this.classList.contains("fav") ? unfav() : fav();
+		            this.classList.toggle("fav");
+
+		            function fav() {
+		                playlist.add(id, title, artist);
+		            }
+		            function unfav() {
+		                playlist.remove(id, title, artist);
+		            }
+		        }
+    		},
+    		next: {
+    			click: function() {
+		        	document.querySelector("#body .display").classList.toggle("display");
+		        	document.querySelector("#body .player").classList.toggle("display");
+		            var playlist = document.querySelectorAll(".playlist li");
+		            var _l = playlist.length, _n = 1;
+		            var _t = parseInt(Math.random() * playlist.length);
+		            location.hash = "#"+playlist[_t].getAttribute("data-id");
+		        },
+		        touch: function() {
+		        	box.play();
+		        }
+    		},
+    		form: {
+    			submit: function(e) {
+    				e.preventDefault();
+    				search();
+    				return false;
+    			}
+    		}
+    	};
+		$('#box').jPlayer({
+            ready: function() {},
+            preload: 'auto',
+            play: function() {
+            },
+            ended: events.next.click,
+            swfPath: '//imnerd.org/lab/player/box/',
+            supplied: 'mp3,wma,ogg,ape',
+            timeupdate: function(e) {
+                var p = 1 - e.jPlayer.status.currentTime / e.jPlayer.status.duration;
+                var l = $(".progress").attr("stroke-dasharray")/1;
+                $(".progress").css("strokeDashoffset", l*p);
+
+                $("#body .lyric .now").removeClass("now");
+                var lrcs = $("#body .lyric li"), currentTime = e.jPlayer.status.currentTime;
+                var transformHeight = 0;
+                for(var i=0, len = lrcs.length; i<len; i++) {
+                	var lrc = $(lrcs[i]);
+                	var deltaTime = lrc.attr("time")/1 - currentTime;
+                	if(deltaTime < 0) {
+                		transformHeight -= lrc.height();
+                	} else {
+                		var _now = $(lrcs[i-1]);
+                		_now.addClass("now");
+                		_now.parent().css({
+                			"transform": "translateY("+transformHeight+"px)",
+                			"webkitTransform": "translateY("+transformHeight+"px)"
+                		})
+                		//document.querySelector("#body .lyric").scrollTop = 0;
+                		break;
+                	}
+                }
+            },
+            progress: function(e) {
+            	//e.jPlayer.status.seekPercent
+          		//var load = $("circle.album");
+        		// p = 100 - e.jPlayer.status.seekPercent;
+        		// load.css("stroke-dashoffset", 
+        		// 	load.attr("stroke-dasharray") * p
+        		// );
+        		//if(box.mobile) load.css("stroke-dashoffset", 0);
+            }
+        });
+        var box = {
+            init: function(id) {
+                $.getJSON('//songs.sinaapp.com/apiv3.php?id=' + id + '&callback=?', function(res) {
+                    box.setplay(res)
+                });
+            },
+            setplay: function(res) {
+                box.clear();
+               	$("#box").jPlayer("setMedia", {
+               		mp3: res.location
+               	}).jPlayer("play");
+               	box.setinfo(res);
+            },
+            setinfo: function(res) {
+                $('title').html(res.title);
+                $("#background image").attr("xlink:href", res.pic);
+                var box = $("#box");
+                box.attr("data-id", res.id);
+                box.attr("data-title", res.title);
+                box.attr("data-artist", res.artist);
+
+                var fav = $(".icon-fav");
+                playlist.find(res.id) ? fav.addClass("fav") : fav.removeClass("fav");
+
+                this.getlyric(res.lyric, function(res) {
+                    var l = $("#body .lyric ul");
+                    l.html('');
+                    res.forEach(function(item){
+                        l.append('<li time="{time}">{word}</li>'.replace('{time}', item[0]).replace('{word}', item[1]));
+                    })
+                });
+                setTimeout(function() {
+                    var _img = encodeURIComponent(res.pic),
+                    _name = encodeURIComponent(res.title),
+                    _text = encodeURIComponent("我正在#红心电台#听«" + res.title + "»这首歌。还不错哟，你也快来听听吧！"),
+                    _url = encodeURIComponent("https://imnerd.org/lab/player/mobile.html#" + res.id);
+                    document.querySelector(".icon-sina").onclick = function() {
+                    	window.open("http://service.weibo.com/share/share.php?url=" + _url + "&title=" + _text + "&language=zh_cn&pic=" + _img + "&appkey=1583605849&source=bookmarket");
+                    }
+                }, 650);
+                
+            },
+            play: function(time) {
+                time != null ? $('#box').jPlayer('play', time) : $('#box').jPlayer('play');
+            },
+            pause: function() {
+                $('#box').jPlayer('pause');
+            },
+            stop: function() {
+                $('#box').jPlayer('stop');
+            },
+            clear: function() {
+                this.stop();
+               	var load = $("circle.album"), gress = $("circle.progress");
+               	load.css("stroke-dashoffset", load.attr("stroke-dashoffset"));
+               	gress.css("stroke-dashoffset", load.attr("stroke-dashoffset"));
+                $('#box').jPlayer('clearMedia');
+            },
+            time: function(sec) {
+                var min = parseInt(sec / 60),
+                second = parseInt(sec - min * 60);
+                if (min < 10) min = '0' + min;
+                if (second < 10) second = '0' + second;
+                return '- ' + min + ':' + second;
+            },
+            getlyric: function(url, callback) {
+            	$.getJSON("//imnerd.org/lab/player/lyric.php?callback=?&url="+url, function(res) {
+            		callback(res);
+            	})
+            },
+            mobile: /iphone|ipad|ipod|android/i.test(navigator.userAgent)
+        },
+		playlist = {
+			key: "Redio",
+			update: function(songs) {
+				localStorage[this.key] = JSON.stringify(songs);
+			},
+            getItem: function() {
+                return JSON.parse(localStorage[this.key] || "[]").sort(function(a,b){
+                    return a.created-b.created
+                });
+            },
+			do: function(id, title, artist, action) {
+                var songs = this.getItem();
+                songs.push({
+					created: new Date().getTime(),
+					action: action,
+					song: {id:id, title:title, artist:artist}		
+				})
+				this.update(songs);
+				this.reload();
+			},
+			add: function(id, title, artist) {
+				this.do(id, title, artist, "+");
+			},
+			remove: function(id, title, artist) {
+				this.do(id, title, artist, "-");
+			},
+			loadList: function() {
+				var songs = {};
+				this.getItem().forEach(function(item) {
+					var song = item.song;
+					switch(item.action) {
+						case "+":
+							songs[song.id] = song;
+						break;
+						case "-":
+							if(songs[song.id]) delete songs[song.id];
+						break;
+					}
+				})
+				return Object.keys(songs).map(function(k){return songs[k]});
+			},
+			reload: function(DOM) {
+				DOM = DOM || $(".playlist ul");
+				DOM.html("");
+				this.loadList().forEach(function(song) {
+					DOM.append('<li data-id="' + song.id + '">' + song.title + '-' + song.artist + '</li>');
+				})
+			},
+			find: function(id) {
+				var songs = this.loadList();
+				for(var i=0, l=songs.length; i<l; i++) 
+					if(songs[i].id === id) return true;
+				return false;
+			},
+            load: function() {
+                if(this.loadList().length>0) this.reload();
+                else return true;
+            }
+		}
+        function DropboxSync(APP_KEY) {
+		    var APP_KEY = APP_KEY || '5my22218prhex99';
+		    function requestAccessToken(APP_KEY, DIRECT_URI) {
+		        DIRECT_URI = DIRECT_URI || "https://imnerd.org/lab/player/mobile.html";
+		        var anchor = document.createElement("a");
+		        var url = "https://www.dropbox.com/1/oauth2/authorize?client_id=<app key>&response_type=token&redirect_uri=<redirect URI>&state=<CSRF token>";
+		        anchor.href = url.replace("<app key>", APP_KEY).replace("<redirect URI>", DIRECT_URI);
+		        anchor.setAttribute("id", "dropboxSync");
+		        document.body.appendChild(anchor);
+		        document.querySelector("#dropboxSync").click();
+		    }
+		    function getAccessToken() {
+		        var h = {};
+		        location.hash.substr(1).split("&").forEach(function(item) {
+		            var o = item.split("=");
+		            h[o[0]] = o[1];
+		        });
+		        var access_token = h.access_token;
+		        if (access_token === undefined) return false;
+		        return access_token;
+		    }
+		    function file_get_contents(url, SuccessCallback, FailCallback) {
+		        xmlhttp = new XMLHttpRequest();
+		        xmlhttp.onreadystatechange = function() {
+		            if (xmlhttp.readyState == 4) {
+		                if (xmlhttp.status == 200) SuccessCallback(xmlhttp.responseText);
+		                else FailCallback(xmlhttp.responseText);
+		            }
+		        }
+		        xmlhttp.open("GET", url, true);
+		        xmlhttp.send(null);
+		    }
+		    function file_put_contents(data, url, SuccessCallback, FailCallback) {
+		        xmlhttp = new XMLHttpRequest();
+		        xmlhttp.onreadystatechange = function() {
+		            if (xmlhttp.readyState == 4) {
+		                if (xmlhttp.status == 200) SuccessCallback(xmlhttp.responseText);
+		                else FailCallback();
+		            }
+		        };
+		        xmlhttp.open("POST", url, true);
+		        xmlhttp.setRequestHeader("Content-Type", "application/octet-stream");
+		        xmlhttp.send(data);
+		    }
+		    var callback = {
+		        get: {
+		            success: function(text) {
+		            	var songs = {};
+		            	JSON.parse(text).concat( JSON.parse(localStorage[playlist.key] || "[]")).forEach(function(item) {
+		            		songs[JSON.stringify(item)] = item;
+		            	});
+		            	songs = Object.keys(songs).map(function(created){return songs[created]});
+		            	return localStorage[playlist.key] = JSON.stringify(songs);
+		            },
+		            fail: function(text) {
+		                file_put_contents(localStorage[playlist.key], API.put, callback.put.success, callback.put.fail);
+		            }
+		        },
+		        put: {
+		            success: function() {
+		                alert('同步成功');
+		                location.hash = "";
+		                location.reload();
+		            },
+		            fail: function() {
+		                alert('同步失败请稍后尝试');
+		            }
+		        }
+		    }
+		    if (!~location.hash.indexOf("access_token=")) return requestAccessToken(APP_KEY);
+		    var access_token = getAccessToken();
+		    var API = {
+		        get: "https://api-content.dropbox.com/1/files/auto/"+ playlist.key +".json?access_token=" + access_token,
+		        put: "https://api-content.dropbox.com/1/files_put/auto/"+ playlist.key +".json?overwrite=true&access_token=" + access_token
+		    };
+		    file_get_contents(API.get, function(text) {
+		        var songs = callback.get.success(text);
+		        file_put_contents(songs, API.put, callback.put.success, callback.put.fail);
+		    }, callback.get.fail);
+		}
+		var search = function() {
+			document.querySelector("#body .display").classList.toggle("display");
+			var searchResult = document.querySelector(".search-result ul");
+			var q = document.querySelector("input[name=song]").value,
+				p = searchResult.getAttribute("page") || 1;
+
+		    $.getJSON('//songs.sinaapp.com/search/key/' + q + '/page/' + p + '?callback=?',
+		    function(res) {
+		    	searchResult.parentNode.classList.toggle("display");
+		    	var text = "";
+		        $.each(res.results, function(i, item) {
+		        	text += '<li data-id="' + item.song_id + '">' + decodeURIComponent(item.song_name).split('+').join(' ') + ' - ' + decodeURIComponent(item.artist_name).split('+').join(' ') + '</li>';
+		        });
+		        searchResult.innerHTML = text;
+		    });
+		};
+        document.querySelector(".icon-playlist").addEventListener("click", events.playlist.click);
+        document.querySelector(".icon-lyric").addEventListener("click", events.lyric.click);
+        document.querySelector("#body .playlist").addEventListener("click", events.playlistItem.click);
+        document.querySelector("#body .search-result").addEventListener("click", events.playlistItem.click);
+        document.querySelector("#body .player .album").addEventListener("click", events.album.click);
+        document.querySelector(".icon-more").addEventListener("click", events.more.click);
+		document.querySelector(".icon-sync").addEventListener("click", events.dropbox.click);
+		document.querySelector(".icon-fav").addEventListener("click", events.fav.click);
+		document.querySelector(".icon-next").addEventListener("click", events.next.click);
+		document.querySelector(".icon-next").addEventListener("touchstart", events.next.touch);
+		document.querySelector(".icon-next").addEventListener("touchend", events.next.touch);
+		document.querySelector("form").addEventListener("submit", events.form.submit);
+
+		~function() {
+			var searchResult = document.querySelector(".search-result"),
+				loadMore = searchResult.querySelector(".navi"),
+				loadMoreInitalWord = loadMore.innerHTML;
+			searchResult.addEventListener("touchstart", function(e) {
+				var touch = e.touches;
+				if(touch.length != 1) return true;
+				if(searchResult.scrollHeight - searchResult.clientHeight - searchResult.scrollTop > 10) return true;
+
+				var initalY = touch[0].clientY,
+					loadMoreInitalHeight = loadMore.clientHeight + 1;
+				searchResult.addEventListener("touchmove", touchMove);
+				searchResult.addEventListener("touchend", touchEnd);
+				function touchMove(e) {
+					var nowY = e.touches[0].clientY;
+					var deltaY = nowY - initalY;
+					if(deltaY >= 0) return true;
+
+					var height = loadMoreInitalHeight + Math.abs(deltaY);
+					loadMore.style.height = height + "px";
+					loadMore.style.lineHeight = height + "px";
+					searchResult.scrollTop = searchResult.scrollHeight;
+				}
+				function touchEnd(e) {
+					if(loadMore.clientHeight <= loadMoreInitalHeight) return true;
+
+					loadMore.style.height = loadMoreInitalHeight + "px";
+					loadMore.style.lineHeight = loadMoreInitalHeight + "px";
+					loadMore.innerHTML = "载入中...";
+					loadNextPage(function() {
+						loadMore.innerHTML = loadMoreInitalWord;
+					})
+					searchResult.removeEventListener("touchmove", touchMove);
+					searchResult.removeEventListener("touchend", touchEnd);
+				}
+			})
+			loadMore.addEventListener("click", function(e) {
+				loadMore.innerHTML = "载入中...";
+				loadNextPage(function(){
+					loadMore.innerHTML = loadMoreInitalWord;
+				})
+			})
+			function loadNextPage(callback) {
+				var searchList = searchResult.querySelector("ul"),
+					q = document.querySelector("input[name=song]").value,
+					p = (Number(searchList.getAttribute("page")) || 1) + 1;
+
+			    $.getJSON('//songs.sinaapp.com/search/key/' + q + '/page/' + p + '?callback=?',
+			    function(res) {
+			    	var text = "";
+			        $.each(res.results, function(i, item) {
+			        	text += '<li data-id="' + item.song_id + '">' + decodeURIComponent(item.song_name).split('+').join(' ') + ' - ' + decodeURIComponent(item.artist_name).split('+').join(' ') + '</li>';
+			        });
+			        searchList.innerHTML += text;
+			        searchList.setAttribute("page", p)
+			        if(callback) callback(res);
+			    });
+			}			
+		}();
+
+
+        window.onhashchange = function() {
+            var id = location.hash.substr(1);
+            if(!+id) return true;
+            document.querySelector("#body .display").classList.toggle("display");
+            document.querySelector("#body .player").classList.toggle("display");
+            document.querySelector("input[name=song]").value = "";
+            box.init(id);
+            $("#box").jPlayer("play");
+        }
+
+        var bgs = [
+            '//ww3.sinaimg.cn/large/a15b4afejw1e0f7d85hr2j.jpg', 
+            '//iphoto.sinaapp.com/photo.php?id=1418542644'
+        ];
+        //var bg = parseInt(bgs.length * Math.random());
+        //document.querySelector(".background-image img").src = bgs[bg];
+
+        playlist.load();
+		if (!location.hash) {
+	        document.querySelector(".icon-next").click();
+	    } else if ( !! ~location.hash.indexOf('access_token=')) {
+	    	document.querySelector("#body .display").classList.toggle("display");
+	    	var msgBox = document.querySelector("#body .lyric");
+	    	msgBox.classList.toggle("display");
+	    	msgBox.innerHTML = "<ul><li>正在同步中...</li></ul>";
+	        DropboxSync();
+	    } else if ( Number(location.hash.substr(1)) != null ) {
+	    	box.init( location.hash.substr(1) );
+	    	if(!box.mobile) document.querySelector("#body .album").click();
+	    }
+
+	    // transfer to new version
+	    ~function() {
+	    	if( !localStorage.song ) return true;
+	    	var songs = JSON.parse( localStorage[playlist.key] || "[]" );
+	    	localStorage[playlist.key] = JSON.stringify( songs.concat( JSON.parse( localStorage.song ).map(function(song) {
+	    			return {created: new Date().getTime(), action: "+", song: song}
+	    		}) ) );
+	    	delete localStorage.song;
+	    	location.reload();
+	    }()
+    </script>
+</body>
+</html>

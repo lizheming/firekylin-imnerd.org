@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style type="text/css">
+    * {margin:0;padding:0;}
+    html,body{width:100%;height:100%;overflow:hidden;}
+    </style>
+    <script type="text/javascript" src="/lab/EqCanvas/proton.js"></script>
+    <script type="text/javascript" src="/lab/EqCanvas/rConfig.js"></script>
+</head>
+<body>
+<button>Click</button>
+<script>
+var ctx = document.body.appendChild(document.createElement('canvas')).getContext('2d');
+ctx.canvas.width = document.body.clientWidth, ctx.canvas.height = document.body.clientHeight;
+function main(ctx, width, height) {
+    var audio = new Audio("butter fly.mp3");
+    audio.addEventListener("canplay", function() {audio.play()});
+
+    var context=new AudioContext;
+    var analyser = context.createAnalyser();
+    context.createMediaElementSource(audio).connect(analyser);
+    analyser.connect(context.destination);
+    var freqByteData = new Uint8Array(analyser.frequencyBinCount);
+
+    var ps = new ParticleSystem();
+    ps.effectors.push(new ChamberBox(0,0,width,height));
+    var dt = 0.01;
+    function draw() {
+        analyser.getByteFrequencyData(freqByteData);
+        ps.emit(new Particle({
+            position: new vector(width/2, height/2), 
+            velocity: vector.zero, 
+            acceleration: vector.zero, 
+            life: 2*dt, 
+            color: [42,128,185], 
+            size: Math.pow(freqByteData[0]/20, 2)
+        }));
+        var rc = new rConfig(freqByteData[0]);
+        ps.emit(new Particle({
+            position: new vector(width/2, height/2), 
+            velocity: rc.rDirection().multiply(100), 
+            acceleration: new vector(0,100),
+            life: 1, 
+            color: rc.rColor(), 
+            size: Math.pow(freqByteData[0], 2)/5500
+        }));
+        ps.simulate(dt);
+        ctx.fillStyle="rgba(44,62,80,0.25)";
+        ctx.fillRect(0,0,width,height);
+        ps.render();
+    }
+    var drawId = setInterval(draw, 25);
+    window.onresize = function() {
+        if(drawId) clearInterval(drawId);
+        width = ctx.canvas.width = document.body.clientWidth;
+        height = ctx.canvas.height = document.body.clientHeight;
+        if(drawId) clearInterval(drawId);
+        var drawId = setInterval(draw, 25);
+    }
+};
+window.addEventListener('click', function() {
+  main(ctx, ctx.canvas.width, ctx.canvas.height);
+}, { once: true });
+</script>
+</body>
+</html>

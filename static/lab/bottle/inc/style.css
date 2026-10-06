@@ -1,0 +1,103 @@
+	body {
+			padding:0;
+			margin:0;
+		}
+		textarea:focus, input:focus {
+			outline:none;
+		}
+		#head { 
+			padding: 5px 10px 50px 10px; 
+			/*
+			border:1px solid black;
+			*/
+			width:507px;
+			float:left;
+		}
+		#post textarea {
+			border:none;
+			width:500px;
+			height:100px;
+			resize:none;
+		}
+		#post input {
+			border:1px solid black;
+			background:black;
+			color:white;
+			padding:10px 20px;
+			float:right;
+		}
+		#post input:hover {
+			background:white;
+			color:black;
+			cursor:pointer;
+		}
+		#show {
+			float:right;
+			width:680px;
+		}
+		#show li {
+			color:#fff;
+			font-size: 12px;
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			line-height: 30px;
+			padding:0 20px;
+			width: 260px;
+			min-height: 150px;
+			float: left;
+			margin-right: 10px;
+			margin-bottom:10px;
+			word-wrap:break-word;
+			position:relative;
+		}
+		#em {
+			background-image: url(http://cnc.qzonestyle.gtimg.cn/qzone_v6/sprite/icenter_lite-32.png);
+			background-position:-205px 0;
+			height:17px;
+			width:17px;
+			display:inline-block;
+			cursor:pointer;
+		}
+		#em:hover {
+			background-position:-221px 0;
+		}
+		ul.emotion {
+			margin: 0 0 0 -10px;
+			padding: 5px 0 5px 10px;
+			width: 260px;
+			position:absolute;
+		}
+		.emotion li {
+			display:inline-block;
+			border:1px solid #e8e8e8;
+			margin:-1px 0 0 -1px;
+			padding:4px 2px;
+			height:22px;
+			width:26px;
+			cursor:pointer;
+			overflow:hidden;
+		}
+		.emotion  li:hover {
+			background:#0095cd;
+		}
+		#show li:hover #share {
+			display:inline-block;
+		}
+		#share {
+			width: 25px;
+			height: 25px;
+			position: absolute;
+			bottom: 0px;
+			right: 0;
+			display:none;
+			cursor:pointer;
+			font-size: 20px;
+			padding-right: 5px;
+			padding-bottom: 5px;
+			background-color: red;
+		}
+		#share:hover {
+			background-color:#FFF;
+			color:red;
+		}

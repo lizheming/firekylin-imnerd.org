@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<style>
+	* {margin:0;padding:0;}
+	html, body {width:100%;height:100%;background-color:#e8e8e8;}
+	section {position:absolute;top:0;left:0;bottom:0;right:0;margin:auto;width:320px;height:560px;}
+	.cover {position:relative;width:100%;height:100%;border:1px solid #EEE;background-color:rgba(255,0,255,0.7);}
+
+	/*transform*/
+	section {
+		-webkit-perspective:600px;
+		-moz-perspective:600px;
+		perspective:600px;
+	}
+	.cover {
+		transform-origin:50% 50% 0;
+		-webkit-transform-origin:50% 50% 0;
+	}
+	</style>
+</head>
+<body>
+	<section>
+		<div class="cover"></div>
+	</section>
+	<script>
+	var origin = {X: document.body.clientWidth/2, Y: document.body.clientHeight/2}, o = document.querySelector('.cover');
+	document.addEventListener('mousemove', function(e) {
+		var rotate = {x:e.pageY/origin.Y-1, y:1-e.pageX/origin.Y};
+		var transform = "rotateX("+rotate.x*10+"deg) rotateY("+rotate.y*10+"deg)";
+		o.style.webkitTransform = transform;
+		o.style.transform = transform;
+	});
+	o.addEventListener('mousedown', function(e) {
+		var offsetStart = {x: this.offsetLeft, y:this.offsetTop};
+		var mouseStart = {x:e.pageX, y:e.pageY};
+		function mv(e) {
+			o.style.left = offsetStart.x + e.pageX - mouseStart.x + 'px';
+			o.style.top = offsetStart.y + e.pageY - mouseStart.y + 'px';
+		}
+		document.addEventListener('dragstart', function(e) {e.preventDefault()});
+		document.addEventListener('mousemove', mv);
+		document.addEventListener('mouseup', function() {
+			o.style.left = offsetStart.x;
+			o.style.top = offsetStart.y;
+			document.removeEventListener('mousemove', mv);
+		});
+	});
+	</script>
+</body>
+</html>

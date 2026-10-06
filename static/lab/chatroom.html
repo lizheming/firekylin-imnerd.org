@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>五子棋</title>
+<style>
+#five{font-size:36px;line-height:1;cursor:pointer;}
+* {box-sizing:border-box;}
+html,body {width:100%;height:100%;margin:0;padding:0;}
+body {width:1000px;margin:0 auto;}
+#game {width:70%;float:left;}
+#chatroom {width:30%;float:right;}
+.list {padding:0;}
+.list li{list-style-type:none;}
+.online .list {height:90px;overflow:auto;}
+.chat .list {height:350px;overflow:auto;}
+</style>
+<div id="game">  
+    <div id="five"></div>
+    <button id="start">重新开局</button>
+    <button id="before">悔棋</button>
+    <button id="obb">认输</button>
+</div>
+<div id="chatroom">
+    <div class="online">
+        <h3>在线列表(<span></span>)</h3>
+        <ul class="list" template="<li>{user}</li>">
+        </ul>
+    </div>
+    <div class="chat">
+        <h3>聊天窗</h3>
+        <ul class="list" template="<li>{nickname}: {text}</li>">
+        </ul>
+        <div class="chatbox">
+            <input type="text" class="chattext" />
+            <input type="submit" class="chatbutton" value="Submit" />
+        </div>
+    </div>
+</div>
+<script>
+var five=function(){
+    var 
+    map=[],
+    mapLen=15,
+    lenWidth=36,
+    nowU=1,
+    obj,
+    win={
+        1:0,
+        2:0
+    },
+    winText='',
+    oPoint=[],
+    five={
+        init:function(o){
+            obj=o;
+            map=[];
+            five.start();
+        },
+        start:function(){
+            for(var i=0;i<mapLen+1;i++)
+                map[i]=Array(mapLen);
+
+            map[7][7]=1;
+            nowU=1;
+            five.showPoint();
+
+            obj.onclick=function(e){
+                var 
+                x=Math.floor(e.offsetX/lenWidth),
+                y=Math.floor(e.offsetY/lenWidth);
+
+                five.setPoint(x,y);
+            };
+        },
+        before:function(){
+            var 
+            oldPoint=oPoint.pop();
+
+            if(!oldPoint)
+                return;
+            nowU=map[oldPoint.y][oldPoint.x]==2;
+
+            map[oldPoint.y][oldPoint.x]=0;
+
+            five.showPoint();
+        },
+        showPoint:function(){
+            var h='';
+            for(var i=0;i<mapLen;i++){
+                for(var ii=0;ii<mapLen;ii++)
+                    if(map[i][ii]==2)
+                        h+='&#9675;';
+                    else if(map[i][ii])
+                        h+='&#9679;';
+                    else
+                        h+='＋';
+                
+                h+='<br>';
+            }
+            obj.innerHTML=h+'<br>'+winText;
+        },
+        setPoint:function(x,y){
+            if(x>mapLen||y>mapLen)
+                return;
+            if(map[y][x])
+                return// alert('当前位置不可下棋');
+
+            var type=(nowU=!nowU)?1:2;
+
+            oPoint.push({
+                x:x,
+                y:y
+            });
+            map[y][x]=type;
+
+            five.showPoint();
+
+            five.analyse(y,x,type);
+        },
+        analyse:function(y,x,type){
+            var cont=0;
+
+            //横向
+            for(var i=0;i<mapLen;i++){
+                if(type==map[y][i])
+                    cont++;
+                else
+                    cont=0;
+
+                if(cont==5)
+                    return five.win(type);
+            }
+
+            //纵向
+            for(var i=0;i<mapLen;i++){
+                if(type==map[i][x])
+                    cont++;
+                else
+                    cont=0;
+
+                if(cont==5)
+                    return five.win(type);
+            }
+
+
+            // \向
+            var
+            sub=Math.min(x,y),
+            abs=Math.abs(x-y);
+
+            sub>5?5:sub;
+
+            var 
+            _y=y-sub,
+            _x=x-sub;
+            for(var i=0,l=mapLen-abs;i<l;i++){
+                if(type==map[_y][_x])
+                    cont++;
+                else
+                    cont=0;
+
+                _y++;
+                _x++;
+
+                if(cont==5)
+                    return five.win(type);
+            }
+            
+            // /向
+            _x=mapLen-x-1;
+            _y=y;
+            sub=Math.min(_x,_y);
+            abs=mapLen-Math.abs(_x-_y);
+
+            sub>5?5:sub;
+
+            _y=_y-sub;
+            _x=_x-sub;
+
+            for(var i=0;i<abs;i++){
+
+                if(type==map[_y][mapLen-_x-1])
+                    cont++;
+                else
+                    cont=0;
+
+                _y++;
+                _x++;
+
+                if(cont==5)
+                    return five.win(type);
+            }
+            
+        },
+        win:function(type){
+            
+            win[type]++;
+
+            winText='黑: '+win[1]+'<br>白: '+win[2];
+
+            five.showPoint();
+
+            setTimeout(function(){
+                
+                alert((type==2?'白':'黑')+'方胜利了！');
+
+                if(confirm('是否重开一局？'))
+                    five.start();
+                else
+                    obj.onclick=null;
+
+            },200);
+            
+        },
+        obb:function(){
+            five.win(nowU?1:2);
+        }
+    };
+
+    console.log('五子棋 @卜卜口<http://i.mouto.org> 2014-10-17');
+    return five;
+}();
+five.init(document.getElementById('five'));
+document.getElementById('start').onclick=function(){
+    five.start();
+}
+document.getElementById('before').onclick=function(){
+    five.before();
+}
+document.getElementById('obb').onclick=function(){
+    five.obb();
+}
+</script>
+
+
+
+<script type="text/javascript">
+var cookie = {
+    get: function( key ) {
+        key = key + "=";
+        var co = document.cookie.split(";");
+        for( var i=0,l=co.length; i<l; i++ ) {
+            var c = co[i];
+            while( c.charAt(0) === " " ) c = c.substring(1, c.length);
+            if( c.indexOf( key ) === 0 ) return c.substring( key.length, c.length );
+        }
+        return null;
+    },
+    set: function( key, value, days ) {
+        var expires;
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime()+(days*24*60*60*1000));
+            expires = "; expires="+date.toGMTString();
+        } else expires = "";
+        document.cookie = key+"="+value+expires+"; path=/";
+    },
+    erase: function( key ) {
+        cookie.set( key, "", -1);
+    }
+};
+
+function createRoomId() {
+    return (new Date).getTime().toString(8).split("").sort(function() {
+        return .5 - Math.random()
+    }).join("");
+}
+function createUserId(roomId) {
+    var userId = cookie.get("userId");
+    if( userId ) return userId;
+    userId = (+roomId%(new Date).getTime()).toString(16).split("").sort(function(){return .5-Math.random()}).join("");
+    cookie.set("userId", userId, 7);
+    return userId;
+}
+function createNickname() {
+    var nickname = cookie.get("nickname");
+    if( nickname ) return nickname;
+    nickname = prompt("设置一个昵称");
+    if( !nickname ) return createNickname();
+    cookie.set("nickname", nickname, 7);
+    return nickname;
+}
+function action( res ) {
+    switch( res.status ) {
+        case "join":
+            user.role = res.role;
+            if( user.role === "white" ) nowCanPlay = true;
+        case "chat":
+            appendChat( res );
+            if( res.online ) {
+                var onlineList = document.querySelector(".online .list"),
+                    template = onlineList.getAttribute("template");
+                onlineList.innerHTML = res.online.map(function( user ) {
+                    return template.replace("{user}", user);
+                }).join("\r\n");
+                onlineList.parentNode.querySelector("h3 span").innerHTML = res.online.length;
+            }
+        break;
+
+        case "game":
+            five._setPoint.apply(five, res.text.split(","));
+            nowCanPlay = !nowCanPlay;
+        break;
+    }
+}
+function appendChat( response ) {
+    var chatList = document.querySelector(".chat .list"),
+        template = chatList.getAttribute("template");
+    chatList.innerHTML += template.replace(/{(\w+?)}/g, function(m, k) {
+        return response[k] ? response[k] : m;
+    });
+} 
+if( location.hash === "" )
+    location.hash += "#" + createRoomId();
+
+var roomId = location.hash.substr(1), 
+    user = { id: createUserId(roomId), nickname: createNickname()},
+    nowCanPlay = false;
+
+var ws = new WebSocket("ws://104.131.49.52:8000");
+ws.onopen = function(e) {
+    ws.send( JSON.stringify({
+        userId: user.id,
+        roomId: roomId,
+        nickname: user.nickname,
+        status: 'join'
+    }) );
+}
+ws.onerror = function() {
+    location.reload();
+}
+ws.onmessage = function(e) {
+    action( JSON.parse(e.data) );
+}
+ws.onclose = function(e) {
+    console.log(e)
+}
+five._setPoint = five.setPoint;
+five.setPoint = function(x, y) {
+    if( user.role === "guest" ) {
+        return alert("观棋不语真君子");
+    }
+    if( !nowCanPlay ) {
+        return alert("请耐心等待对方落子");
+    }
+    five._setPoint(x, y);
+    ws.send( JSON.stringify({
+        roomId: roomId,
+        userId: user.id,
+        role: user.role,
+        status: "game",
+        text: [x,y].join()
+    }) )
+}
+document.querySelector(".chatbutton").addEventListener("click", function() {
+    var text = document.querySelector(".chattext").value;
+    if( text === "" ) return false;
+
+    ws.send( JSON.stringify({
+        roomId: roomId,
+        userId: user.id,
+        nickname: user.nickname,
+        role: user.role,
+        status: "chat",
+        text: text
+    }) )
+})
+document.querySelector(".chattext").addEventListener("keydown", function(e) {
+    if(e.keyCode != 13) return true;
+    document.querySelector(".chatbutton").click();
+    this.value = "";
+})
+
+</script>

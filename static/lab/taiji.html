@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>太极八卦图</title>
+    <style type="text/css">
+    @-webkit-keyframes circle {
+        0%{-webkit-transform:rotate(0deg);}
+        100%{-webkit-transform:rotate(360deg);}
+    }
+    @-moz-keyframes circle {
+        0%{-moz-transform:rotate(0deg);}
+        100%{-moz-transform:rotate(360deg);}
+    }
+    @keyframes circle {
+        0%{transform:rotate(0deg);}
+        100%{transform:rotate(360deg);}
+    }
+    * {padding:0;margin:0;}
+    html, body{width:100%;height:100%;overflow:hidden;}
+    .circle {border-radius:100%;}
+    .white {background-color:#FFF;}
+    .black {background-color:#000;}
+    #Taiji, #bagua{width:300px;height:300px;border:1px solid #000;-webkit-animation:circle 3s linear infinite;-moz-animation:circle 3s linear infinite;animation:circle 3s linear infinite;}
+    .top, .bottom {width:100%;height:50%;}
+    .top{border-top-left-radius:500px;border-top-right-radius:500px;}
+    .bottom{border-bottom-left-radius:400px;border-bottom-right-radius:400px;}
+    .concentric {width:50%;height:100%;margin-top:25%;float:left;}
+    .bottom .concentric {margin-top:-25%;float:right;}
+    .child {width:10%;height:10%;margin-top:50%;margin-left:50%;}
+
+    /** Bagua **/
+    #bagua {font-size:40px;position: absolute;margin-top:-18%;margin-left:33%;border:none;-webkit-animation:none;-moz-animation:none;animation:none;}
+    #bagua span {-webkit-transform-origin: center cener;display:block;position:absolute;height:150%;}
+    #bagua span:nth-child(1) {-webkit-transform:rotate(0deg);-moz-transofrm:rotate(0deg);transform:rotate(0deg);}
+    #bagua span:nth-child(2) {-webkit-transform:rotate(45deg);-moz-transofrm:rotate(45deg);transform:rotate(45deg);}
+    #bagua span:nth-child(3) {-webkit-transform:rotate(90deg);-moz-transofrm:rotate(90deg);transform:rotate(90deg);}
+    #bagua span:nth-child(4) {-webkit-transform:rotate(135deg);-moz-transofrm:rotate(135deg);transform:rotate(135deg);}
+    #bagua span:nth-child(5) {-webkit-transform:rotate(180deg);-moz-transofrm:rotate(180deg);transform:rotate(180deg);}
+    #bagua span:nth-child(6) {-webkit-transform:rotate(225deg);-moz-transofrm:rotate(225deg);transform:rotate(225deg);}
+    #bagua span:nth-child(7) {-webkit-transform:rotate(270deg);-moz-transofrm:rotate(270deg);transform:rotate(270deg);}
+    #bagua span:nth-child(8) {-webkit-transform:rotate(315deg);-moz-transofrm:rotate(315deg);transform:rotate(315deg);}
+
+    /** traditional **/
+    #traditional {width:400px;height:400px;position:absolute;top:0;left:0;bottom:0;right:0;margin:auto;}
+    </style>
+</head>
+<body>
+<div id="traditional">
+    <div id="bagua">
+        <span>☰</span>
+        <span>☴</span>
+        <span>☵</span>
+        <span>☶</span>
+        <span>☷</span>
+        <span>☳</span>
+        <span>☲</span>
+        <span>☱</span>
+    </div>
+    <div id="Taiji" class="circle">
+        <div class="top white">
+            <div class="concentric circle black">
+                <div class="circle child white"></div>
+            </div>
+        </div>
+        <div class="bottom black">
+            <div class="concentric circle white">
+                <div class="circle child black"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

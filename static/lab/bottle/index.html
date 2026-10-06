@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>收集簿</title>
+	<script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="inc/style.css" />
+	<link rel="stylesheet" href="inc/fontcss/css/fontello.css">
+    <link rel="stylesheet" href="inc/fontcss/css/animation.css"><!--[if IE 7]>
+    <link rel="stylesheet" href="inc/fontcss/fontello-ie7.css"><![endif]-->
+</head>
+<body>
+	<div id="head">
+		<form id="post" method="POST" action="post.php">
+			<textarea name="text" placeholder="Please input something..."></textarea>
+			<i id="em"></i><input type="submit" value="记录灵感" />
+		</form>
+	</div>
+	<div id="body">
+		<ul id="show"></ul>
+	</div>
+	
+	<script type="text/javascript" src="inc/func.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		GET(1);
+	});
+	$('#em').click(function(){
+		$.get('em.json', function(d){
+			if($('.emotion').length > 0) {
+				$('.emotion').remove();
+				return false;
+			}
+			var eh = '<ul class="emotion">', n=0;
+			$.each(d, function(i,item){
+				if(n<50) eh += '<li><img src="'+item+'" alt="'+i+'" /></li>'; n++;
+			});
+			eh+='</ul>';
+			$('#em').after(eh);
+		});
+	});
+	$('body').on('click', '.emotion li', function(e){
+		var img = $('img', this), nick = img.attr('alt');
+		insertAtCursor(textarea, '['+nick+']');
+	});
+	$('body').on('click', '#share', function(e){
+		var title = $(this).parent().text();
+		var url = window.location.href+'/'+$(this).parent().attr('id')+'.txt';
+		
+		window.location.href="http://service.weibo.com/share/share.php?title="+title+"&url="+url+"&source=bookmark&appkey=1583605849&pic=&ralateUid=";
+	});
+	</script>
+</body>
+</html>

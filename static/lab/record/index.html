@@ -1,0 +1,67 @@
+<audio controls></audio>
+<button onclick="toggleRecording(this);">录音</button>
+<script src="./recorder.js"></script>
+<script>
+var audioRecorder;
+function gotBuffers() {
+    audioRecorder.exportWAV( function(blob) {
+    	var reader = new window.FileReader();
+    	reader.readAsDataURL(blob);
+    	reader.onloadend = function() {
+    		base64data = reader.result;
+    		document.querySelector('audio').src = base64data;
+    	}
+    }, 'audio/mp3' );
+}
+
+function toggleRecording( e ) {
+    if (e.classList.contains("recording")) {
+        // stop recording
+        audioRecorder.stop();
+        e.classList.remove("recording");
+        audioRecorder.getBuffers( gotBuffers );
+    } else {
+        // start recording
+        if (!audioRecorder) 
+            return;
+        e.classList.add("recording");
+        audioRecorder.clear();
+        audioRecorder.record();
+    }
+}
+
+function gotStream(stream) {
+	window.AudioContext = window.AudioContext || window.webkitAudioContext;
+
+	var audioContext = new AudioContext();
+	var audioInput = null,
+	    realAudioInput = null,
+	    inputPoint = null;
+
+    inputPoint = audioContext.createGain();
+
+    // Create an AudioNode from the stream.
+    realAudioInput = audioContext.createMediaStreamSource(stream);
+    audioInput = realAudioInput;
+    audioInput.connect(inputPoint);
+
+    analyserNode = audioContext.createAnalyser();
+    analyserNode.fftSize = 2048;
+    inputPoint.connect( analyserNode );
+
+    audioRecorder = new Recorder( inputPoint );
+
+    zeroGain = audioContext.createGain();
+    zeroGain.gain.value = 0.0;
+    inputPoint.connect( zeroGain );
+    zeroGain.connect( audioContext.destination );
+}
+
+function initAudio() {
+        if (!navigator.getUserMedia)
+            navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+    navigator.getUserMedia({audio: true}, gotStream, function(e) { alert('Error getting audio'); console.log(e);});
+}
+window.onload = initAudio;
+</script>

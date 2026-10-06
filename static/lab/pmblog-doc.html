@@ -1,0 +1,558 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>PMBLOG官方文档</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.9.0/jquery.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	var u = $('#catalog ul'), ParentU = u[0], ChildU = u.length;
+	for(i=1;i<ChildU;i++) {
+		u[i].style.display = 'none';
+	}
+	var l = $('li', u[0]);
+	$.each(l, function(i, li) {
+		if($('ul', li)) {
+			$('span', li).on('click', li, function(e) {
+				$('ul', li).toggle('fast');
+			});
+		}
+	});
+	$.each($('h1'), function(i, item) {
+		item.id = item.innerHTML;
+	});
+	$.each($('h2'), function(i, item) {
+		item.id = item.innerHTML;
+	});
+});
+</script>
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: d5e7ce436666e7d4a2eeb12e7f8261dacceb3565 */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+.markdown-body img {
+  max-width: 100%
+}
+
+#catalog {
+position: fixed;
+background: #FFF;
+border: 1px solid #AAA;
+padding: 10px 20px;
+line-height: 26px;
+font-size: 16px;
+right: 0;
+bottom: 0;
+}
+#catalog li {
+cursor:pointer;
+}
+</style>
+
+</head>
+<body>
+<div id="catalog">
+<h2>目录</h2>
+<ul>
+<li>
+<span onclick="window.location.href='#安装配置';">安装配置</span>
+</li>
+<li>
+<span>常见问题</span>
+<ul>
+<li><a href="#1. 一定要本地PHP环境么？">一定要本地PHP环境么？</a></li>
+<li><a href="#2. 更新文章刷新没有反应？">更新文章刷新没有反应？</a></li>
+<li><a href="#3. 如何更新文章？文章支持什么格式？">如何更新文章？文章支持什么格式？</a></li>
+<li><a href="#4. 如何增加评论功能？">如何增加评论功能？</a></li>
+<li><a href="#5. 如何增加搜索功能？">如何增加搜索功能？</a></li>
+<li><a href="#6. 如何更换主题？">如何更换主题？</a></li>
+<li><a href="#7. 首页支持自定义输出么？">首页支持自定义输出么？</a></li>
+<li><a href="#8. 为什么生成的页面乱码？">为什么生成的页面乱码？</a></li>
+<li><a href="#9. 如何自定义导航？">如何自定义导航？</a></li>
+</ul>
+</li>
+<li>
+<span>写作规则</span>
+<ul>
+<li><a href="#基本规则">基本规则</a></li>
+<li><a href="#进阶规则">进阶规则</a></li>
+<li><a href="#补充说明">补充说明</a></li>
+<li><a href="#推荐MarkDown写作的程序">推荐MarkDown写作的程序</a></li>
+</ul>
+</li>
+<li>
+<span onclick="window.location.href='#MarkDown语法简明版';">MarkDown语法简明版</span>
+</li>
+<li>
+<span>模板API文档</span>
+<ul>
+<li><a href="#URL规则">URL规则</a></li>
+<li><a href="#页面变量">页面变量</a></li>
+<li><a href="#各页面的变量">各页面的变量</a></li>
+<li><a href="#页面变量详细说明">页面变量详细说明</a></li>
+</ul>
+</li>
+</div>
+<h1>安装配置</h1>
+<ol>
+<li>打开<code>config.php</code>，修改相应常量。其中<code>BLOGURL</code>为你的网站网址，<code>TEMPLATE</code>为你的主题文件夹，请保证填写的主题文件夹存在。<code>MD</code>和<code>HTML</code>都对应文件夹路径，填写为相对路径即可。</li>
+<li>打开浏览器访问<code>index.php</code></li>
+</ol>
+<h1>常见问题</h1>
+<h2>1. 一定要本地PHP环境么？</h2>
+<p>一般来说你有两种搭配模式可以选择：</p>
+<ul>
+<li>本地+Github/Gitcafe/SAE：在本地搭建好程序，生成好网站后将所有静态页面上传到Github Page/Gitcafe Page/SAE中</li>
+<li>虚拟主机/VPS：将程序上传到主机中，每次写好的文章上传到相应目录后运行程序生成网站</li>
+</ul>
+<p>所以本地PHP环境不是必须，你也可以选择支持PHP的虚拟主机/VPS。</p>
+<h2>2. 更新文章刷新没有反应？</h2>
+<p>多刷新几次或清空缓存试试。</p>
+<h2>3. 如何更新文章？文章支持什么格式？</h2>
+<p>在<code>config.php</code>中定义了你的文章需要上传的文件夹，默认是<code>md</code>文件夹。将写好的文章上传到<code>md</code>文件夹，然后访问<code>index.php</code>即可更新网站。</p>
+<p>目前程序支持解析<code>.md</code>, <code>.txt</code>, <code>.html</code>, <code>.htm</code>等文本类型格式文件（即用记事本能打开的类型）。</p>
+<h2>4. 如何增加评论功能？</h2>
+<p>在<code>config.php</code>中定义了一个<code>$comment</code>变量，将社会化评论代码添加到其中即可。例如：</p>
+<pre><code>//社会化评论代码{请放在两个EOD之间}
+$comment = &lt;&lt;&lt;EOD
+&lt;!-- Duoshuo Comment BEGIN --&gt;
+    &lt;div class=&quot;ds-thread&quot;&gt;&lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+    var duoshuoQuery = {short_name:&quot;abc&quot;};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = 'http://static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    &lt;/script&gt;
+&lt;!-- Duoshuo Comment END --&gt;
+EOD;
+</code></pre>
+
+<h2>5. 如何增加搜索功能？</h2>
+<p><a href="http://lizheming.gitcafe.com/post/google-search-for-your-blog.html">为网站添加搜索功能</a></p>
+<h2>6. 如何更换主题？</h2>
+<p><code>config.php</code>文件中定义了你当前主题的文件夹，默认是<code>default</code>。将你下载好的主题放置到<code>tmp</code>文件夹下，修改<code>config.php</code>中的主题文件夹定义代码后既可实现更换主题。</p>
+<pre><code>//博客模板
+define('TEMPLATE', 'twentytwelve');
+</code></pre>
+<p>注： <a href="https://www.google.com.hk/search?q=site%3Ahttp%3A%2F%2Flizheming.gitcafe.com+theme" target="_blank">PMBlog主题大全</a></p>
+
+<h2>7. 首页支持自定义输出么？</h2>
+<p>程序支持非全文输出，即部分输出。在撰写文章时，在想要输出的文字后面添加<code>&lt;!--more--&gt;</code>程序将在首页不输出其之后的文字，并添加一个全文链接。</p>
+<h2>8. 为什么生成的页面乱码？</h2>
+<p>这种情况有两种原因：</p>
+<ul>
+<li>你的主题没有定义页面代码，在<code>header.html</code>的<code>&lt;head&gt;</code>和<code>&lt;/head&gt;</code>添加<code>&lt;meta charset=&quot;utf-8&quot; /&gt;</code>即可解决</li>
+<li>你的文章文件的编码类型非<code>utf-8</code>（使用Windows自带的记事本撰写文章会碰到这种情况）</li>
+</ul>
+<h2>9. 如何自定义导航？</h2>
+<p>需要在主题中手动添加导航链接然后重新生成网站。</p>
+<h1>写作规则</h1>
+<h2>基本规则</h2>
+<ul>
+<li>文件名即文章的URL名，也是文章的<code>ID</code></li>
+<li>文件创建时间为文章标题</li>
+<li>文件内容，即文章正文</li>
+</ul>
+<h2>进阶规则</h2>
+<p>在文章的第一行开始，可以进行标注（标注非必要，按需即可）</p>
+<blockquote>
+<p>title: 这里写你的文章标题 </p>
+<p>date: 这里写文章的发表时间，默认为文本文件的创建时间</p>
+<p>type: page (可选page/post两个参数，默认为post)</p>
+<p>status: draft (draft的文章不会被别人看到)</p>
+<p>tags: Tag1， Tag2</p>
+<p>template: guestbook （自定义页面模板）</p>
+</blockquote>
+<ol>
+<li>如果没有标注Title, 文件的创建时间即是文章的标题。</li>
+<li>Date标注最好不要夹带中文，容易造成BUG。推荐写成<code>1949-10-01 10:00:00</code>或者<code>1949/10/01 10:00:00</code>这种形式</li>
+<li>Type标注只支持<code>page/post</code>两个参数，如果为<code>page</code>将指定此文章作为页面形式发表。</li>
+<li>Template定义的模板必须存在，如果不标注此参数，则默认文章模板为<code>blog.html</code>, 默认页面模板为<code>page.html</code></li>
+</ol>
+<h2>补充说明</h2>
+<ol>
+<li>为了让URL地址看起来更友好，建议不要使用汉字作为文件名，尽量使用英文（拼音也挺好的）并使用非空格字符（例如<code>-</code>）连接单词</li>
+<li>最终生成的URL地址文章地址会加上<code>/post/</code>前缀，页面地址会加上<code>/page/</code>前缀</li>
+</ol>
+<h2>推荐MarkDown写作的APP（程序）</h2>
+<p>Mac: <a href="https://itunes.apple.com/cn/app/free/id486226904?mt=12" title="Free">Free</a>、<a href="https://itunes.apple.com/cn/app/byword/id420212497?mt=12" title="ByWord">ByWord</a>、<a href="https://itunes.apple.com/cn/app/ia-writer/id439623248?mt=12" title="iA Writer">iA Writer</a>、<a href="http://mouapp.com/" title="Mou">Mou</a>;</p>
+<p>Windows: <a href="http://markdownpad.com/" title="MarkdownPad">MarkdownPad</a></p>
+<h1>MarkDown语法简明版</h1>
+<h2>标题</h2>
+<blockquote>
+<p># Header 1</p>
+<p>## Header 2</p>
+<p>### Header 3</p>
+</blockquote>
+<h2>强调</h2>
+<blockquote>
+<p>*文本*		**文本**</p>
+<p>_文本_		__文本__</p>
+</blockquote>
+<h2>链接</h2>
+<p>An [example](http://url.com/)</p>
+<h2>插入图片</h2>
+<p>![alt text](/path/img.jpg)</p>
+<h2>列表</h2>
+<p>有序列表，无段落阻隔:</p>
+<blockquote>
+<ol>
+<li>
+<p>Foo</p>
+</li>
+<li>
+<p>Bar</p>
+</li>
+</ol>
+</blockquote>
+<p>无序列表:</p>
+<blockquote>
+<p>* A List item.</p>
+<p>* Bar</p>
+</blockquote>
+<h2>嵌入代码</h2>
+<p>每行的缩进（相对于上一行）在4个空格或1个Tab时，</p>
+<p>这是一行正常的文本。</p>
+<pre><code>这是一行已经预先格式了的代码块。
+</code></pre>
+
+<h2>水平分割线</h2>
+<p>3个（或以上）连续的<code>-</code>:</p>
+<pre><code>-----------
+</code></pre>
+
+<h2>表格</h2>
+<p>一个表格看起来会如下所示：</p>
+<pre><code>First Header | Second Header | Third Header
+------------ | ------------- | ------------
+Content Cell | Content Cell  | Content Cell
+Content Cell | Content Cell  | Content Cell
+</code></pre>
+
+<h2>更多</h2>
+<p>请参阅<a href="http://wowubuntu.com/markdown/">《Markdown 语法说明 (简体中文版)》</a></p>
+<h1>模板API文档</h1>
+<h2>URL规则</h2>
+<p><code>模板文件</code>是指 <code>/tmp/</code>中你定义的主题目录下的文件</p>
+<table>
+<thead>
+<tr><th><b>页面名</b></th><th><b>url</b></th><th><b>模板文件</b></th></tr>
+</thead>
+<tbody>
+<tr><td>首页</td><td>/</td><td>index.html</td></tr>
+<tr><td>文章详细页</td><td>/post/<code><path><code></td><td>post.html(默认)</td></tr>
+<tr><td>页面详细页</td><td>/page/<code><path><code></td><td>page.html(默认)</td></tr>
+<tr><td>RSS订阅页</td><td>/rss.xml</td><td>无</td></tr>
+</table>
+<h2>页面变量</h2>
+<p><code>模板文件</code>是指 <code>/tmp/</code>中你定义的主题目录下的文件</p>
+<table>
+<thead>
+<tr><th><b>页面名</b></th><th><b>url</b></th><th><b>模板文件</b></th></tr>
+</thead>
+<tbody>
+<tr><td>首页</td><td>/</td><td>index.html</td></tr>
+<tr><td>文章详细页</td><td>/post/<code><path><code></td><td>post.html(默认)</td></tr>
+<tr><td>页面详细页</td><td>/page/<code><path><code></td><td>page.html(默认)</td></tr>
+<tr><td>RSS订阅页</td><td>/rss.xml</td><td>无</td></tr>
+</table>
+<h2>各页面的变量</h2>
+<table>
+<thead>
+<tr><th><b>页面名</b></th><th><b>变量</b></th></tr>
+</thead>
+<tbody>
+<tr><td>全局变量</td><td><code>{BLOGURL}</code> <code>{BLOGTITLE}</code> <code>{RECENTPOST}</code> <code>{comment}</code></td></tr>
+<tr><td>首页 index.html</td><td><code>{title}</code> <code>{url}</code> <code>{filename}</code> <code>{date}</code> <code>{content}</code> <code>{tags}</code></td></tr>
+<tr><td>文章详细页 post.html</td><td><code>{title}</code> <code>{url}</code> <code>{filename}</code> <code>{content}</code> <code>{tags}</code> <code>{PREVPOST}</code> <code>{NEXTPOST}</code></td></tr>
+<tr><td>页面详细页 page.html</td><td><code>{title}</code> <code>{url}</code> <code>{filename}</code> <code>{content}</code> <code>{tags}</code><code>{archive}</code></td></tr>
+</table>
+<h2>页面变量详细说明</h2>
+<ol>
+<li>首页模板变量中<code>{title}</code> <code>{url}</code> <code>{filename}</code> <code>{date}</code> <code>{content}</code> <code>{tags}</code>这几个变量必须在<code>{each:start}</code> <code>{each:end}</code>之间使用方有效，否则会报错。</li>
+<li>首页模板变量<code>{content}</code>支持自定义字段，例如<code>{content:阅读更多}</code>会在文章非全文输出的时候再文末加上文章链接代码，默认字段为<code>阅读全文</code>。注：此自定义字段只在首页模板中有效。</li>
+<li><code>{date}</code>变量支持自定义字段，例如<code>{date:Y-m-d}</code>将生成形如<code>1949-10-01</code>这种类型的时间格式。自定义字段的格式代码可以参考：<a href="http://cn2.php.net/manual/zh/function.date.php">date</a>, 默认格式为<code>config.php</code>中定义的<code>DATEFORMAT</code></li>
+<li><code>{PREVPOST}</code>和<code>{NEXTPOST}</code>支持自定义字段来自定义输出格式。例如<code>{PREVPOST:%s →}</code>输出形如<code>Hello World!→</code>格式的内容，其中<code>%s</code>表示需要被程序替换的字段。<code>{NEXTPOST}</code>的自定义形式和效果和<code>{PREVPOST}</code>一样。
+<li><code>{tags}</code>变量支持自定义字段，例如<code>{tags:',','true','No Tags'}</code>中第一个参数<code>,</code>定义了标签的连接符，第二个参数<code>true</code>定义输出带连接的标签，反之则为<code>false</code>，第三个参数定义了当未定义标签时默认显示的文字。其中需要注意的是第二个参数一定要加上引号，每个参数之间用<code>,</code>严格分开，不允许有多余的空格出现，否则会报错。定义参数的时候要么都不定义，一定义则全部需要定义。按照顺序（例如只定义第一个参数或者定义第一个第二个参数）定义的话可以省略后面不需要定义的参数，例如<code>{tags:','}</code>和<code>{tags:',','false'}</code>都是被程序认可的。
+</ol>
+<h2>页面函数</h2>
+<table>
+<thead>
+<tr><th><b>页面名</b></th><th><b>页面函数</b></th></tr>
+</thead>
+<tbody>
+<tr><td>全局变量</td><td><code>{link:}</code></td></tr>
+<tr><td>首页 index.html</td><td><code>{each:start}</code> <code>{each:end}</code></td></tr>
+</table>
+<h2>页面函数详细说明</h2>
+<ol>
+<li><code>{link:*}</code>函数中将<code>*</code>替换成除后缀的文件名，即可将对应页面添加进其中。例如<code>{link:header}</code>即是在当前页面中包含了<code>header.html</code>。</li>
+<li><code>{each:}</code>函数需要<code>{each:start}</code>和<code>{each:end}</code>搭配使用方才有效，并只在首页中才有效。</li>
+</ol>
+</body>
+</html>

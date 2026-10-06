@@ -1,0 +1,16 @@
+<video src="https://ppt.baomitu.com/static/other/demo.mp4"></video>
+
+<div id="volume"></div>
+<div id="keydown"></div>
+<script>
+var $volume = document.querySelector('#volume');
+var video = document.querySelector('video');
+$volume.innerHTML = video.volume;
+video.addEventListener('volumechange', function() {
+	$volume.innerHTML = video.volume;
+});
+
+window.addEventListener('keydown', function(e) {
+	document.querySelector('#keydown').innerHTML = e.keyCode;
+})
+</script>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+	<!--快捷方式打开时全屏显示-->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<!--隐藏状态栏-->
+	<meta name="apple-mobile-web-app-status-bar-style" content="blank" />
+	<!--禁止为数字添加电话连接-->
+	<meta name="format-detection" content="telephone=no" />
+	<title>Red Heart</title>
+	<link rel="stylesheet" href="style.css" />
+	<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+	<script>if(navigator.userAgent.match(/ipad|iphone|android/i)) location.href= "https://imnerd.org/lab/player/mobile.html";</script>
+	<script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.2/jquery.min.js?ver=170n"></script>
+	<!--<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>-->
+	<script type="text/javascript" src="box/jquery.jplayer.js"></script>
+	<script type="text/javascript" src="main.js"></script>
+</head>
+<body>
+	<img id="background" src="" />
+	<div id="left">
+		<div class="inherit">
+			<div class="search">
+				<input type="text" name="song" value="" placeholder="请输入歌曲名称..." autocomplete="off" />
+				<div class="result display" page="1">
+					<ul>
+					</ul>
+					<div class="nav">
+						<span>上一页</span>
+						<span>下一页</span>
+					</div>
+				</div>
+			</div>
+			<div class="playlist">
+				<ul>
+					<li data-id="1769596315">Arrietty’s Song-instrumental Version(Arrietty’s Song) - Cécile Corbel</li>
+					<li data-id="3492972">Fade Out - Naomi</li>
+					<li data-id="385435">白衣飘飘的年代 - 高晓松</li>
+					<li data-id="1769951931">苦瓜 - 陈奕迅</li>
+					<li data-id="1772500734">1999 - KOYOTE</li>
+					<li data-id="1772500461">안녕 - 효린</li>
+					<li data-id="1771067723">初雪の日に - 水月陵</li>
+					<li data-id="3297252">Arizona - Kings of Leon</li>
+					<li data-id="1772455854">一个歌手的情书 (Live)  - 中国好歌曲</li>
+					<li data-id="1770155401">当我唱起这首歌 - 小贱</li>
+					<li data-id="121485">我和我的祖国 - 李谷一</li>
+					<li data-id="1772492252">Love/Affection - 加藤ミリヤ</li>
+					<li data-id="1771889373">好好说再见 - 陶喆</li>
+					<li data-id="1267574">I Love You, Ono - Stereo Total</li>
+					<li data-id="3367930">Just Showed Up for My Own Life - Sara Groves</li>
+					<li data-id="6949">单车 - 陈奕迅</li>
+					<li data-id="2108213">小观园 - 塞宁</li>
+					<li data-id="1770301815">厦门之夏 - 旅行团</li>
+					<li data-id="1769964941">南无观世音菩萨 - 许巍</li>
+					<li data-id="1769235821">喜欢 - 群星</li>
+					<li data-id="3538637">風になる - 野見祐二</li>
+					<li data-id="7457">单车 (Live)  - 陈奕迅</li>
+					<li data-id="19396">当爱已成往事 - 李宗盛</li>
+					<li data-id="1772084442">Roar - Katy Perry</li>
+					<li data-id="48074">Life's A Struggle - 宋岳庭</li>
+					<li data-id="3538637">風になる - 野見祐二</li>
+					<li data-id="7457">单车 (Live)  - 陈奕迅</li>
+					<li data-id="19396">当爱已成往事 - 李宗盛</li>
+					<li data-id="1772084442">Roar - Katy Perry</li>
+					<li data-id="48074">Life's A Struggle - 宋岳庭</li>
+					<li data-id="84293">等一个晴天 - 蔡淳佳</li>
+					<li data-id="1771331004">你不知道的事 - 王力宏</li>
+					<li data-id="1073345">Bohemian Rhapsody - Queen</li>
+					<li data-id="3643973">POISON~言いたい事も言えないこんな世の中は~   - 反町隆史</li>
+					<li data-id="1772130329">安和桥 - 宋冬野</li>
+					<li data-id="1768913432">迟到千年 - 苏打绿</li>
+					<li data-id="1768943428">如燕 - 群星</li>
+					<li data-id="385434">青春无悔 - 高晓松</li>
+					<li data-id="385433">冬季校园 - 高晓松</li>
+					<li data-id="1772247291">偶尔 (Live Piano Session) - G.E.M.邓紫棋</li>
+					<li data-id="1771982803">一个人 - 陈珊妮</li>
+					<li data-id="1770478676">人家 - 赵雷</li>
+					<li data-id="1772276934">Let It Go - Christophe Beck</li>
+					<li data-id="3652570">Sitges Savepoint - Random</li>
+					<li data-id="1769383794">RADIO - 日本群星</li>
+					<li data-id="1772319370">我要我们在一起 (Live) - G.E.M.邓紫棋</li>
+					<li data-id="2199099">Look After You - The Fray</li>
+					<li data-id="2067242">好久不见 - 陈奕迅</li>
+					<li data-id="1770530872">We Will Rock You - Nickelback</li>
+					<li data-id="1772500461">안녕 - 효린</li>
+					<li data-id="1770406005">Os-宇宙人 (lapix remix) - 日本ACG</li>
+					<li data-id="1168274">Joey - Concrete Blonde</li>
+					<li data-id="167586">海上花 - 甄妮</li>
+					<li data-id="1005798">Hyper-Ballad - Björk</li>
+					<li data-id="1770967154">하루하루 (Live) - Y.G.Family</li>
+					<li data-id="382383">我要我们在一起 - 范晓萱</li>
+					<li data-id="1772312774">每次和你走在路上都会看见一只喵 (欢乐Demo版) - 刘瑞琦</li>
+					<li data-id="1772456394">凱歌、沈黙が眠る頃 [LIVE] - Dir en grey</li>
+					<li data-id="1772126199">Blush - Wolf Alice</li>
+					<li data-id="1772141275">活着 - 郝云</li>
+					<li data-id="188503">小伞带着我飞翔 - 群星</li>
+					<li data-id="1770742519">說了再見 ～ Real Valentine ～ - ATSUSHI</li>
+					<li data-id="1769828374">I Love You But In The End I Will Destroy You - Goonies Never Say Die</li>
+					<li data-id="3402258">MY ALL   - 浜崎あゆみ</li>
+					<li data-id="383843">南方 - 达达</li>
+					<li data-id="1772491228">伤（Demo） - 释魂乐队</li>
+					<li data-id="1772068878">Five Hundred Miles - Soundtrack</li>
+					<li data-id="1771827431">Young & Beautiful - Lana Del Rey</li>
+					<li data-id="2079010">Bella Luna - Jason Mraz</li>
+					<li data-id="192864">别对我说失去Baby - 新裤子</li>
+					<li data-id="175788">小花帽 - 北京天使合唱团</li>
+					<li data-id="1769704369">月半弯 - 张学友</li>
+					<li data-id="1769458162">옥상달빛 - 옥상달빛</li>
+					<li data-id="2068000">Catch The Breeze - Slowdive</li>
+					<li data-id="1769089295">VCR - The xx</li>
+					<li data-id="1769064364">I Guess It's Gonna Rain Today - Sondre Lerche</li>
+					<li data-id="1772510595">画 (Live) - 中国好歌曲</li>
+					<li data-id="1771198348">December, 1963 (Oh, What a Night) - The Four Seasons</li>
+					<li data-id="1769399774">一丝不挂 - 陈奕迅</li>
+					<li data-id="176871">失恋阵线联盟 - 草蜢</li>
+					<li data-id="1769629865">Concerto for Violin and Strings in E, Op.8, No.1, R.269 "La Primavera" - 1. Allegro - Salvatore Accardo</li>
+					<li data-id="152460">友情卡片 - 徐怀钰</li>
+					<li data-id="1806051">Jesus Alegria Dos Homens - Baden Powell</li>
+					<li data-id="1191418">Without You - Mariah Carey</li>
+					<li data-id="1768982314">Cha, Cha - Winterplay</li>
+					<li data-id="2072704">山桃红 - 原声带</li>
+					<li data-id="7678">我怕你不肯 - 陈奕迅</li>
+					<li data-id="1772510600">空白的缘分 (Live) - 中国好歌曲</li>
+					<li data-id="1772471792">A Heart Gone Wild - 萨满</li>
+					<li data-id="1944857">Fallin' - Alicia Keys</li>
+					<li data-id="1025107">Take It Easy - Eagles</li>
+					<li data-id="1772381257">我不祝福 - 陶晶莹</li>
+					<li data-id="1771775959">Silver and Gold - Noah and the Whale</li>
+					<li data-id="1770008410">Yeah - Does It Offend You, Yeah?</li>
+					<li data-id="1770299857">Breath and Life - Audiomachine</li>
+					<li data-id="1772396712">Hot Summer - Various Artists</li>
+					<li data-id="1770692718">洗衣机 - 五月天</li>
+					<li data-id="1769119627">Turn it Up - Pixie Lott</li>
+					<li data-id="384633">白色球鞋 - 陈奕迅</li>
+					<li data-id="1003973">Here Comes the Sun (Remastered) - The Beatles</li>
+					<li data-id="1769474877">错过 - 王梓盈</li>
+					<li data-id="1772034614">调音歌 - 张松涛</li>
+					<li data-id="1770650374">Nostalgia (Instrumental) - Sound Online</li>
+					<li data-id="1771775958">Lifetime - Noah and the Whale</li>
+					<li data-id="1772301932">너에게 - 韩国原声带</li>
+					<li data-id="1731285">I'm Gonna Be (500 Miles) - The Proclaimers</li>
+					<li data-id="1770974759">Are You Gonna Love Me？ - MONKEY sequence 19</li>
+					<li data-id="1699478">Forever - Stratovarius</li>
+					<li data-id="1770478678">画 - 赵雷</li>
+					<li data-id="1769003800">Atoll Moao - Nujabes</li>
+					<li data-id="3422786">Don't Wait - Dala</li>
+					<li data-id="3679931">New Divide - Linkin Park</li>
+					<li data-id="1771749975">Illuminate the Sky - Martin Halla</li>
+					<li data-id="1771549317">Deck & Sheker (Original Mix) - Infected Mushroom</li>
+					<li data-id="3549123">天气晴 - 自然卷</li>
+					<li data-id="1770008410">Yeah - Does It Offend You, Yeah?</li>
+					<li data-id="1772510597">灰鸟 (Live) - 中国好歌曲</li>
+					<li data-id="1769658957">Broken Pieces - Apocalyptica</li>
+					<li data-id="1770831067">Let Her Go (Acoustic) - Passenger</li>
+					<li data-id="111358">你爱我吗? - 侯湘婷</li>
+					<li data-id="1771904640">You Are My Destiny - Paul Anka</li>
+					<li data-id="3422786">Don't Wait - Dala</li>
+					<li data-id="1771997898">Mi Mi Mi (Radio Edit) - SEREBRO</li>
+					<li data-id="1772242779">终于等到你 - 张靓颖</li>
+					<li data-id="1530925">Money (That's What I Want) [Single Edit] - The Flying Lizards</li>
+					<li data-id="1530925">Money (That's What I Want) [Single Edit] - The Flying Lizards</li>
+					<li data-id="3571276">LOVEずっきゅん   - 相対性理論</li>
+					<li data-id="1772500461">안녕 - 효린</li>
+					<li data-id="2051498">喜欢你 - Beyond</li>
+					<li data-id="1769884140">You're In My Heart - Winterplay</li>
+					<li data-id="3215857">Invitation - Lina Nyberg</li>
+					<li data-id="1771425669">Houdini - Whiiite</li>
+					<li data-id="387351">儿歌 - 张悬</li>
+					<li data-id="1769874028">When Will My Life Begin - Alan Menken</li>
+					<li data-id="1769683194">On The Radio - Donna Summer</li>
+					<li data-id="1770201852">夜空中最亮的星 - 逃跑计划</li>
+					<li data-id="1769372852">1984 - andymori</li>
+					<li data-id="3337739">all over love - LOVE PSYCHEDELICO</li>
+					<li data-id="1770817228">PONPONPON - 96猫</li>
+					<li data-id="133658">随心所欲 - 罗琦</li>
+					<li data-id="1119374">Boy with a Coin - Iron & Wine</li>
+					<li data-id="1769927662">慢慢飞 - 龙神道</li>
+					<li data-id="2376417">Oxford Comma - Vampire Weekend</li>
+					<li data-id="2094751">Because Of You - Kelly Clarkson</li>
+					<li data-id="1771766273">いつもこの場所で - 彩音</li>
+					<li data-id="143776">不是真的爱我 - 孙燕姿</li>
+					<li data-id="1769122807">回到最初 - 蔡淳佳</li>
+					<li data-id="30892">小鸟 - 群星</li>
+					<li data-id="1769861059">Swallowtail Butterfly～あいのうた～ - 日本群星</li>
+					<li data-id="3570526">I Still Miss You - Akia</li>
+					<li data-id="1772475511">克卜勒 - 孙燕姿</li>
+					<li data-id="1772158920">老友记 - 金志文</li>
+					<li data-id="1769530668">大龄文艺女青年之歌 (淡定版) - 邵夷贝</li>
+					<li data-id="1769834090">Flower Dance - DJ OKAWARI</li>
+					<li data-id="1769017945">This Guy's in Love with You - Soundtrack</li>
+					<li data-id="141375">Dear Friend - 顺子</li>
+					<li data-id="1772068878">Five Hundred Miles - Soundtrack</li>
+					<li data-id="1772491978">卑微的荣耀 - 张恒远</li>
+					<li data-id="2591129">Siempre Me Quedará - Bebe</li>
+					<li data-id="1772500461">안녕 - 효린</li>
+					<li data-id="1772242779">终于等到你 - 张靓颖</li>
+					<li data-id="1770689765">Mr. Know It All (iTunes Session) - Kelly Clarkson</li>
+					<li data-id="141321">Dear Friend - 顺子</li>
+					<li data-id="1770478678">画 - 赵雷</li>
+					<li data-id="34092">暗涌 - 黄耀明</li>
+					<li data-id="1770730670">再见 再见 - 逃跑计划</li>
+					<li data-id="2068436">Fix You - Coldplay</li>
+					<li data-id="1771736164">beautiful glider - BUMP OF CHICKEN</li>
+					<li data-id="1769373072">邂逅 - 董运昌</li>
+					<li data-id="1770939975">ナギイチ - NMB48</li>
+					<li data-id="3638604">痴人 - 痴人</li>
+					<li data-id="3562321">白日梦蓝 - 刺猬</li>
+					<li data-id="1770707699">火 - 曾檐</li>
+					<li data-id="1769866643">BLUE DRAGON (TMD3 VER.) - 澤野弘之</li>
+					<li data-id="1771918274">桑吉尔多 - 浩子</li><li data-id="1769715287">晨星 - V.K克</li>
+					<li data-id="1769715286">精灵之歌 - V.K克</li>
+					<li data-id="1769715282">抹茶拿铁 - V.K克</li>
+					<li data-id="1769715278">香草泡泡的季节 - V.K克</li>
+					<li data-id="1769715284">纯白 - V.K克</li>
+					<li data-id="1769715280">狮子大张嘴 - V.K克</li>
+					<li data-id="1769715277">恋‧冬 - V.K克</li>
+					<li data-id="1772073264">Evolution era - V.K克</li>
+					<li data-id="1769715279">EPISODE I ~ 私たちは幸福が要る… - V.K克</li>
+					<li data-id="1771208116">Saika - Rabpit</li>
+					<li data-id="1769687148">untitled for piano - The Tumbled Sea</li>
+					<li data-id="1769248662">Landvetter - Moonlit Sailor</li>
+					<li data-id="1770141553">Goodbye - Circadian Eyes</li>
+					<li data-id="1769723881">Never Alone, Always Lonesome - Dorena</li>
+					<li data-id="3447573">夢路 - 増田俊郎</li>
+					<li data-id="3447574">「天辺の糸」 - 増田俊郎</li>
+					<li data-id="3447575">「筆の海」 - 増田俊郎</li>
+					<li data-id="3447576">「暁の蛇」 - 増田俊郎</li>
+					<li data-id="3447577">寂光 - 増田俊郎</li>
+					<li data-id="3447578">「沖つ宮」 - 増田俊郎</li>
+					<li data-id="3447579">「春と嘯く」 - 増田俊郎</li>
+					<li data-id="3447580">「虚繭取り」 - 増田俊郎</li>
+					<li data-id="3447581">月光 - 増田俊郎</li>
+					<li data-id="3447582">風の手枕 - 増田俊郎</li>
+					<li data-id="3447584">「籠のなか」 - 増田俊郎</li>
+					<li data-id="3447585">「山抱く衣」 - 増田俊郎</li>
+					<li data-id="3447586">「錆の鳴く聲」 - 増田俊郎</li>
+					<li data-id="3447587">月暈 - 増田俊郎</li>
+					<li data-id="3447589">眼福眼禍 - 増田俊郎</li>
+					<li data-id="3447590">綿胞子 - 増田俊郎</li>
+					<li data-id="3447592">「篝野行」 - 増田俊郎</li>
+					<li data-id="3447593">「草を踏む音」 - 増田俊郎</li>
+					<li data-id="3447594">「The Sore Feet Song」 - 増田俊郎</li>
+					<li data-id="3447595">「眇の魚」 - 増田俊郎</li>
+					<li data-id="3447596">「緑の座」 - 増田俊郎</li>
+					<li data-id="2085533">「枕小路」 - 増田俊郎</li>
+					<li data-id="2085535">「瞼の光」 - 増田俊郎</li>
+					<li data-id="2085536">「海境(うなさか)より」 - 増田俊郎</li>
+					<li data-id="2085537">理(ことわり) - 増田俊郎</li>
+					<li data-id="2085538">「雨がくる虹がたつ」 - 増田俊郎</li>
+					<li data-id="2085539">「旅をする沼」 - 増田俊郎</li>
+					<li data-id="2085541">「露を吸う群」 - 増田俊郎</li>
+					<li data-id="2085542">「一夜橋」 - 増田俊郎</li>
+					<li data-id="2085543">「重い実」 - 増田俊郎</li>
+					<li data-id="2085545">「硯に棲む白」 - 増田俊郎</li>
+					<li data-id="2085550">「緑の座」 - 増田俊郎</li>
+					<li data-id="2085546">「眇(すがめ)の魚」 - 増田俊郎</li>
+					<li data-id="2085531">悠久 - 増田俊郎</li>
+					<li data-id="1770193870">潮鳴り - TAMUSIC</li>
+					<li data-id="1769740975">鳥の詩（原曲出处：Air） - TAMUSIC</li>
+					<li data-id="1769787704">雨のち想い出 - 志倉千代丸</li>
+					<li data-id="1769058159">바람에 쓰는 편지 - July</li>
+					<li data-id="1769050046">Love Story meets Viva La Vida - Jon Schmidt</li>
+					<li data-id="3480740">風見鶏 - DEPAPEPE</li>
+					<li data-id="1769740095">鳥の詩 - TAMUSIC</li>
+					<li data-id="3480743">Wedding Bell - DEPAPEPE</li>
+					<li data-id="3480745">いい日だったね。 - DEPAPEPE</li>
+					<li data-id="1769133017">Merry Christmas Mr.Lawrence - 坂本龍一</li>
+					<li data-id="1768921143">Juste un Petit Coeur Qui Bat - Nicolas de Angelis</li>
+					<li data-id="3472227">夏の終わりに - 神山純一</li>
+					<li data-id="3467694">Acknowledgements - The Shanghai Restoration Project</li>
+					<li data-id="1768985165">Great Morning - Daveed</li>
+					<li data-id="3320668">100 years of choke - world's end girlfriend</li>
+					<li data-id="1769157449">everytime you kissed me - 梶浦由記</li>
+					<li data-id="1771128956">夏恋 - Otokaze</li>
+					<li data-id="2076836">诞生 - 西村由纪江</li>
+					<li data-id="1769715717">Lilac - Little Wing</li>
+					<li data-id="3462648">love song -piano- - Key Sounds Label</li>
+					<li data-id="1769962981">ひととき - 神前暁</li>
+					<li data-id="3517333">M01 - 梶浦由記</li>
+					<li data-id="3517336">M04 - 梶浦由記</li>
+					<li data-id="3517352">M21 - 梶浦由記</li>
+					<li data-id="3517345">M14 - 梶浦由記</li>
+					<li data-id="1769962989">すれ違い - 神前暁</li>
+					<li data-id="3517350">M19 - 梶浦由記</li>
+					<li data-id="3517349">M18 - 梶浦由記</li>
+					<li data-id="1771537697">gracefully - 梶浦由記</li>
+					<li data-id="1771537687">at our parting ~piano only - 梶浦由記</li>
+					<li data-id="1771537695">a tiny love - 梶浦由記</li>
+					<li data-id="1771537691">a tender feeling - 梶浦由記</li>
+					<li data-id="2121966">River Flows In You - Yiruma</li>
+					<li data-id="3440144">Kiss The Rain - Yiruma</li>
+					<li data-id="2121926">Do You? - Yiruma</li>
+					<li data-id="2121965">Love Me - Yiruma</li>
+					<li data-id="1769596315">Arrietty’s Song-instrumental Version(Arrietty’s Song) - Cécile Corbel</li>
+					<li data-id="2091604">The Winding Path - Kevin Kern</li>
+					<li data-id="3483231">Joy Of The Journey - Kevin Kern</li>
+					<li data-id="2891143">Silent Night - Danny Wright</li>
+					<li data-id="2091676">After the Rain - Kevin Kern</li>
+					<li data-id="2891147">White Christmas - Danny Wright</li>
+					<li data-id="2891149">What Child Is This? - Danny Wright</li>
+					<li data-id="1770018378">ゼロの使い魔~双月の騎士~::I SAY YES(wedding version) - 光宗信吉</li>
+					<li data-id="1769715718">Thin purple - Little Wing</li>
+					<li data-id="3662127">夜空ノムコウ - 宮西希</li>
+					<li data-id="1770034889">Bamboo - Piano Master</li>
+					<li data-id="1769466127">Life as a Flower - Vincent Diamante</li>
+					<li data-id="1769466133">Peaceful Repose - Vincent Diamante</li>
+					<li data-id="1769466128">Splash of Color - Vincent Diamante</li>
+					<li data-id="1769466134">Lazy Daydream - Vincent Diamante</li>
+					<li data-id="1769466132">Purification of the City - Vincent Diamante</li>
+					<li data-id="1769466131">Solitary Wasteland - Vincent Diamante</li>
+					<li data-id="1769092705">The Promise - Robin Spielberg</li>
+					<li data-id="1770064328">Act 1 : 01-Resphoina - Joe Hisaishi</li>
+					<li data-id="1769156290">夜想 - 光田康典;加藤正人</li>
+					<li data-id="1769027278">In un'altra vita - Ludovico Einaudi</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="main">
+		<div id="player">
+			<div class="album">
+				<img src="default.png" width="240px" height="240px" />
+			</div>
+			<div class="right">
+				<div class="info" data-id="">
+					<span class="title"></span>
+					<span class="artist"></span>
+					<i class="fa fa-heart-o"></i>
+					<span class="time"></span>
+				</div>
+				<div id="progressbar">
+					<span id="bar"></span>
+					<span id="progress"></span>
+					<span id="control"></span>
+				</div>
+				<div class="button">
+					<i class="fa fa-fast-backward fa-4x" title="上一首 ←"></i>
+					<i class="fa fa-play fa-4x" title="播放/暂停 Space"></i>
+					<i class="fa fa-fast-forward fa-4x" title="下一首 →"></i>
+					<i class="vol"><span class="volume" title="70%"></span></i>
+					
+				</div>
+			</div>
+		</div>
+		<div id="lyric"></div>
+		<div id="footer">
+			<span class="ctrlist"><span>开启</span>列表</span> | <span class="ctrlyric"><span>开启</span>歌词</span> | <span class="about">关于红心电台</span> | <span class="tool">工具</span> |  分享这首歌到: <a class="weibo" href="#" target="_blank"><i class="iconfont fa fa-weibo"></i></a><a class="qq" target="_blank"><i class="iconfont">&#13816</i></a><a class="douban" target="_blank"><i class="iconfont">&#13817</i></a>
+		</div>
+	</div>
+	<div id="box"></div>
+	<div id="alert">
+		<i class="fa fa-times"></i>
+		<h2>Red Heart V2</h2>
+		<p>Red Heart/红心电台 是一个可以存储播放列表的在线播放器</p>
+		<p>左侧列表可添加歌曲</p>
+		<p>未添加歌曲时显示默认歌曲，添加歌曲后显示用户添加歌曲</p>
+		<p>支持快捷键操作: <b>Space</b>(播放/暂停)、<b>Left</b>(上一首)、<b>Right</b>(下一首)、<b>F</b>(添加歌曲到列表)、<b>D</b>(从列表中移除歌曲)</p>
+		<p>推荐使用 <b>Chrome/Firefox</b> 进行浏览</p>
+		<p>有什么问题可以发邮件至 <b>i@imnerd.org</b></p>
+		<p>注: 背景图由<a href="http://i.mouto.org">卜卜口</a>拍摄提供，部分为<a href="http://zh.eming.li">怡红公子</a>拍摄</p>
+	</div>
+	<div id="tools" class="display">
+		<i class="fa fa-times"></i>
+		<h2>歌曲列表导入/导出工具</h2>
+		<textarea></textarea>
+		<button class="import">导入列表</button><button class="export">导出列表</button><button class="dropbox">Dropbox同步</button>
+	</div>
+</body>
+</html>

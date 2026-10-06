@@ -1,0 +1,8 @@
+<xml>
+    <ToUserName><![CDATA[ovOmsjmz-_SjhzhEyy75hJ_O6NEI]]></ToUserName>
+    <FromUserName><![CDATA[gh_9a9e6eef54ca]]></FromUserName>
+    <CreateTime>1358404860</CreateTime>
+    <MsgType><![CDATA[text]]></MsgType>
+    <Content><![CDATA[发送成功！]]></Content>
+    <FuncFlag>0</FuncFlag>
+</xml>

@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mibroad</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="lib/fullPage/jquery.fullPage.css" />
+	<script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="lib/fullPage/vendors/jquery.easings.min.js"></script>
+	<script type="text/javascript" src="lib/fullPage/vendors/jquery.slimscroll.min.js"></script>
+	<script type="text/javascript" src="lib/fullPage/jquery.fullPage.js"></script>
+    <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css">
+    <script src="lib/bootstrap/bootstrap.min.js"></script>
+    <script src="lib/underscore.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="lib/animate.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+    .page.about #about {
+    	background: #37353a;
+    }
+    .page.about #about h3, 
+    .page.about #about .card-content {
+    	color: #FFF;
+    }
+	.page.about #about .about-icon li {
+		width: 177px;
+		height: 186px;
+		color: #FFF;
+		font-size: 18px;
+		padding-top: 70px;
+		margin-left: 50px;
+		background: url("img/page/about/6.png");
+	}
+	.page.about #about .about-icon li.company {
+		background: url("img/page/about/7.png");
+	}
+	.page.about #about .about-icon li.carve {
+		background: url("img/page/about/8.png");
+	}
+	.page.about #about .about-icon li:first-child {
+		margin-left: 0px;
+	}
+	.page.about #about .about-icon li p:last-child {
+		font-size: 20px;
+		color: #444;
+	}
+	.page.about #about .about-icon li .counter i {
+		display: block;
+		font-size: 45px;
+		color: rgb(255, 255, 255);
+	}
+	.page.about .scroll-down a {
+		margin-top: 0px;
+		position: static;
+		display: block;;
+		margin: 0 auto;
+		margin-top: 30px;
+	}
+	.page.about #about .card-content {
+		padding-bottom: 30px;
+	}
+	.page.about #about .card-footer {
+		background: url("img/team/footer.png");
+	}
+	.page.about #about .card-footer::after,
+	.page.about #team .card-footer::after {
+		width: 0;
+		height: 0;
+	}
+	.page.about #team .card-footer {
+		background: url("img/page/about/18.png");
+	}
+	.page.about #team .team-icon {
+		width: 106px;
+		height: 106px;
+		margin: 0 auto;
+		overflow: hidden;
+		cursor: pointer;
+		border-radius: 50px;
+		transition: width 1s;
+	}
+	.page.about #team .team-icon:hover {
+		width: 500px;
+		background: grey;
+	}
+	.page.about #team .team-icon i {
+		width: 106px;
+		height: 106px;
+		display: inline-block;
+		float: right;
+		background: url("img/page/about/15.png");
+	}
+	.page.about #team .team-icon i.left {
+		float: left;
+		background: url("img/page/about/14.png");
+	}
+	.page.about #team .team-icon .text p {
+		line-height: 53px;
+		font-size: 24px;
+		color: #FFF;
+		margin: 0;
+	}
+	.ss-container{
+
+	    width: 100%;
+
+	    position: relative;
+
+	    text-align: left;
+
+	    float: left;
+
+		overflow: hidden;
+
+		padding-bottom:67px;
+
+	}
+
+	.ss-container h2{
+
+	    font-size: 40px;
+
+	    text-transform: uppercase;
+
+	    color: rgba(78,84,123,0.2);
+
+		text-shadow: 0px 1px 1px #fff;
+
+		padding: 20px 0px;
+
+	}
+
+	.ss-container:before{
+
+	    position: absolute;
+
+	    width: 2px;
+
+	    background:#d8d8d8;
+
+	    top: 0px;
+
+	    left: 50%;
+
+		margin-left: -2px;
+
+	    content: '';
+
+	    height: 100%;
+
+	}
+
+	.ss-row{
+
+	    width: 100%;
+
+	    clear: both;
+
+	    float: left;
+
+	    position: relative;
+
+		margin-bottom:12px;
+
+	}
+
+	.ss-left, .ss-right{
+
+	    float: left;
+
+	    width: 48%;
+
+	    position: relative;
+
+	}
+
+	.ss-right{
+
+	    padding-left: 10px;
+
+		padding-right:70px
+
+	}
+
+	.ss-left{
+
+	    text-align: right;
+
+	    float: left;
+
+	    padding-right:10px;
+
+		padding-left:70px;
+
+	}
+
+	.ss-circle{
+
+	    overflow: hidden;
+
+	    display: block;
+
+	    text-indent: -9000px;
+
+	    text-align: left;
+
+
+
+	}
+
+	.ss-small .ss-circle{
+
+		width: 53px;
+
+		height: 54px;
+
+	}
+
+	.ss-medium .ss-circle{
+
+		width: 53px;
+
+		height: 54px;
+
+	}
+
+	.ss-large .ss-circle{
+
+		width: 53px;
+
+		height: 54px;
+
+	}
+
+	.ss-circle-deco:before{
+
+		width: 29%;
+
+		height: 0px;
+
+		position: absolute;
+
+		top: 50%;
+
+		content: '';
+
+		margin-top: -3px;
+
+	}
+
+	.ss-circle-deco:after{
+
+		width: 0px;
+
+		height: 0px;
+
+		border-top: 10px solid transparent;
+
+	    border-bottom: 10px solid transparent;
+
+		content: '';
+
+		position: absolute;
+
+		top: 50%;
+
+		margin-top: -10px;
+
+	}
+
+	.ss-left .ss-circle-deco:before{
+
+	    right: 2%;   
+
+	}
+
+	.ss-right .ss-circle-deco:before{
+
+	    left: 2%;   
+
+	}
+
+	.ss-left .ss-circle{
+
+	    float: right;
+
+	    margin-right: -35px;
+
+	}
+
+	.ss-right .ss-circle{
+
+	    float: left;
+
+		margin-left:-38px;
+
+	}
+
+	.ss-container h3{
+
+		padding-left:30px;
+
+		padding-right:30px;
+
+	}
+
+	.ss-container h3 span{
+
+	    font-size: 16px;
+
+	    display: block;
+
+		color:#282828;
+
+	    padding-bottom: 5px;
+
+	}
+
+	.ss-container h3 span a{
+
+	    font-size: 16px;
+
+	    display: block;
+
+		color:#282828;
+
+	}
+
+	.ss-container h3 span a:hover{
+
+	    font-size: 16px;
+
+	    display: block;
+
+		color:#009ED6;
+
+	}
+
+	.ss-container h3 a{
+
+	    font-size: 14px;
+
+	    display: block;
+
+		color:#bfbfc0;
+
+	}
+	.ss-container .ss-medium .ss-left {
+		width: 55%;
+	}
+	.ss-container .ss-medium .ss-right {
+		width: 40%;
+	}
+	.ss-container .ss-large .ss-left {
+		width: 45%;
+	}
+    </style>
+</head>
+<body class="page about">
+	<div class="head">
+		<div class="logo">
+			<a href="http://www.mibroad.com">
+				<img src="img/2/logo.png" alt="Mibroad">
+			</a>
+		</div>
+		<div class="title">
+			<img src="img/6/title.png" alt="">
+		</div>
+		<div class="other">
+			<ul>
+				<li><img src="img/2/search.png" alt=""></li>
+				<li><img src="img/2/browser.png" alt=""></li>
+			</ul>
+		</div>
+	</div>
+	<div id="body" class="content">
+	    <nav class="navbar navbar-default navbar-static-top">
+	        <div class="container">
+	            <div class="navbar-header">
+	                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	                <span class="sr-only">Toggle navigation</span>
+	                <span class="icon-bar"></span>
+	                <span class="icon-bar"></span>
+	                <span class="icon-bar"></span>
+	                </button>
+	                <a class="navbar-brand logo" href="#">MIBROAD</a>
+	            </div>
+	            <div id="navbar" class="navbar-collapse collapse">
+	                <ul class="nav navbar-nav navbar-right">
+	                    <li>
+	                        <a href="#" smoothscroll>
+	                        <span class="en">Home</span>
+	                        <span class="zh">首页</span>
+	                        </a>
+	                    </li>
+	                    <li>
+	                        <a href="#about" smoothscroll>
+	                        <span class="en">About</span>
+	                        <span class="zh">关于</span>
+	                        </a>
+	                    </li>
+	                    <li>
+	                        <a href="#case" smoothscroll>
+	                        <span class="en">Case</span>
+	                        <span class="zh">案例</span>
+	                        </a>
+	                    </li>
+	                    <li>
+	                        <a href="#news" smoothscroll>
+	                        <span class="en">News</span>
+	                        <span class="zh">新闻</span>
+	                        </a>
+	                    </li>
+	                    <li>
+	                        <a href="#contact" smoothscroll>
+	                        <span class="en">Contact</span>
+	                        <span class="zh">联系</span>
+	                        </a>
+	                    </li>
+	                </ul>
+	            </div><!--/.nav-collapse -->
+	        </div>
+	    </nav>
+
+	    <div class="main container">
+	        <div id="carousel-slide-generic" class="carousel slide" data-ride="carousel">
+
+	            <!-- Wrapper for slides -->
+	            <div class="carousel-inner" role="listbox">
+	                <div class="item active">
+	                    <img src="img/page/about/1.jpg" alt="slide">
+	                </div>
+	            </div>
+	        </div>
+
+	        <div id="about" class="card">
+	            <div class="card-header">
+	                <h3>关于我们</h3>
+	            </div>
+
+	            <div class="card-content">
+	                <h1>全球视野，中国智慧</h1>
+	                <h2>
+	                    原创智慧专注品牌构建，高端商业设计助推企业发展
+	                </h2>
+	                <p>
+	                	联创麦博十多年来以“创意驱动力”为己任，以“品牌战略、产品创新、商业模式”三大服务成果为核心，为企业与政府提供从全程市场竞争力系统解决方案。
+	                </p>
+	                <p>
+	                	我们努力成为充满活力、备受尊重的、代表先进创意离的设计公司，在实践中见证和参与客户的成长，推动着众多的品牌不断超越自我，走向成功！
+	                </p>
+	                <div class="about-icon icon">
+	                    <ul>
+	                        <li class="customer">
+	                            <p class="counter">
+	                            	<i data-counter="1680"></i>
+	                            携手客户
+	                            </p>
+	                            <p>他们为我们点赞</p>
+	                        </li>
+	                        <li class="company">
+	                            <p class="counter">
+	                            	<i data-counter="527"></i>
+	                            中大型公司
+	                            </p>
+	                            <p>实现品牌增长</p>
+	                        </li>
+	                        <li class="carve">
+	                            <p class="counter">
+	                            	<i data-counter="1153"></i>
+	                            初创公司
+	                            </p>
+	                            <p>携手塑造品牌</p>
+	                        </li>
+	                    </ul>
+	                </div>
+
+		            <!--scroll-->
+		            <div class="scroll-down">
+		                <a href="#team" smoothscroll scrollcycle=".card">NEXT</a>
+		            </div>
+	            </div>
+	            <div class="card-footer">            
+	            </div>
+	        </div>
+	        <div id="team" class="card">
+	            <div class="card-header">
+	                <h3>优秀而具有丰富经验的自主创意团队</h3>
+	            </div>
+	            <div class="card-content">
+	                <h2>我们集结了一大批专业创新人才，我们拥有来自不同领域的专家团队。</h2>
+	                <p>我们坚信人才是核心的竞争力，团队主创人员有丰富的项目全程运作经验，<br>
+	                对于各个行业有深度的认知，能敏锐洞察市场机会点及执行关键点，<br>
+	                高水准的专业水平和服务能力，有效保证了为客户提供科学完善的商业服务。</p>
+	                <div class="team-icon icon">
+						<i class="like"></i>
+	                	<i class="left"></i>
+	                	<div class="text">
+	                		<p>为我们喝彩</p>
+	                		<p>Cheer for us</p>
+	                	</div>
+	                </div>
+	            </div>
+	            <div class="card-footer">
+	            </div>
+	        </div>
+	        <div id="customer" class="card">
+	            <div class="card-header">
+	                <h3>我们专注于成为一流企业的最后选择</h3>
+	            </div>
+	            <div class="card-content">
+
+					<div id="ss-container" class="ss-container">
+		                <div class="ss-row ss-medium">
+		                	<div class="ss-left">
+		                		<a href="#">
+		                			<img src="img/page/about/25.png">
+		                		</a>
+		                	</div>
+		                    <div class="ss-right">
+		                        <h3>
+		                        	<span>
+		                        		<a href="#">
+		                        			专属的定制设计
+		                        		</a>
+		                        	</span>
+		                            <a href="#">
+		                            	每个品牌都是独一无二的，对于每一次委托，我们都致力于让客户的品牌区别于竞品，赋予其唯一性和与众不同。
+		                            </a>
+		                        </h3>
+		                    </div>
+		                </div>
+		                <div class="ss-row ss-large">
+		                	<div class="ss-left">
+		                        <h3>
+		                        	<span>
+		                        		<a href="#">
+		                        			好的沟通
+		                        		</a>
+		                        	</span>
+		                            <a href="#">
+		                            	好的开始是成功的一般，好的作品是从好的沟通开始，我们善于倾听，准确领会客户的需求和困难，而非对客户全盘灌输所谓的专业理念。
+		                            </a>
+		                        </h3>
+		                    </div>
+		                    <div class="ss-right">
+		                    	<a href="#">
+		                    		<img src="img/page/about/26.png">
+		                    	</a>
+		                    </div>
+		                </div>
+		                <div class="ss-row ss-medium">
+		                	<div class="ss-left">
+		                		<a href="#">
+		                			<img src="img/page/about/27.png">
+		                		</a>
+		                	</div>
+		                    <div class="ss-right">
+		                        <h3>
+		                        	<span>
+		                        		<a href="#">
+		                        			精准策略
+		                        		</a>
+		                        	</span>
+		                            <a href="#">
+		                            	策略导向型公司，拥有完善的问卷矩阵工具，能根据行业特征及发展，结合客户实际情况，提炼总结，给出正确的规划策略。
+		                            </a>
+		                        </h3>
+		                    </div>
+		                </div>
+		                <div class="ss-row ss-large">
+		                	<div class="ss-left">
+		                        <h3>
+		                        	<span>
+		                        		<a href="#">
+		                        			高效执行力
+		                        		</a>
+		                        	</span>
+		                            <a href="#">
+		                            	科学严密的分工，确保了从品牌腐化到品牌落地每一个细节，都精准实施到位，有效的保障了品牌识别性和一致性。
+		                            </a>
+		                        </h3>
+		                    </div>
+		                    <div class="ss-right">
+		                    	<a href="#">
+		                    		<img src="img/page/about/28.png">
+		                    	</a>
+		                    </div>
+		                </div>
+			      	</div>
+
+	            </div>
+	            <div class="card-footer">
+	            </div>
+	        </div>
+	    </div><!-- /.container -->
+
+	    <footer>
+	        <div class="container">
+	            <div class="description">
+	                <div class="chart">
+	                    <ul>
+	                        <li class="customer">
+	                            <div class="background"></div>
+	                            <i data-counter="1680"></i>
+	                            携手客户
+	                        </li>
+	                        <li class="level">
+	                            <div class="background"></div>
+	                            <i data-counter="6"></i>
+	                            世界五百强
+	                        </li>
+	                        <li class="company">
+	                            <div class="background"></div>
+	                            <i data-counter="28"></i>
+	                            上市公司
+	                        </li>
+	                    </ul>
+	                </div>
+	                <div class="contact">
+	                    <ul>
+	                        <li class="phone animated paused infinite shake">
+	                            400-1515-234
+	                        </li>
+	                        <li class="mobile animated paused infinite shake">
+	                            13981931510
+	                        </li>
+	                        <li class="qq animated paused infinite shake">
+	                            913159922
+	                        </li>
+	                    </ul>
+	                </div>
+	            </div>
+	            <div class="link">
+	                <script type="text/javascript">
+	                var urls = [
+	                    {
+	                        title: "画册设计",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "成都画册设计",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "画册设计公司",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "成都VI设计",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "VI设计公司",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "VI设计",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "企业VI设计",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "成都广告公司",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "广告公司",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "成都广告设计公司",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "成都广告设计",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "画册设计",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "成都画册设计",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "画册设计公司",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "成都VI设计",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "VI设计公司",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "VI设计",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "企业VI设计",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "成都广告公司",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "广告公司",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "成都广告设计公司",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "成都广告设计",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "画册设计",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "成都画册设计",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "画册设计公司",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "成都VI设计",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "VI设计公司",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "VI设计",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "企业VI设计",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "成都广告公司",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "广告公司",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "成都广告设计公司",
+	                        url: ""
+	                    },
+	                    {
+	                        title: "成都广告设计",
+	                        url: ""
+	                    },
+	                ]
+	                var html = _.template('<ul><% _.each(links,function(l) { %><li><a href="<%=l.url%>" title="<%=l.title%>"><%=l.title%></a></li><% }) %></ul>')({links: urls});
+	                document.write(html);
+	                </script>
+	            </div>
+	            <div class="info">
+	                <ul>
+	                    <li>
+	                        <ul>
+	                            <li>
+	                                地址/Address: 成都市二环路南一段华润广场B栋1011
+	                            </li>
+	                            <li>
+	                                电话/Tel: +86-28-6915 6787/6915 6797
+	                            </li>
+	                            <li>
+	                                邮箱/Email: service@mibroad.com
+	                            </li>
+	                            <li class="smaller">
+	                                Copright 2006-2015 Maigint. All Rights Reserved
+	                            </li>
+	                            <li class="small">
+	                                联创麦博公司 版权所有
+	                            </li>
+	                        </ul>
+	                    </li>
+	                    <li>
+	                        <ul>
+	                            <li>
+	                                Suit 1011, Tower B, Huarun Plaza, South Section 1 of Second Ring Rd, CD.
+	                            </li>
+	                            <li>
+	                                Phone/Tel: +86-28-6915 6787/6915 6797
+	                            </li>
+	                            <li>
+	                                Email: service@mibroad.com
+	                            </li>
+	                            <li>
+	                                <img src="img/footer/logo.png">
+	                            </li>
+	                            <li class="social">
+	                                <ul>
+	                                    <li class="sina"></li>
+	                                    <li class="wechat"></li>
+	                                    <li class="facebook"></li>
+	                                    <li class="twitter"></li>
+	                                </ul>
+	                            </li>
+	                        </ul>
+	                    </li>
+	                    <li class="qrcode paused">
+	                        <img src="img/footer/qrcode.png">
+	                    </li>
+	                </ul>
+	            </div>
+	        </div>
+	    </footer>
+	    <script type="text/javascript" src="lib/waypoints.min.js"></script>
+	    <script type="text/javascript" src="lib/jquery.countTo.js"></script>
+	    <script type="text/javascript" src="lib/svg.js"></script>
+	    <script type="text/javascript" src="lib/jquery.sliphover.min.js"></script>
+	    <script type="text/javascript" src="lib/jquery.quickflip.min.js"></script>
+	    <script type="text/javascript" src="main.js"></script>
+	    <script type="text/javascript">
+	    $(function() {
+			$(".page.about .about-icon").waypoint(function(direction) {
+			    if( direction != "down" ) return true;
+
+				$(".about-icon .counter i").each(function() {
+					var counter = $(this), count = counter.data("counter");
+					if( counter.hasClass("animated") ) return true;
+
+					counter.countTo({
+						from: 0, 
+						to: count,
+						speed: 2000,
+						refreshInterval: 100,
+						onComplete: function() {$(this).addClass("animated")}
+					})
+				})
+			}, { offset: "50%" });
+
+		    var $sidescroll = (function() {
+		            
+		            // the row elements
+		        var $rows           = $('#ss-container > div.ss-row'),
+		            // we will cache the inviewport rows and the outside viewport rows
+		            $rowsViewport, $rowsOutViewport,
+		            // navigation menu links
+		            $links          = $('#ss-links > a'),
+		            // the window element
+		            $win            = $(window),
+		            // we will store the window sizes here
+		            winSize         = {},
+		            // used in the scroll setTimeout function
+		            anim            = false,
+		            // page scroll speed
+		            scollPageSpeed  = 2000 ,
+		            // page scroll easing
+		            scollPageEasing = 'easeInOutExpo',
+		            // perspective?
+		            hasPerspective  = false,
+		            
+		            perspective     = hasPerspective && Modernizr.csstransforms3d,
+		            // initialize function
+		            init            = function() {
+		                
+		                // get window sizes
+		                getWinSize();
+		                // initialize events
+		                initEvents();
+		                // define the inviewport selector
+		                defineViewport();
+		                // gets the elements that match the previous selector
+		                setViewportRows();
+		                // if perspective add css
+		                if( perspective ) {
+		                    $rows.css({
+		                        '-webkit-perspective'           : 600,
+		                        '-webkit-perspective-origin'    : '50% 0%'
+		                    });
+		                }
+		                // show the pointers for the inviewport rows
+		                $rowsViewport.find('a.ss-circle').addClass('ss-circle-deco');
+		                // set positions for each row
+		                placeRows();
+		                
+		            },
+		            // defines a selector that gathers the row elems that are initially visible.
+		            // the element is visible if its top is less than the window's height.
+		            // these elements will not be affected when scrolling the page.
+		            defineViewport  = function() {
+		            
+		                $.extend( $.expr[':'], {
+		                
+		                    inviewport  : function ( el ) {
+		                        if ( $(el).offset().top < winSize.height ) {
+		                            return true;
+		                        }
+		                        return false;
+		                    }
+		                
+		                });
+		            
+		            },
+		            // checks which rows are initially visible 
+		            setViewportRows = function() {
+		                
+		                $rowsViewport       = $rows.filter(':inviewport');
+		                $rowsOutViewport    = $rows.not( $rowsViewport )
+		                
+		            },
+		            // get window sizes
+		            getWinSize      = function() {
+		            
+		                winSize.width   = $win.width();
+		                winSize.height  = $win.height();
+		            
+		            },
+		            // initialize some events
+		            initEvents      = function() {
+		                
+		                // navigation menu links.
+		                // scroll to the respective section.
+		                $links.on( 'click.Scrolling', function( event ) {
+		                    
+		                    // scroll to the element that has id = menu's href
+		                    $('html, body').stop().animate({
+		                        scrollTop: $( $(this).attr('href') ).offset().top
+		                    }, scollPageSpeed, scollPageEasing );
+		                    
+		                    return false;
+		                
+		                });
+		                
+		                $(window).on({
+		                    // on window resize we need to redefine which rows are initially visible (this ones we will not animate).
+		                    'resize.Scrolling' : function( event ) {
+		                        
+		                        // get the window sizes again
+		                        getWinSize();
+		                        // redefine which rows are initially visible (:inviewport)
+		                        setViewportRows();
+		                        // remove pointers for every row
+		                        $rows.find('a.ss-circle').removeClass('ss-circle-deco');
+		                        // show inviewport rows and respective pointers
+		                        $rowsViewport.each( function() {
+		                        
+		                            $(this).find('div.ss-left')
+		                                   .css({ left   : '0%' })
+		                                   .end()
+		                                   .find('div.ss-right')
+		                                   .css({ right  : '0%' })
+		                                   .end()
+		                                   .find('a.ss-circle')
+		                                   .addClass('ss-circle-deco');
+		                        
+		                        });
+		                    
+		                    },
+		                    // when scrolling the page change the position of each row  
+		                    'scroll.Scrolling' : function( event ) {
+		                        
+		                        // set a timeout to avoid that the 
+		                        // placeRows function gets called on every scroll trigger
+		                        if( anim ) return false;
+		                        anim = true;
+		                        setTimeout( function() {
+		                            
+		                            placeRows();
+		                            anim = false;
+		                            
+		                        }, 10 );
+		                    
+		                    }
+		                });
+		            
+		            },
+		            // sets the position of the rows (left and right row elements).
+		            // Both of these elements will start with -50% for the left/right (not visible)
+		            // and this value should be 0% (final position) when the element is on the
+		            // center of the window.
+		            placeRows       = function() {
+		                
+		                    // how much we scrolled so far
+		                var winscroll   = $win.scrollTop(),
+		                    // the y value for the center of the screen
+		                    winCenter   = winSize.height / 1.4 + winscroll;
+		                
+		                // for every row that is not inviewport
+		                $rowsOutViewport.each( function(i) {
+		                    
+		                    var $row    = $(this),
+		                        // the left side element
+		                        $rowL   = $row.find('div.ss-left'),
+		                        // the right side element
+		                        $rowR   = $row.find('div.ss-right'),
+		                        // top value
+		                        rowT    = $row.offset().top;
+		                    
+		                    // hide the row if it is under the viewport
+		                    if( rowT > winSize.height + winscroll ) {
+		                        
+		                        if( perspective ) {
+		                        
+		                            $rowL.css({
+		                                '-webkit-transform' : 'translate3d(-75%, 0, 0) rotateY(-90deg) translate3d(-75%, 0, 0)',
+		                                'opacity'           : 0
+		                            });
+		                            $rowR.css({
+		                                '-webkit-transform' : 'translate3d(75%, 0, 0) rotateY(90deg) translate3d(75%, 0, 0)',
+		                                'opacity'           : 0
+		                            });
+		                        
+		                        }
+		                        else {
+		                        
+		                            $rowL.css({ left        : '-50%' });
+		                            $rowR.css({ right       : '-50%' });
+		                        
+		                        }
+		                        
+		                    }
+		                    // if not, the row should become visible (0% of left/right) as it gets closer to the center of the screen.
+		                    else {
+		                            
+		                            // row's height
+		                        var rowH    = $row.height(),
+		                            // the value on each scrolling step will be proporcional to the distance from the center of the screen to its height
+		                            factor  = ( ( ( rowT + rowH / 2 ) - winCenter ) / ( winSize.height / 2 + rowH / 2 ) ),
+		                            // value for the left / right of each side of the row.
+		                            // 0% is the limit
+		                            val     = Math.max( factor * 50, 0 );
+		                            
+		                        if( val <= 0 ) {
+		                        
+		                            // when 0% is reached show the pointer for that row
+		                            if( !$row.data('pointer') ) {
+		                            
+		                                $row.data( 'pointer', true );
+		                                $row.find('.ss-circle').addClass('ss-circle-deco');
+		                            
+		                            }
+		                        
+		                        }
+		                        else {
+		                            
+		                            // the pointer should not be shown
+		                            if( $row.data('pointer') ) {
+		                                
+		                                $row.data( 'pointer', false );
+		                                $row.find('.ss-circle').removeClass('ss-circle-deco');
+		                            
+		                            }
+		                            
+		                        }
+		                        
+		                        // set calculated values
+		                        if( perspective ) {
+		                            
+		                            var t       = Math.max( factor * 75, 0 ),
+		                                r       = Math.max( factor * 90, 0 ),
+		                                o       = Math.min( Math.abs( factor - 1 ), 1 );
+		                            
+		                            $rowL.css({
+		                                '-webkit-transform' : 'translate3d(-' + t + '%, 0, 0) rotateY(-' + r + 'deg) translate3d(-' + t + '%, 0, 0)',
+		                                'opacity'           : o
+		                            });
+		                            $rowR.css({
+		                                '-webkit-transform' : 'translate3d(' + t + '%, 0, 0) rotateY(' + r + 'deg) translate3d(' + t + '%, 0, 0)',
+		                                'opacity'           : o
+		                            });
+		                        
+		                        }
+		                        else {
+		                            
+		                            $rowL.css({ left    : - val + '%' });
+		                            $rowR.css({ right   : - val + '%' });
+		                            
+		                        }
+		                        
+		                    }   
+		                
+		                });
+		            
+		            };
+		        
+		        return { init : init };
+		    
+		    })();
+		    
+		    $sidescroll.init();
+	    });
+	    </script>
+		
+	</div>
+</body>
+</html>

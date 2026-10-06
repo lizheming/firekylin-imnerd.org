@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>textarea 高度自适应</title>
+
+  <style>
+    textarea {
+      font-size: 16px;
+      line-height: 20px;
+      height: 20px;
+      width: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <textarea></textarea>
+  <script>
+    function calH(el) {
+      const clone = document.createElement(el.tagName);
+      const style = window.getComputedStyle(el);
+      for (const sty in style) {
+        clone.style[sty] = style[sty];
+      }
+      const oneHeight = parseInt(style.lineHeight);
+
+      clone.style.position = 'absolute';
+      clone.style.top = '-100%';
+      clone.style.left = '-100%';
+      clone.style.height = oneHeight + 'px';
+      clone.value = el.value;
+
+      document.body.appendChild(clone);
+
+      while (clone.clientHeight < clone.scrollHeight) {
+        clone.style.height = (parseInt(clone.style.height) + oneHeight) + 'px';
+      }
+
+      document.body.removeChild(clone);
+
+      return clone.style.height;
+    }
+
+    ta = document.querySelector('textarea');
+    ta.addEventListener('input', function () {
+      ta.style.height = calH(ta);
+    });
+  </script>
+</body>
+
+</html>

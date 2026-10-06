@@ -1,0 +1,12 @@
+{
+  "name": "红心电台",
+  "description": "可自定义播放列表的音乐电台，我的电台我做主！",
+  "icons": {
+    "128": "http://imnerd.org/lab/player/redheart-apple-icon.png"
+  },
+  "developer": {
+    "name": "公子",
+    "url": "http://zh.eming.li"
+  },
+  "launch_url": "http://imnerd.org/lab/player/mobile.html"
+}

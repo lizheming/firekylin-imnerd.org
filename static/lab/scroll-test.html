@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'/>
+  <meta name="format-detection" content="telephone=no">
+  <meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no'>
+  <title>Scroll Test</title>
+  <script src="https://lib.baomitu.com/zepto/1.2.0/zepto.min.js"></script>
+<style>
+html, body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.pink {
+  background: pink;
+  width: 100%;
+  height: 345px;
+}
+.pink:not(:first-child) {
+  margin-top: 10px; 
+}
+.pink::before {
+  content: 'unscroll area';
+}
+.green {
+  background: green;
+  height: 200px;
+  overflow-x: hidden;
+  margin-top: 10px;
+  position: relative;
+}
+.scroll-x {
+  height: 100%;
+  left: 0;
+  position: absolute;
+}
+.sky-blue, .yellow {
+  height: 100%;
+  display: inline-block;
+}
+.sky-blue:before,
+.yellow:before {
+  content: 'scroll block'attr(i);
+}
+.sky-blue {
+  background: skyblue;
+}
+.yellow {
+  background: yellow;
+}
+</style>
+</head>
+<body>
+  <div class="pink"></div>
+  <div class="green">
+    <div class="scroll-x">
+      <div class="sky-blue" i="0"></div>
+      <div class="yellow" i="1"></div>
+      <div class="sky-blue" i="2"></div>
+      <div class="yellow" i="3"></div>
+      <div class="sky-blue" i="4"></div>
+      <div class="yellow" i="5"></div>
+    </div>
+  </div>
+  <div class="pink"></div>
+  <div class="pink"></div>
+  <div class="pink"></div>
+  <div class="pink"></div>
+  <div class="pink"></div>
+  <div class="pink"></div>
+  <div class="pink"></div>
+  <div class="pink"></div>
+  <script>
+  window.sdk = {
+    trigger: function() {},
+    on: function() {}
+  };
+
+  window.scrollCallback = function() {};
+  // $(function() {
+  //   $('body').on('touchstart', function(e) {
+  //     var touches = e.changedTouches;
+  //     console.log('touchstart', touches[0].pageX, touches[0].pageY);
+  //     console.log('$touchstart');
+  //   });
+  //   $('body').on('touchmove', function(e) {
+  //     var touches = e.changedTouches;
+  //     console.log('touchmove', touches[0].pageX, touches[0].pageY);
+  //   });
+  //   $('body').on('touchend', function(e) {
+  //     var touches = e.changedTouches;
+  //     console.log('touchend', touches[0].pageX, touches[0].pageY);
+  //   });
+  // });
+
+
+  // (function() {
+  //   if( location.search.indexOf('relatestyle') > -1 ) {
+  //     var firstTouch = {x:0, y:0},
+  //         lastTouch = {x: 0, y: 0}, 
+  //         gestureClose = true, 
+  //         directionY = null;
+  //     var $scroll = $('.scroll-x');
+  //     /** 可横向滚动 touch 时默认 gesture close */
+  //     $('.green').on('touchstart', function(e) {
+  //       e.preventDefault();
+  //       console.log('已经 preventDefault 了！');
+  //       console.log('$gestureClose:0');
+  //       gestureClose = false;
+  //       direction = null;
+
+  //       var touches = e.changedTouches;
+  //       lastTouch.x = touches[0].pageX;
+  //       lastTouch.y = touches[0].pageY;
+  //       firstTouch.x = touches[0].pageX;
+  //       firstTouch.y = touches[0].pageY;
+  //     });
+  //     $('.green').on('touchmove', function(e) {
+  //       var touches = e.changedTouches;
+  //       var nowTouch = {x: touches[0].pageX, y: touches[0].pageY};
+  //       var delta = (nowTouch.x - lastTouch.x)*1;
+  //       var lastLeft = parseInt($scroll.css('left'));
+  //       if( !lastLeft ) { lastLeft = 0; }
+  //       if(!directionY) {
+  //         directionY = Math.abs(nowTouch.y - firstTouch.y) > 50;
+  //       }
+  //       console.log(nowTouch.y,firstTouch.y, directionY);
+  //       if(directionY) {
+  //         console.log('$gestureClose:1');
+  //       }
+
+  //       var willLeft = delta + lastLeft;
+  //       willLeft = Math.min(0, willLeft);
+  //       willLeft = Math.max(willLeft, -$scroll.width());
+  //       $scroll.css('left', willLeft + 'px');
+  //       lastTouch = nowTouch;
+  //       // console.log('touch move', nowTouch);
+  //       // if(Math.abs(nowTouch.y - lastTouch.y) > 20) {
+  //       //   console.log('$gestureClose:1');
+  //       // }
+  //       /** 判断右滑是否到尽头 */
+  //       // var isScrollXLeftEnd = $(this).scrollLeft() === 0;
+  //       var isScrollXLeftEnd = parseInt($scroll.css('left')) === 0;
+  //       if( isScrollXLeftEnd ) {
+  //         console.log('$gestureClose:1');
+  //       }
+  //     });
+  //     $('.green').on('touchend', function() {
+  //       console.log('$gestureClose:1');
+  //       directionY = null;
+  //     });
+  //   } else {
+  //     var lastTouch = {x: 0, y: 0}, gestureClose = true, direction = null;
+  //     /** 可横向滚动 touch 时默认 gesture close */
+  //     $('.green').on('touchstart', function(e) {
+  //       console.log('$gestureClose:0');
+  //     });
+  //     $('.green').on('touchmove', function(e) {
+  //       /** 判断右滑是否到尽头 */
+  //       var isScrollXLeftEnd = $(this).scrollLeft() === 0;
+  //       if( isScrollXLeftEnd ) {
+  //         console.log('$gestureClose:1');
+  //       }
+  //     });
+  //     $('.green').on('touchend', function() {
+  //       console.log('$gestureClose:1');
+  //     });
+    
+  //   }
+    
+  // })();
+
+  (function() {
+    var vWidth = window.screen.width;
+    var singleWidth = 300 / 360 * vWidth;
+    var scrolling, scrolled;
+
+    $('.scroll-x > div').css('width', singleWidth+'px');
+    $('.scroll-x').css('width', $('.scroll-x > div').length * (singleWidth+10) + 'px');
+
+    var lastTouch = {x:0, y:0};
+    $('.green').on('touchstart', function(e) {
+      console.log('$gestureClose:0');
+      scrolling = false;
+      scrolled = false;
+
+      var touches = e.changedTouches;
+      lastTouch.x = touches[0].pageX;
+      lastTouch.y = touches[0].pageY;
+    }).on('touchmove', function(e) {
+      var touches = e.changedTouches;
+      var nowTouch = {x: touches[0].pageX, y: touches[0].pageY};
+    
+      if(!scrolled) {
+        var delta = (nowTouch.x - lastTouch.x)*1;
+        var lastLeft = parseInt($('.scroll-x').css('left'));
+        if( !lastLeft ) { lastLeft = 0; }
+
+        var deltaWidth = singleWidth + 10;
+        var willLeft = delta>0 ? deltaWidth + lastLeft : lastLeft - deltaWidth;
+        // willLeft = willLeft - willLeft%deltaWidth;
+
+        var maxScrollWidth = $('.scroll-x').width() - vWidth;
+        if(lastLeft === 0 && delta < 0) {
+          willLeft += (vWidth - singleWidth)/2;
+        }
+        if(lastLeft <= -maxScrollWidth && delta > 0) {
+          willLeft -= (vWidth - singleWidth)/2;
+        }
+        
+        willLeft = Math.min(0, willLeft);
+        willLeft = Math.max(willLeft, -maxScrollWidth);
+
+        if(lastLeft !== willLeft) {
+          $('.scroll-x').css('left', willLeft + 'px');
+          scrolling = true;
+          scrolled = true;
+        }
+      }
+
+      lastTouch.x = nowTouch.x;
+      lastTouch.y = nowTouch.y;
+
+      /** 判断右滑是否到尽头 */
+      // var isScrollXLeftEnd = $(this).scrollLeft() === 0;
+      var isScrollXLeftEnd = parseInt($('.scroll-x').css('left')) === 0;
+      if( isScrollXLeftEnd && !scrolling) {
+        console.log('$gestureClose:1');
+      }
+
+    }).on('touchend', function() {
+      console.log('$gestureClose:1');
+    }).on('transitioned webkitTransitionEnd', () => {
+      scrolling = false;
+    });
+  })();
+  </script>
+</body>
+</html>
+

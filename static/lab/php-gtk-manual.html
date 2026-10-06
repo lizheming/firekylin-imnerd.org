@@ -1,0 +1,1428 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>PHPGTK manual Preface.txt</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+body{
+    margin: 0 auto;
+    font-family: Georgia, Palatino, serif;
+    color: #444444;
+    line-height: 1;
+    max-width: 960px;
+    padding: 5px;
+}
+h1, h2, h3, h4 {
+    color: #111111;
+    font-weight: 400;
+}
+h1, h2, h3, h4, h5, p {
+    margin-bottom: 16px;
+    padding: 0;
+}
+h1 {
+    font-size: 28px;
+}
+h2 {
+    font-size: 22px;
+    margin: 20px 0 6px;
+}
+h3 {
+    font-size: 21px;
+}
+h4 {
+    font-size: 18px;
+}
+h5 {
+    font-size: 16px;
+}
+a {
+    color: #0099ff;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+a:hover {
+    text-decoration: none;
+    color: #ff6600;
+}
+a:visited {
+    color: purple;
+}
+ul, ol {
+    padding: 0;
+    margin: 0;
+}
+li {
+    line-height: 24px;
+    margin-left: 44px;
+}
+li ul, li ul {
+    margin-left: 24px;
+}
+p, ul, ol {
+    font-size: 14px;
+    line-height: 20px;
+    max-width: 540px;
+}
+pre {
+    padding: 0px 24px;
+    max-width: 800px;
+    white-space: pre-wrap;
+}
+code {
+    font-family: Consolas, Monaco, Andale Mono, monospace;
+    line-height: 1.5;
+    font-size: 13px;
+}
+aside {
+    display: block;
+    float: right;
+    width: 390px;
+}
+blockquote {
+    border-left:.5em solid #eee;
+    padding: 0 2em;
+    margin-left:0;
+    max-width: 476px;
+}
+blockquote  cite {
+    font-size:14px;
+    line-height:20px;
+    color:#bfbfbf;
+}
+blockquote cite:before {
+    content: '\2014 \00A0';
+}
+
+blockquote p {  
+    color: #666;
+    max-width: 460px;
+}
+hr {
+    width: 540px;
+    text-align: left;
+    margin: 0 auto 0 0;
+    color: #999;
+}
+
+button,
+input,
+select,
+textarea {
+  font-size: 100%;
+  margin: 0;
+  vertical-align: baseline;
+  *vertical-align: middle;
+}
+button, input {
+  line-height: normal;
+  *overflow: visible;
+}
+button::-moz-focus-inner, input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+input[type=checkbox], input[type=radio] {
+  cursor: pointer;
+}
+/* override default chrome & firefox settings */
+input:not([type="image"]), textarea {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+label,
+input,
+select,
+textarea {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: normal;
+  margin-bottom: 18px;
+}
+input[type=checkbox], input[type=radio] {
+  cursor: pointer;
+  margin-bottom: 0;
+}
+input[type=text],
+input[type=password],
+textarea,
+select {
+  display: inline-block;
+  width: 210px;
+  padding: 4px;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  height: 18px;
+  color: #808080;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+select, input[type=file] {
+  height: 27px;
+  line-height: 27px;
+}
+textarea {
+  height: auto;
+}
+
+/* grey out placeholders */
+:-moz-placeholder {
+  color: #bfbfbf;
+}
+::-webkit-input-placeholder {
+  color: #bfbfbf;
+}
+
+input[type=text],
+input[type=password],
+select,
+textarea {
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+input[type=text]:focus, input[type=password]:focus, textarea:focus {
+  outline: none;
+  border-color: rgba(82, 168, 236, 0.8);
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+/* buttons */
+button {
+  display: inline-block;
+  padding: 4px 14px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  background-color: #0064cd;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#049cdb), to(#0064cd));
+  background-image: -moz-linear-gradient(top, #049cdb, #0064cd);
+  background-image: -ms-linear-gradient(top, #049cdb, #0064cd);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #049cdb), color-stop(100%, #0064cd));
+  background-image: -webkit-linear-gradient(top, #049cdb, #0064cd);
+  background-image: -o-linear-gradient(top, #049cdb, #0064cd);
+  background-image: linear-gradient(top, #049cdb, #0064cd);
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border: 1px solid #004b9a;
+  border-bottom-color: #003f81;
+  -webkit-transition: 0.1s linear all;
+  -moz-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+  border-color: #0064cd #0064cd #003f81;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+button:hover {
+  color: #fff;
+  background-position: 0 -15px;
+  text-decoration: none;
+}
+button:active {
+  -webkit-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+/* CSS stylesheet is based on Kevin Burke's Markdown.css project (http://kevinburke.bitbucket.org/markdowncss) */
+</style>
+</head>
+<body>
+<h1>前言</h1>
+
+<p>欢迎阅读PHP-GTK 2使用手册。这份手册能够帮助你利用PHP-GTK 2起步，并提供对这门语言多方面的综合参考。</p>
+
+<p>这份手册分为两个部分。第一部分是“指南”。该章将帮助你开始使用PHP-GTK 2进行编程，同时提供使用PHP-GTK 2进行程序设计的各方面的深入了解。第二部分是“附录”。手册的这一部分详细介绍了所有GTK对象及其相关方法和参数。</p>
+
+<p>尽管我们非常小心的确保所有手册里的信息是正确的,但是仍然无法避免有错误存在。当你发现了手册中的错误的时候请将相关信息发送给PHP-GTK 文档制作小组：php-gtk-doc@lists.php.net。如果你想要的东西在手册中没有找到，不要犹豫，请立即将你的问题发送到PHP-GTK-General 邮件列表：php-gtk-general@lists.php.net。</p>
+
+<p>本手册依靠一个Docbook DTD的修改版生成。这个修改版使得编写这份PHP-GTK 2手册变的更加的简单。文档中每个类和方法的XML结构是基于PHP-GTK 2的源代码自动生成的，并且与PHP5的镜像同步更新以确保文档与源代码是同步的。</p>
+
+<p>XML生成器的作者是 Andrei Zmievski(PHP-GTK 的原作者），后期被 Christian Weiske 修改。手册使用XSL 样式表以及大量其它工具将XML代码转换为其它格式。手册建立系统的维护者是 Steph Fox.</p>
+
+<p>我们希望你能快乐的阅读这份手册就像我们当初制作它的时候一样！</p>
+
+<h1>PHP-GTK 2 指南</h1>
+
+<h2>安装 PHP-GTK 2</h2>
+
+<h3>简介</h3>
+
+<p>PHP-GTK 2是PHP的一个扩展，要求PHP版本>=5.1。 虽然安装PHP-GTK 2最普通的方式是编译安装，但是这个过程在Windows系统上毫无疑问是一个非常乏味的过程；在这种情况下推荐用户使用官方的PHP-GTK 2 Alpha binary release 版本或者Gnope程序安装。</p>
+
+<p>我们将详细讲述在Windows, Linux, Mac OS X三个主流操作系统上的安装过程。对Linux系统的说明适用于其他基于Linux移植的操作系统。</p>
+
+<h3>Windows安装过程</h3>
+
+<h4>Gnope</h4>
+
+<p>Gnope是在Windows上安装和维护PHP-GTK 2最简单的方法。 Gnope是一个功能齐全的PHP-GTK 2安装程序，包括了PHP 5.1，GTK 2.6和PEAR。只需轻点鼠标你就能完成安装。</p>
+
+<p>只要将安装程序从 gnope.org 上下载下来，并跟随安装向导。 Gnope 也有它自己的PEAR通道，除了官方PEAR包，也可以在那儿下载PHP-GTK 2程序。例如 Gtk2 目录。</p>
+
+<h4>手动安装</h4>
+
+<p>从PHP-GTK 2的下载页面中下载PHP-GTK 2 Alpha binary release for Windows版本。选择一个文件夹解压文件到其中。文件夹内将创建一个名字是php-gtk的文件夹，里面包含了版本中所有的东西。</p>
+
+<p>同时你要复制 php.exe(CLI版本) 和php5ts.dll（这两个都能在PHP for Windows的安装文件中找到）到 php-gtk 文件夹中。如果你希望使用php.exe运行其他的扩展库，请确保它们的库文件也被复制到文件夹中。</p>
+
+<p>这之后，你必须设置包含gtk+2.6.9的文件夹为环境变量。你也可以让gtkpath.bat批处理器设置到当前路径下再执行它。</p>
+
+<h4>从CVS编译安装</h4>
+
+<p>这是所有在Windows上安装PHP-GTK 2的方法中最不推荐的一个。如果你执意要使用它，请自行阅读 CVS导出的 win32/README.win32.txt 文档。</p>
+
+<h3>Linux安装过程</h3>
+
+<p>在Linux上安装PHP-GTK 2的最好的方法就是编译安装。目前对任何的发行版都没有现成的安装文件和源码包，所以你不能使用你最爱的包管理器去安装PHP-GTK 2。以下安装过程对所有的Linux发行版都是有效的，包括一些移植版。</p>
+
+<p><strong>根据报告以下列出的方法不适用于FreeBSD操作系统</strong></p>
+
+<p>有两种方法在你的Linux操作系统中安装PHP-GTK 2。你既可以为PHP-GTK 2选择一个已经存在于系统的PHP，也可以安装一个独立版本。后面这种方法更简单，推荐Linux新手使用。不过不管哪种方案，你都必须安装Gtk+，版本号>=2.6。</p>
+
+<h4>使用全新的PHP安装程序安装PHP-GTK 2</h4>
+
+<p>只要按照如下步骤操作，你一定能成功的！第一步你需要一个全新的PHP。 5.1和5.2两个版本都能正常工作，你可以随便选择：</p>
+
+<p><code>$ cvs -d :pserver:cvsread@cvs.php.net:/repository login</code></p>
+
+<p><code>$ cvs -d :pserver:cvsread@cvs.php.net:/repository co -r PHP_5_2 php-src</code> </p>
+
+<p>下面你需要编译并安装它：</p>
+
+<p><code>$ cd php-src</code></p>
+
+<p><code>$ ./buildconf</code></p>
+
+<p><code>$ ./configure --prefix=/opt/php5_2 --disable-cgi</code></p>
+
+<p><code>$ make</code></p>
+
+<p><code>$ su</code></p>
+
+<p><code>$ make install</code></p>
+
+<p><code>$ echo extension=php_gtk2.so &gt;&gt; /opt/php5_2/lib/php.ini</code></p>
+
+<p><code>$ /opt/php5_2/bin/php-config --extension-dir | xargs echo 'extension_dir=' &gt;&gt; /opt/php5_2/lib/php.ini</code></p>
+
+<p><strong>如果当前PHP的CVS不能编译，请尝试官方版本，下载地址 php download page，或者 snapshot。</strong></p>
+
+<p>现在，让我们检查并安装PHP-GTK 2：</p>
+
+<p><code>$ cd ..</code></p>
+
+<p><code>$ cvs -d :pserver:cvsread@cvs.php.net:/repository co php-gtk</code></p>
+
+<p><code>$ cd php-gtk</code></p>
+
+<p><code>$ ./buildconf --with-phpize=/opt/php5_2/bin/phpize</code></p>
+
+<p><code>$ ./configure --with-php-config=/opt/php5_2/bin/php-config</code></p>
+
+<p><code>$ make</code></p>
+
+<p><code>$ make install</code></p>
+
+<p>你也许想要创建一个PHP的可执行链接：</p>
+
+<p><code>$ ln -s /opt/php5_2/bin/php /usr/bin/php-gtk</code></p>
+
+<p>这样就完成了！</p>
+
+<h4>使用已安装的PHP安装</h4>
+
+<p>如果你决定为你已存在的PHP安装附件PHP-GTK 2，确保你的PHP版本>=5.1并支持CLI。PHP-GTK 2不支持低版本的PHP。<code>**php -v**</code>可以在命令行中检测你的PHP版本。不要忘记检测是否在输出结果中包含有CLI字样。</p>
+
+<p>现在，下载最新的PHP-GTK 2的CVS源码，或者像其它说明中一样去 download 页面下载Alpha source tarball。<code>cd</code>进下载下来的 <code>/extracted</code>文件夹，并执行如下代码：
+<code>$ ./buildconf</code></p>
+
+<p><code>$ ./configure</code></p>
+
+<p><code>$ make</code></p>
+
+<p><code>$ make install</code></p>
+
+<p>以上步骤基本上适用于大部分人。然而，如果在你的电脑上存在PHP多重安装或者你将PHP安装在外部，也想你会碰上麻烦。说明<code>phpize</code>和<code>php-config</code>文件的确切位置有助于解决大多数的问题：</p>
+
+<p><code>$ ./buildconf --with-phpize=/path/to/phpize</code></p>
+
+<p><code>$ ./configure --with-php-config=/path/to/php-config</code> </p>
+
+<h4>测试你的安装</h4>
+
+<p>在你使用PHP-GTK 2之前，你需要修改php.ini文件使扩展可用。只要增加一行<code>extension=php_gtk2.so</code>在所有其他的<code>extension=settings</code>。</p>
+
+<p>你可以使用如下代码看代码是否执行测试你的安装是否成功：</p>
+
+<p><code>$ php -m | preg php-gtk</code></p>
+
+<p>如果成功，你应该能得到一行专门描述php-gtk的话</p>
+
+<p>下面，你就能尝试使用php-gtk源码中在<code>demo</code>文件夹中的示例程序了，例如<code>demos/phpgtk2-demo.php</code>。</p>
+
+<h3>Mac OS X安装过程</h3>
+
+<p>在安装PHP-GTK 2之前，你必须确保你有Apple Developer Tools, BSD Subsystem和一个X Server的安装程序。 Mac OS　X默认安装有BSD subsystem，但你需要手动选择安装Developer Tools和X Server。你能够使用任意版本的X server，但使用苹果提供给你的Mac OS X安装程序配套的版本或许是最简单的方法。</p>
+
+<p>下载 MacPorts（之前叫做 DarwinPorts）或者 Fink 并安装它。你可以安装任意版本的X Server(如果你决定不适用苹果默认配套的话),以及它的Gtk+。无论是MacPorts 或者是Fink 都提供了2.6以上版本的Gtk+。另外你还需要确保你安装了PHP，且版本号>=5.2，MacPorts提供了安装包。在终端中输入<code>php -v</code>可以查看当前PHP的版本。如果你想手动编译PHP，你也可以按照如下操作：</p>
+
+<p><code>$ cvs -d :pserver:cvsread@cvs.php.net:/repository co -r PHP_5_2 php-src</code></p>
+
+<p><code>$ cd php-src</code></p>
+
+<p><code>$ ./buildconf</code></p>
+
+<p><code>$ ./configure --disable-cgi</code></p>
+
+<p><code>$ make</code></p>
+
+<p><code>$ sudo make install</code></p>
+
+<p>虽然你可以在任意地方安装，但推荐你安装在<code>/usr/local/</code>文件夹中。MacPorts会将PHP安装在<code>/opt/local/</code>文件夹中。</p>
+
+<p>现在你可以下载最新的PHP-GTK并编译它了：</p>
+
+<p><code>$ cd ..</code></p>
+
+<p><code>$ cvs -d :pserver:cvsrea@cvs.php.net:/repository co php-gtk</code></p>
+
+<p><code>$ cd php-gtk</code></p>
+
+<p><code>$ ./buildconf --with-phpize=/usr/local/bin/phpize</code></p>
+
+<p><code>$ ./configure --with-php-config=/usr/local/bin/php-config \</code></p>
+
+<p><code>--disable-libglade</code></p>
+
+<p><code>$ make</code></p>
+
+<p><code>$ sudo make install</code></p>
+
+<p>记住要替换<code>/usr/local/</code>为你真实的PHP安装文件夹。比方说，如果你使用MacPorts安装PHP 5.2，那么你就应该输入<code>/opt/local</code>代替。</p>
+
+<p>最后，拷贝php.ini-recommended文件并覆盖<code>/usr/local/lib/php.ini</code>文件，同时要使用php_gtk2.so 的实际地址更改文件中extension_dir 的值。这通常有些像：<code>/usr/local/lib/php/extensions/no-debug-non-zts-come-date</code>。你或许想要创建一个从<code>/usr/bin/</code>到<code>/usr/local/bin/php</code>的符号链接。再一次的，用<code>/opt/local/</code>替换掉<code>/usr/local/</code>，其中替换值依赖于你的PHP安装的实际位置。</p>
+
+<p>现在你可以继续<strong>Linux安装过程</strong>中的<strong>测试你的安装</strong>下面的过程了。</p>
+
+<h3>一步一步在Mac OS X上安装</h3>
+
+<p>作者：Jonathan Richter</p>
+
+<p>我几乎没获取到任何帮助来试图让PHP-GTK 2在Mac OS X 10.4上运行。在许许多多的失败和错误之后，我终于成功了。</p>
+
+<p>下面我将会把我的步骤详细的写出来。我不是很习惯使用终端并且一半时间我是不知道我在干嘛的。所以你必须自己承担使用下面代码的风险。我仅仅只是对我的风险负责而已，当然我希望它能帮助更多的人。</p>
+
+<p><strong>在准备之前请花一些时间阅读以下如下建议</strong></p>
+
+<p>我发现的一些有用的资源：</p>
+
+<ul>
+<li><p><a href="http://gtk.php.net/manual/en/html/tutorials/tutorials.installation.macosx.html" title="The previous installation page">http://gtk.php.net/manual/en/html/tutorials/tutorials.installation.macosx.html</a></p></li>
+<li><p><a href="http://www.macports.org/" title="macports.org">http://www.macports.org/</a></p></li>
+</ul>
+
+<h4><strong>第一步：获取Xcode</strong></h4>
+
+<p>从苹果官网获取最新版的Xcode（也叫做Developer Tools）。你真的需要这个，去 <a href="http://connect.apple.com" title="connect.apple.com">http://connect.apple.com</a>，登录或者注册（免费的），然后下载。</p>
+
+<p>在右边的下载窗口，点击Developer Tools并下载最新的Xcode。我下载的版本是2.4.1，大小923M。下载完成之后，对着安装步骤安装它。</p>
+
+<h4><strong>第二步：获取MacPorts</strong></h4>
+
+<p>我最开始安装的是Fink，但是它半路上就失败了，因为它不自带 GTK >=2.6的安装包。后来我就改用MacPorts了。</p>
+
+<p>打开<a href="http://trac.macosforge.org/projects/macports/wiki/InstallingMacPorts" title="macosforge/InstallingMackPorts">http://trac.macosforge.org/projects/macports/wiki/InstallingMacPorts</a>。</p>
+
+<p>确定你已经下载了第一步中的Xcode。我按着说明做的然后它是正常工作了。</p>
+
+<p><strong>最新版本不带有Appler installer。所以你必须到这儿下载一个：<a href="http://svn.macosforge.org/repository/macports/downloads/DarwinPorts-1.3.1/DarwinPorts-1.3.1-10.4.dmg" title="DarwinPorts-1.3.1-10.4.dmg">http://svn.macosforge.org/repository/macports/downloads/DarwinPorts-1.3.1/DarwinPorts-1.3.1-10.4.dmg</a></strong></p>
+
+<p>双击安装程序开始安装MacPorts。</p>
+
+<h4><strong>第三步：获取GTK2(也叫做GTK+)</strong></h4>
+
+<p>在终端中输入：<code>sudo port install gtk2</code></p>
+
+<h4><strong>第四步：获取PHP 5.x</strong></h4>
+
+<p>我已经在我的OS X上安装了PHP 4.4.4和PHP5，PHP5是从<a href="http://www.entropy.ch/" title="Entropy.ch">http://www.entropy.ch/</a>上获取的。但是它们都不能正常工作。我从Entropy中删除了PHP5。</p>
+
+<p><strong>如果你想要运行Apache 1或者2 和PHP 4或者5，Entropy是获取它们最好的方法。</strong></p>
+
+<p>在终端中输入：<code>cd /</code>和<code>sudo port install php5</code></p>
+
+<p>现在你可以喝杯咖啡等一小会儿，当时我等了2个小时。(MacPorts 把所有的东西都安装在<code>/opt</code>文件夹下。我用<code>cd /</code>替换掉了根目录。）</p>
+
+<h4><strong>第五步：为PHP-GTK做好准备</strong></h4>
+
+<p>在其它的教程中，在安装PHP-GTK的时候，你会看见一个<code>--disable-libglade</code>的参数。我不知道他们为什么要写这个。如果你确定不想要Glade，好好读下这个吧：<a href="http://glade.gnome.org">glade.gnome.org</a></p>
+
+<p>Check out那些截屏，我最开始没有安装Glade但是后来我后来安装上Glade后也还是正常工作的。如果你不想安装Glade，请跳过下一步。</p>
+
+<h4><strong>第六步：获取Glade</strong></h4>
+
+<p>因为一些原因，我在这一步中有错误。我在终端中尝试了同样的方法，但是这次在X11在后台打开的情况下已经没有错误了。所以，打开X11并隐藏它（apple-h）。</p>
+
+<p>在终端中输入：</p>
+
+<p><code>cd /opt</code></p>
+
+<p><code>sudo port install libglade</code></p>
+
+<p><code>sudo port install glade</code></p>
+
+<p>然后你可以再喝一杯咖啡了...</p>
+
+<h4><strong>第七步：获取PHP-GTK2</strong></h4>
+
+<p><strong>你或许想要用官方最新版本（[PHP-GTK2下载页面]（http://gtk.php.net/download.php））替换掉目前使用的CVS版本。</strong></p>
+
+<p>安全起见，保持X11处于打开状态。确保<code>/opt/local/bin/</code>存在<strong>phpize</strong>和<strong>php-config</strong>文件。做下一步之前要先检查这些。然后再终端中输入：</p>
+
+<p><code>cd php-gtk</code></p>
+
+<p><code>sudo ./buildconf --with-phpize=/opt/local/bin/phpize</code></p>
+
+<p><code>sudo ./configure --with-php-config=/opt/local/bin/php-config</code></p>
+
+<p><code>sudo make</code></p>
+
+<p><code>sudo make install</code></p>
+
+<p>完成后，你会在终端输出中看到一些使用路径表示的注释提示将要安装的扩展，例如：</p>
+
+<blockquote>
+  <p>/opt/local/lib/php/extensions/no-debug-non-zts-20060613. Apple-c that path or write it down. You will need it later</p>
+</blockquote>
+
+<h4><strong>第八步：修改php.ini文件</strong></h4>
+
+<p>在Finder中，选择“Go > Go To Folder”（或者按shift-apple-g）并输入 <code>/opt/local/etc</code>。</p>
+
+<p>找到php.ini-recommended并复制一份。重命名这个备份项为php.ini并使用 - preferably - BBedit[这个不晓得什么意思，咳咳!]打开它。</p>
+
+<p>打开文件并找到<code>extension_dir="./"这一行，并yoga如下代码替换掉它：</code>extension_dir = "/opt/local/lib/php/extensions/no-debug-non-zts-20060613"`（该路径为你前一步中终端中输出的路径）。</p>
+
+<p>在文件末尾添加如下：<code>extension=php_gtk2.so</code></p>
+
+<p>保存文件。</p>
+
+<h4><strong>第九步：测试</strong></h4>
+
+<p>打开X11并隐藏它（快捷键apple-h）如果没有完成的话。</p>
+
+<p>打开终端输入：</p>
+
+<p><code>cd /opt/php-gtk/demos</code></p>
+
+<p><code>php phpgtk2-demo.php</code></p>
+
+<p>示例会在X11中打开一个窗口</p>
+
+<p>如果要配合Glade使用的话，打开终端输入如下代码（当然，X11也还是要开着的）：</p>
+
+<p><strong><code>/opt/local/bin/glade-2</code></strong></p>
+
+<h4><strong>使它变的更棒</strong></h4>
+
+<p>个人愚见：当你在OS X中工作时和X11的交互看起来是非常糟糕的。你可以去<a href="http://art.gnome.org/themes/gtk2">art.gnome.org</a>下载其他主题，并check out。为了使用它们中的一个，我们必须做如下操作。</p>
+
+<p>在终端中输入：<code>sudo port install gtk-theme-switch</code></p>
+
+<p>接着，从之前的链接地址中下载一个主题。你有两种方法安装它：</p>
+
+<pre><code>1.移动或者复制下载下来的.tar.gz（不要解压！）文件到/opt/local/share/themes/
+  在终端中输入如下代码用以打开Glade（保持X11处于开启状态）：/opt/local/bin/switch2
+  按下+号并且点击"Install New Theme"按钮。指向/opt/local/share/themes/&lt;你的主题名称&gt;.tar.gz
+  点击OK然后你的新主题就会在列表中显示了。
+
+2.解压&lt;你的主题名称&gt;.tar.gz文件并移动或者复制新主题文件夹到/opt/local/share/themes/文件夹中。
+  在终端中输入如下代码用以打开Glade(保持X11处于开启状态）：/opt/local/bin/switch2
+  你的新主题依然在列表中显示了。
+</code></pre>
+
+<p>按照如上步骤，我在我的机器上成功安装了。我的配置是： iMac G5 2.0 GHz/1 GB RAM/OS X 10.4.8 和 Mac mini G4 1.42 GHz/512 MB RAM/OS X 10.4.8。亲爱的Mac用户们，请在这儿发表自己的看法和技巧，让PHP-GTK精神在OS X长存！祝君好运！</p>
+
+<h2>Hello World(基础篇）</h2>
+
+<p><strong>目录</strong></p>
+
+<p>扩展阅读（见本节末尾）</p>
+
+<p>当你开始学习一门编程语言的时候，铜厂你写的第一个程序是“Hello World!”。因此，为了适合每一个人，所以我们的指南第一篇也以“Hello World!”开始。</p>
+
+<p>在整个的指南中我们希望你对PHP本身有几本的了解。指南是用来帮助用户如何使用PHP-GTK以及它的一些想法和技术。</p>
+
+<p>本节中我们将创建一个简单的包含"Hello World!"文字的窗口。</p>
+
+<p>我们先会列出程序的代码然后我们会详细的解释代码的每一行，对这个基本的PHP-GTK应用程序进行一个概述。</p>
+
+<p><strong>示例2.1. 一个简单的Hello World代码</strong></p>
+
+<pre><code>&lt;?php
+if (!class_exists('gtk')) {
+    die("Please load the php-gtk2 module in your php.ini\r\n");
+}
+
+$wnd = new GtkWindow();
+$wnd-&gt;set_title('Hello world');
+$wnd-&gt;connect_simple('destroy', array('gtk', 'main_quit'));
+
+$lblHello = new GtkLabel("Just wanted to say\r\n'Hello world!'");
+$wnd-&gt;add($lblHello);
+
+$wnd-&gt;show_all();
+Gtk::main();
+?&gt;  
+</code></pre>
+
+<p><strong>如果你得到一个错误'Fatal error: Call to undefined function: connect_simple(）'，那么你使用的一定是PHP-GTK1而不是PHP-GTK2.本教程不适用于PHP-GTK1。</strong></p>
+
+<p>复制代码到文本中并保存为hello.phpw。然后打开CMD/终端输入<strong>php hello.phpw</strong>。 一个标题为“Hello world”的窗口会被打开，但除了"Just wanted to say 'Hello world!'"窗体并不包含任何内容。</p>
+
+<p><strong>示例 2.2. 检测PHP-GTK是否可用</strong></p>
+
+<pre><code>if (!class_exists('gtk')) {
+    die("Please load the php-gtk2 module in your php.ini\r\n");
+}
+</code></pre>
+
+<p>这里我们通过检测gtk类是否存在来确定PHP-GTK是否可用。不像PHP4和PHP-GTK1， 你不需要通过<a href="http://php.net/dl">dl()</a>函数导入PHP-GTK模块。该函数在PHP5中已经被废除， 新代码中也不需要使用它了。因此我们要做的仅仅是输出一条信息，如果模块不可用就让用户使其变为可用就好了。</p>
+
+<p><strong>示例 2.3. 创建一个窗体</strong></p>
+
+<pre><code>$wnd = new GtkWindow();
+</code></pre>
+
+<p>创建一个新<a href="http://gtk.php.net/manual/en/html/gtk/gtk.gtkwindow.html">窗口</a>部件就像创建一个新对象一样是一件非常容易的事情：<code>$wnd</code>使新对象得到分配。如果你已经有PHP4+PHP-GTK1的编程经验的话，你会发现new前面的&amp;符号不见了。在PHP4中是它是必须，但是再PHP5中就不再使用了，参照符会被自动创建。</p>
+
+<p><strong>示例 2.4. 设置窗体标题</strong></p>
+
+<pre><code>$wnd-&gt;set_title('Hello world');
+</code></pre>
+
+<p>为了使窗口在任务栏中更容易被识别，我们设置窗口标题：只要普通的call一下对象的方法就好了。</p>
+
+<p><strong>示例 2.5. 关闭可用</strong></p>
+
+<pre><code>$wnd-&gt;connect_simple('destroy', array('gtk', 'main_quit'));
+</code></pre>
+
+<p>这是代码中第一处有趣的地方： “<a href="http://gtk.php.net/manual/en/html/gtk/gtk.gtkobject.signal.destroy.html">destroy</a>”参数和静态方法<a href="http://gtk.php.net/manual/en/html/gtk/gtk.method.main_quit.html">Gtk::main_quit</a>方法联系在一起。它可以简单的解释为当关闭/销毁窗体时告诉GTK结束主函数循环。（主函数循环会在下面详细解释。）</p>
+
+<p><strong>示例 2.6. 创建一个label显示文本</strong></p>
+
+<pre><code>$lblHello = new GtkLabel("Just wanted to say\r\n'Hello world!'");   
+</code></pre>
+
+<p>在此之前，我们创建了一个新的不见。这次我们想要显示一段简短的文本，<a href="http://gtk.php.net/manual/en/html/gtk/gtk.gtklabel.html">GtkLabel</a>在这次的任务中表现完美。</p>
+
+<p><strong>示例 2.7. 向窗体中增加label部件</strong></p>
+
+<pre><code>$wnd-&gt;add($lbHello);
+</code></pre>
+
+<p>现在我们告诉窗体，我们将往它上面直接添加一个label部件。</p>
+
+<p><strong>示例 2.8. 设置窗口可见</strong></p>
+
+<pre><code>$wnd-&gt;show_all();
+</code></pre>
+
+<p>知道现在，你还不能在屏幕上看见任何东西。为了使窗口可见，你需要call <a href="http://gtk.php.net/manual/en/html/gtk/gtk.gtkwidget.method.show.html">show()</a>函数。这样才能使窗口可见，但是label还是不可见的，我们需要再一次对label call <a href="http://gtk.php.net/manual/en/html/gtk/gtk.gtkwidget.method.show.html">show()</a>函数。当然如果你有很多的部件，像是buttons, checkbox或者其它的一些什么的，这个步骤将变得非常的麻烦。<a href="http://gtk.php.net/manual/en/html/gtk/gtk.gtkwidget.method.show_all.html">show_all()</a> 函数将使得窗口中的所有子部件都变得可见。</p>
+
+<p><strong>示例 2.9. 开始主函数循环</strong></p>
+
+<pre><code>Gtk::main();
+</code></pre>
+
+<p>在一切都设置好了之后，我们需要确保窗口保持打开并且回应用户的交互动作。一个普通的PHP脚本将会在这点上停止并解除，但是我们想持续运行他们：为了达到这个目的，GTK主函数循环需要开始。它保持程序处于运行状态并监听用户事件。如果事件发生了，它会选择相应的回调函数。</p>
+
+<p><strong>扩展阅读</strong></p>
+
+<p>现在你可以创建第一个PHP-GTK 2程序了，你可能想要创建一个更加复杂的版设。为了学习其他的操作，你可以看一下<a href="http://gtk.php.net/manual/en/html/tutorials/tutorials.packing.html">Packing tutorials</a>。</p>
+
+<h2>Hello World（扩展篇）</h2>
+
+<p>本章将会比上章教程处理一些更高级的功能。我们创建一个登录窗口，用户可以在上面输入自己的用户名和密码。当用户单击“Login”按钮的时候，如果用户忘记了他们的账号或者密码的话，一个文本提示框将会显示，并显示一条错误信息。</p>
+
+<p>下图是程序运行概况的一个截图：</p>
+
+<p><img src="file:///C:/Users/Michael/Desktop/html/images/tutorials/helloadvanced.png" alt="" /></p>
+
+<p>首先，我们创建一个窗体，设置它的标题并告诉它当窗体被销毁时结束主函数的循环。这些在上章中我们已经知道了：</p>
+
+<pre><code>$wnd = new GtkWindow();
+$wnd-&gt;set_title('Login');
+$wnd-&gt;connect_simple('destroy', array('gtk', 'main_quit'));
+</code></pre>
+
+<p>下一个任务就是创建我们在这次对话过程中需要的空间：首先我们需要两个entry文本框去存放用户名和密码：</p>
+
+<pre><code>$txtUsername = new GtkEntry();
+$txtPassword = new GtkEntry();
+</code></pre>
+
+<p>然后我们想要用户知道哪个文本框是输入用户名的，哪个文本框是输入密码的，因此我们有必要窗前一些说明Label：</p>
+
+<pre><code>//第二个参数表示下划线将被解析成随后一个字符的下划线
+$lblUsername = new GtkLabel('_Username', true);
+$lblPassword = new GtkLabel('_Password', true);
+</code></pre>
+
+<p>最后，我们需要两个按钮：一个用来登录，另外一个用来退出当前过程。</p>
+
+<pre><code>$btnLogin = new GtkButton('_Login');
+$btnCancel = new GtkButton('_Cancel');
+</code></pre>
+
+<p>你必须注意到GtkLabel构造函数需要使用第二个参数来告诉程序"_"需要被显示成下一个字符的下划线，而GtkButton构造函数则完全不需要这样做：虽然label需要加参数才能完成，不过button构造函数确实是自动完成的。你可能会对这个动作感到非常奇怪，但是一个加了助记符的Button的Label和一个普通的Label,前者更让人喜欢。</p>
+
+<p>现在Labels需要知道当他们通过助记符被激活的时候到底是哪个部件需要被激活。通常我们是这样做的：</p>
+
+<pre><code>$lblUsername-&gt;set_mnemonic_widget($txtUsername);
+$lblPassword-&gt;set_mnemonic_widget($txtPassword);
+</code></pre>
+
+<p>再往前一步，我们需要决定当单击按钮时到底出发哪个动作。单击Cancel按钮将会销毁窗体（从而结束程序），而点击Login按钮将会检查检查文本域。两者的动作分别如下：</p>
+
+<pre><code>$btnCancel-&gt;connect_simple('clicked', array($wnd, 'destory'));
+$btnLogin-&gt;connect_simple('clicked', 'login', $wnd, $txtUsername, $txtPassword);
+</code></pre>
+
+<p>我们设置$wnd, $txtUsername和$txtPassword三个部件作为可选参数提交给login函数（还没有被定义），因为我们将在如下的过程中需要用到它们：从文本域中获取他们的值，当一切正常的话销毁/隐藏窗体。</p>
+
+<p>现在我们有了我们需要的所有的不见，他们都已经被添加到了窗体上了。因为GtkWindow是一个盒形容器，它仅能容纳单个部件。所以我们需要一个容器容纳我们更多的不见并能够非常漂亮的列出我们的元素。 基于此我们需要用到GtkTable对象， 因为它提供了一种保持所有标签在一列，并且Entry域在下一个的方法：</p>
+
+<pre><code>$tbl = new GtkTable(3,2);
+$tbl-&gt;attach($lblCreat, 0,2, 0, 1);
+$tbl-&gt;attach($lblUsername, 0, 1, 1, 2);
+$tbl-&gt;attach($txtUsername, 1, 2, 1, 2);
+$tbl-&gt;attach($lblPassword, 0, 1, 2, 3);
+$tbl-&gt;attach($txtPassword, 1, 2, 2, 3);
+</code></pre>
+
+<p>（$lblCredit仅仅是一个含有一条消息的标签）。所有的按钮需要使用GtkButtonBox类来排列，因为这个类能够使多个按钮排放的非常漂亮：</p>
+
+<pre><code>$bbox = new GtkHButtonBox();
+$bbox-&gt;set_layout(Gtk::BUTTONBOX_EDGE);
+$bbox-&gt;add($btnCancel);
+$bbox-&gt;add($btnLogin);
+</code></pre>
+
+<p>为了完成输出，我们必须再做一件事，那就是将生成好的table和button box添加到窗体中。直接做是不可能的，因为之前说过的GtkWindow是一个和形容其仅支持容纳单一部件。所以我们需要另外一个容器，这回是GtkVBox:</p>
+
+<pre><code>$vbox = new GtkVBox();
+$vbox-&gt;pack_start($tbl);
+$vbox-&gt;pack_start($bbox);
+</code></pre>
+
+<p>这样就差不多了，然后我们通过如下代码将所有部件展示到窗体上：</p>
+
+<pre><code>$wnd-&gt;add($vbox);
+$wnd-&gt;show_all();
+Gtk::main();
+</code></pre>
+
+<p>到此我们还忘记了一件事情就是，我们设定了一个login函数，当用户单击Login按钮的时候将会触发，但是到目前为止我们还没有定义它。它的主要功能是检查输入的用户名和密码：如果他们的长度为0（即用户没有输入任何东西），将显示一个错误信息。如果一切都正常的话，窗体将会被销毁，程序将继续导入主窗体。</p>
+
+<p>从部件中获取内容是非常简单的，我们只需要使用GtkEntry类中的get_text()函数就可以了：</p>
+
+<pre><code>$strUsername = $txtUsername-&gt;get_text();
+$strPassword = $txtPassword-&gt;get_text();
+</code></pre>
+
+<p>通过普通的strlen函数我们能完成前面的检测部分。如果发生了一个错误，我们想要显示一个带有这条消息的消息框。GtkMessageDialog适合这个情况，它会自动创建图标和按钮（OK, Yes/No）：</p>
+
+<pre><code>$dialog = new GtkMessageDialog($wnd, Gtk::DIALOG_MODAL, Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, $errors);
+$dialog-&gt;set_markup("The following errors occured:\r\n&lt;span foreground='red'&gt;" . $errors . "&lt;/span&gt;";
+$dialog-&gt;run();
+$dialog-&gt;destroy();
+</code></pre>
+
+<p>确定你将login函数放在主函数循环之前（切记！）后运行代码。</p>
+
+<p><strong>示例3.1. 示例完整代码</strong></p>
+
+<pre><code>&lt;?php
+/**
+*   Here we create a login window.
+*   It has a username and a password field, and a
+*   Cancel and Login button. Some error checking
+*   is being done when the user clicks "Login".
+*/
+
+if (!class_exists('gtk')) {
+    die("Please load the php-gtk2 module in your php.ini\r\n");
+}
+
+/**
+*   This function gets called as soon as the user 
+*   clicks on the Login button.
+*
+*   @param GtkWindow $wnd           The login window, needed to close it
+*                                    when all is ok
+*   @param GtkEntry $txtUsername    The username text field, used to get
+*                                    the username
+*   @param GtkEntry $txtPassword    The password widget to retrieve the
+*                                    password
+*/
+function login(GtkWindow $wnd, GtkEntry $txtUsername, GtkEntry $txtPassword)
+{
+    //fetch the values from the widgets into variables
+    $strUsername = $txtUsername-&gt;get_text();
+    $strPassword = $txtPassword-&gt;get_text();
+
+    //Do some error checking
+    $errors = null;
+    if (strlen($strUsername) == 0) {
+        $errors .= "Username is missing.\r\n";
+    }
+    if (strlen($strPassword) == 0) {
+        $errors .= "No password given.\r\n";
+    }
+
+    if ($errors !== null) {
+        //There was at least one error.
+        //We show a message box with the errors
+        $dialog = new GtkMessageDialog($wnd, Gtk::DIALOG_MODAL,
+            Gtk::MESSAGE_ERROR, Gtk::BUTTONS_OK, $errors);
+        $dialog-&gt;set_markup(
+            "The following errors occured:\r\n"
+            . "&lt;span foreground='red'&gt;" . $errors . "&lt;/span&gt;"
+        );
+        $dialog-&gt;run();
+        $dialog-&gt;destroy();
+    } else {
+        //No error. You would need to hide the dialog now
+        //instead of destroying it (because when you destroy it,
+        //Gtk::main_quit() gets called) and show the main window
+        $wnd-&gt;destroy();
+    }
+}
+
+//Create the login window
+$wnd = new GtkWindow();
+$wnd-&gt;set_title('Login');
+//Close the main loop when the window is destroyed
+$wnd-&gt;connect_simple('destroy', array('gtk', 'main_quit'));
+
+
+//Set up all the widgets we need
+$lblCredit   = new GtkLabel('Please provide your data');
+//The second parameter says that the underscore should be parsed as underline
+$lblUsername = new GtkLabel('_Username', true);
+$lblPassword = new GtkLabel('_Password', true);
+$txtUsername = new GtkEntry();
+$txtPassword = new GtkEntry();
+$btnLogin    = new GtkButton('_Login');
+$btnCancel   = new GtkButton('_Cancel');
+
+
+//Which widget should be activated when the 
+// mnemonic (Alt+U or Alt+P) is pressed?
+$lblUsername-&gt;set_mnemonic_widget($txtUsername);
+$lblPassword-&gt;set_mnemonic_widget($txtPassword);
+//Hide the password
+//$txtPassword-&gt;set_invisible_char('*');
+
+//Destroy the window when the user clicks Cancel
+$btnCancel-&gt;connect_simple('clicked', array($wnd, 'destroy'));
+//Call the login function when the user clicks on Login
+$btnLogin-&gt;connect_simple('clicked', 'login', $wnd, $txtUsername, $txtPassword);
+
+
+//Lay out all the widgets in the table
+$tbl = new GtkTable(3, 2);
+$tbl-&gt;attach($lblCredit, 0, 2, 0, 1);
+$tbl-&gt;attach($lblUsername, 0, 1, 1, 2);
+$tbl-&gt;attach($txtUsername, 1, 2, 1, 2);
+$tbl-&gt;attach($lblPassword, 0, 1, 2, 3);
+$tbl-&gt;attach($txtPassword, 1, 2, 2, 3);
+
+
+//Add the buttons to a button box
+$bbox = new GtkHButtonBox();
+$bbox-&gt;set_layout(Gtk::BUTTONBOX_EDGE);
+$bbox-&gt;add($btnCancel);
+$bbox-&gt;add($btnLogin);
+
+
+//Add the table and the button box to a vbox
+$vbox = new GtkVBox();
+$vbox-&gt;pack_start($tbl);
+$vbox-&gt;pack_start($bbox);
+
+//Add the vbox to the window
+$wnd-&gt;add($vbox);
+//Show all widgets
+$wnd-&gt;show_all();
+//Start the main loop
+Gtk::main();
+?&gt;
+</code></pre>
+
+<h2>Glade篇</h2>
+
+<p><strong>目录</strong></p>
+
+<p>关于本章教程</p>
+
+<p>准备</p>
+
+<p>导入文件</p>
+
+<p>导入部分*.glade文件</p>
+
+<h3>关于本章教程</h3>
+
+<p>本章将指导你在你的PHP-GTK2应用程序中如何使用*.glade文件。</p>
+
+<p>Glade2 是一个用户界面设计程序，它允许你不需要变成，只用你的鼠标创建Gtk2应用程序。设计结果会保存成以glade结尾的<em>.glade文件。PHP-Gtk2很容易就能导入这些</em>.glade文件。</p>
+
+<p>使用Glade创建用户界面能够节省许多时间，特别是在大型工程中。它甚至能够将工作分类处理：界面设计师负责使用Glade设计GUI界面（设计师可以不懂任何编程知识），然后你能够专心致志的去编写代码了。这比起你又要编程又要写GUI界面来说好多了！</p>
+
+<h3>准备</h3>
+
+<p>本章我们将着重介绍Glade，而不是介绍如何设计一个复杂的界面。这就是为什么示例中的*.glade文件非常的简单，窗体上只有一个按钮而已。</p>
+
+<p>窗体的id为wndClose，按钮的名称为btnClose。</p>
+
+<p><strong>示例4.1. glade文件示例 - helloglade.glade</strong></p>
+
+<pre><code>&lt;?xml version="1.0" standalone="no"?&gt; &lt;!--*- mode: xml -*--&gt;
+&lt;!DOCTYPE glade-interface SYSTEM "http://glade.gnome.org/glade-2.0.dtd"&gt;
+
+&lt;glade-interface&gt;
+
+&lt;widget class="GtkWindow" id="wndClose"&gt;
+  &lt;property name="visible"&gt;True&lt;/property&gt;
+  &lt;property name="title" translatable="yes"&gt;Close me&lt;/property&gt;
+  &lt;property name="type"&gt;GTK_WINDOW_TOPLEVEL&lt;/property&gt;
+  &lt;property name="window_position"&gt;GTK_WIN_POS_NONE&lt;/property&gt;
+  &lt;property name="modal"&gt;False&lt;/property&gt;
+  &lt;property name="resizable"&gt;True&lt;/property&gt;
+  &lt;property name="destroy_with_parent"&gt;False&lt;/property&gt;
+  &lt;property name="decorated"&gt;True&lt;/property&gt;
+  &lt;property name="skip_taskbar_hint"&gt;False&lt;/property&gt;
+  &lt;property name="skip_pager_hint"&gt;False&lt;/property&gt;
+  &lt;property name="type_hint"&gt;GDK_WINDOW_TYPE_HINT_NORMAL&lt;/property&gt;
+  &lt;property name="gravity"&gt;GDK_GRAVITY_NORTH_WEST&lt;/property&gt;
+  &lt;signal name="destroy" handler="gtk::main_quit"/&gt;
+
+  &lt;child&gt;
+    &lt;widget class="GtkButton" id="btnClose"&gt;
+      &lt;property name="visible"&gt;True&lt;/property&gt;
+      &lt;property name="can_focus"&gt;True&lt;/property&gt;
+      &lt;property name="label"&gt;gtk-close&lt;/property&gt;
+      &lt;property name="use_stock"&gt;True&lt;/property&gt;
+      &lt;property name="relief"&gt;GTK_RELIEF_NORMAL&lt;/property&gt;
+      &lt;property name="focus_on_click"&gt;True&lt;/property&gt;
+      &lt;signal name="clicked" handler="onClickButton"/&gt;
+    &lt;/widget&gt;
+  &lt;/child&gt;
+&lt;/widget&gt;
+
+&lt;/glade-interface&gt;
+</code></pre>
+
+<h3>导入文件</h3>
+
+<p>首先要做的是导入前一节中创建的*.glade文件。GladeXML构造函数将文件路径作为第一参数，所以我们需要像如下这样写：</p>
+
+<p><strong>示例4.2. 导入*.glade文件</strong></p>
+
+<pre><code>&lt;?php
+//Create a new glade instance, load the 
+// widgets from the file passed as parameter
+$glade = new GladeXML('helloglade.glade');
+
+//Start the main loop
+Gtk::main();
+?&gt;
+</code></pre>
+
+<p>当运行这段代码的时候，你将注意到屏幕上显示了一个含有按钮的窗体，但是除了关闭窗体，它再也不能做任何其它的反应了。甚至在这儿，窗体虽然被销毁了但是代码还是在持续的运行的。这是一起非常明显的丢失连接信号的例子。</p>
+
+<h4>手动添加连接信号（Signals）</h4>
+
+<p>下一步，我们将像之前的操作一样连接这些信号：对部件对象使用connect()或者connect_simple()函数。为了获取对象，我们需要使用get_widget()函数并传递部件的名称（也就是它的id）给这个函数。然后我们再像之前的一样操作：</p>
+
+<p><strong>示例4.3. 获取并连接各个部件</strong></p>
+
+<pre><code>&lt;?php
+//Create a new glade instance, load the
+// widgets from the file passed as parameter
+//We use the absolute file path as it is not uncommon
+// that the application is run from a different working directory
+$glade = new GladeXML(dirname(__FILE__) . '/helloglade.glade');
+
+//Nothing happened when you clicked the button or closed
+// the window with Step 1's code.
+//Here we manually connect the widget signals as you know it
+$window = $glade-&gt;get_widget('wndClose');
+$window-&gt;connect_simple('destroy', array('Gtk', 'main_quit'));
+
+//Again, get the widget object and connect the clicked signal
+$button = $glade-&gt;get_widget('btnClose');
+$button-&gt;connect_simple('clicked', 'onClickButton');
+
+//This method is called when the button is clicked
+function onClickButton() {
+    echo "button clicked!\r\n";
+    Gtk::main_quit();
+}
+
+//Start the main loop
+Gtk::main();
+?&gt;
+</code></pre>
+
+<h4>使用Glade连接各信号</h4>
+
+<p>你可能注意到了*.glade文件中的&lt; signal>标签-它在文件中直接定义了信号柄（signal handlers）。我们所需要做的不过是告诉Glade使用signal_autoconnect()函数处理这些连接。</p>
+
+<p>你或许也想定义一个简单的函数当事件触发的时候能够调用它，又或许你想为通过用双冒号分割类名称和函数名称（例如Classname::methodName）来调用静态方法使用特殊的符号。</p>
+
+<p><strong>示例4.4. 使用signal_autoconnect()函数</strong></p>
+
+<pre><code>&lt;?php
+//Create a new glade instance, load the
+// widgets from the file passed as parameter
+//We use the absolute file path as it is not uncommon
+// that the application is run from a different working directory
+$glade = new GladeXML(dirname(__FILE__) . '/helloglade.glade');
+
+//Let glade do all the signal connections we specified in the file
+$glade-&gt;signal_autoconnect();
+
+//This method is called when the button is clicked
+function onClickButton() {
+    echo "button clicked!\r\n";
+    Gtk::main_quit();
+}
+
+//Start the main loop
+Gtk::main();
+?&gt;
+</code></pre>
+
+<h4>连接对象方法</h4>
+
+<p>仅仅是连接一个简单的函数或者是静态方法的话远远不能满足一个程序员达人的需求。为了摆脱混乱不堪的代码，我们需要能够连接信号到对象方法。</p>
+
+<p>要做到这个其实非常简单：只需要使用signal_autoconnect_instance()函数代替函对象的第一个参数signal_autoconnect()函数：</p>
+
+<p><strong>示例4.5. 使用signal<em>autoconnect</em>instance()函数</strong></p>
+
+<pre><code>&lt;?php
+//Here we use an object and connect all the
+// signals to *object methods* instead of
+// functions
+
+class MyClass {
+    //This method is called when the button is clicked
+    function onClickButton() {
+        echo "MyClass-&gt;onClickButton!\r\n";
+        Gtk::main_quit();
+    }
+
+    function staticMethod() {
+        echo "MyClass::staticMethod()\r\n";
+    }
+}
+
+$glade = new GladeXML(dirname(__FILE__) . '/helloglade.glade');
+
+//Let glade do all the signal connections we specified in the file
+// but this time, connect to the object methods
+$myClassInstance = new MyClass();
+$glade-&gt;signal_autoconnect_instance($myClassInstance);
+
+//Start the main loop
+Gtk::main();
+?&gt;
+</code></pre>
+
+<h3>导入部分*.glade文件</h3>
+
+<p>在大型工程中，你也许在<em>.glade文件中定义了许多的窗体，当</em>.glade文件被导入的时候所有的窗体也同时被导入了。这样做不仅让你的程序在启动的时候变得非常慢，而且如果你不在Glade设置它们的visibility为hidden的话，所有的窗体会一下子显示出来。为了解决这些问题，你应该使用signal_autoconnect_instance()函数只导入对应单个对象的*.glade文件的一部分，直到另外一个连接开始才导入另外一个对象。</p>
+
+<p>GladeXML构造函数的第二个参数是解决这个问题的关键：只需要输入需要载入的部件的id，那么*.glade文件中只有相关部分才会被导入。</p>
+
+<p><strong>示例4.6. 导入部分*.glade文件</strong></p>
+
+<pre><code>&lt;?php
+//Loading a part of the glade file only
+
+//We want "btnClose" to be the root of the widget tree to load
+$glade = new GladeXML('helloglade.glade', 'btnClose');
+
+//That will work
+$btn = $glade-&gt;get_widget('btnClose');
+
+//This will fail, as the window isn't loaded:
+$window = $glade-&gt;get_widget('wndClose');
+//Output is NULL
+var_dump($window);
+?&gt;
+</code></pre>
+
+<h2>升级PHP-GTK 1</h2>
+
+<p><strong>目录</strong></p>
+
+<p>关于本章节教程</p>
+
+<p>导入php_gtk模块</p>
+
+<p>对象引用（奇怪的&amp;）</p>
+
+<p>GTK 常量</p>
+
+<p>连接信号（Connecting Signals）</p>
+
+<p>弃用的部件</p>
+
+<h3>关于本章教程</h3>
+
+<p>本章将告诉你PHP-GTK 1和PHP-GTK 2有什么不同，改了什么东西，以及新增加了什么东西，废除了什么东西。</p>
+
+<p>PHP-GTK 2尽可能的向后兼容PHP-GTK 1，但是正如GTK 2自己经常会偶尔抽风一样（原文为'But as GTK 2 itself broke BC pretty often'，意译），PHP-GTK 2也不是万能的。有一些东西是没有改变的，但是在你的版本升级中，有一些重要的相对微小的改变你是必须了解的。</p>
+
+<h3>导入php_gtk模块</h3>
+
+<p>在PHP-GTK 1中，你永远都不会知道php-gtk模块是否已经通过php.ini自动导入到PHP中了，又或者是它没有配置成功（大多数是这种情况），我们不得不手动判断并导入php-gtk模块：</p>
+
+<pre><code>&lt;?php
+    if (!class_exists("gtk")) {
+        dl("php_gtk." . PHP_SHLIB_SUFFIX);
+    }
+?&gt;
+</code></pre>
+
+<p>在PHP5中，通过dl()函数导入模块的功能已经被废除了。这意味着虽然它还能运行，但是却不推荐用户使用它。所以你假设模块已经导入了，或者说你想要捕获所有可能的错误，检查模块是否存在并当它不存在的时候抛出错误的话，你可以这样做：</p>
+
+<pre><code>&lt;?php
+    if(!extension_loaded('php-gtk')) {
+        echo "The PHP-Gtk2 module is not available!\r\n";
+        exit(1);
+    }
+    //..continue with your program
+?&gt;
+</code></pre>
+
+<h3>对象引用（奇怪的&amp;）</h3>
+
+<p>PHP4对于面向对象的支持可以说是全新的，所以它在面向对象的支持上不会像JAVA等其它语言一样那么复杂。当定义变量的时候，我们当然不需要去拷贝一个GTK对象，只需要引用它就好了。</p>
+
+<pre><code>//PHP 4: copy as default behavior
+$a = new GtkLabel();
+$a-&gt;set_text('1');
+$b = $a;
+$b-&gt;set_text('2');
+echo $a-&gt;get();//still 1
+</code></pre>
+
+<p>不要去复制变量，当你要定义变量的时候你只要使用&amp;就好了：</p>
+
+<pre><code>//PHP 4: making references
+$a = new GtkLabel();
+$a-&gt;set_text('1');
+$b = &amp;$a;
+$b-&gt;set_text('2');
+echo $a-&gt;get();//is 2 now
+</code></pre>
+
+<p>然而，一定程度上说，我们还是创建了一个对象副本。为了达到我们的目的，特别是在GTK部件中，我们不得不这样操作：</p>
+
+<pre><code>//PHP 4: reference on instantiation
+$a = &amp;new GtkLabel();
+</code></pre>
+
+<p>在PHP5中，一切都发生了改变：引用传递现在已经是默认的行为了，我们再也不需要使用&amp;符号了！下面的脚本在PHP5和PHP-GTK 2环境中正常工作，没有任何问题：</p>
+
+<pre><code>&lt;?php
+//PHP5: no Ampersand any more
+$a = new GtkLabel();
+$a-&gt;set_text('1');
+$b = $a;
+$b-&gt;set_text('2');
+echo $a-&gt;get_text();//is 2
+?&gt;
+</code></pre>
+
+<p>再也不需要&amp;啦！之前我们在PHP4和GTK 1中我们的操作可能像是这样：</p>
+
+<pre><code>$window-&gt;connect_object('destroy', array(&amp;$object, 'function'));
+</code></pre>
+
+<p>但是在PHP5和GTK 2中我们只要这样操作就可以了：</p>
+
+<pre><code>$window-&gt;connect_object('destroy', array($object, 'function'));
+</code></pre>
+
+<h3>GTK 常量</h3>
+
+<p>GTK+使用了相当多的常量。在PHP-GTK 1中，它们被定义在全局作用域中，你只需要按照如下操作就可以使它们生效：</p>
+
+<pre><code>echo GTK_WIN_POS_CENTER;
+</code></pre>
+
+<p>如果你在PHP-GTK 2中运行这条代码，页面将会抛出错误：</p>
+
+<pre><code>PHP Notice:  Use of undefined constant GTK_WIN_POS_CENTER -
+assumed 'GTK_WIN_POS_CENTER' in /path/to/file.php on line 23
+</code></pre>
+
+<p>这个问题在于原来的值已经不再被使用了。</p>
+
+<p>PHP 5已经能支持静态类变量了，所以为了不污染PHP-GTK的全局名字空间。它们都被定义在了类Gtk, Gdk等其它类中。</p>
+
+<p>简而言之，你要做的就是（在大多数情况下）将第一个下划线替换成::，这样PHP-GTK 1中的<code>GTK_WIN_POS_CENTER</code>在PHP-GTK 2下就变成了<code>Gtk::WIN_POS_CENTER</code>。</p>
+
+<p>同时，我们也需要注意一下新的代码风格。在PHP-GTK 2的官方文档和代码中，所有的Gtk, Gdk, Pango和Atk等静态变量对比之前的全局变量都是只有首字母大写的。</p>
+
+<h3>连接信号(Connecting Signals)</h3>
+
+<p>在PHP-GTK 1中，为了将信号绑定到一个特殊的函数上时，你要使用<code>connect</code>, <code>connect_object</code>, <code>connect_after</code>或者<code>connect_object_after</code>。这些函数，尤其是<code>connect_object</code>，他们的功能往往不是那么的显而易见。</p>
+
+<p>随着GTK API的改变，PHP-GTK 2做出将<code>connect_object</code>更名成<code>connect_simple</code>，将<code>connect_object_after</code>更名成<code>connect_simple_after</code>的决定。simple在这里意味着你的函数需要极少的参数，这是因为对象本身已经提供了。（Simple here means that you have fewer function parameters because the object itself is missing from them - something that connect_object meant, but did not imply.）</p>
+
+<h3>弃用的部件</h3>
+
+<p>GTK 2中有许多新的部件类。他们中的多数执行起来比老的类更好或者是使用了另外一种方法。由于新的类被引用，老的类就被弃用了。</p>
+
+<p>为了保持向后兼容，老部件现在能然是可用的，可能会在GTK 3中被移除。这就意味你不需要做出很多改变去修改你之前的程序也能够使用它们。然而，你不应该在你的新代码中使用这些弃用部件了。千万不要这样做！</p>
+
+<p><strong>弃用部件清单</strong></p>
+
+<ul>
+<li><p>GtkCList and GtkList => GtkTreeView with GtkListStore</p></li>
+<li><p>GtkCTree => GtkTreeView with GtkTreeStore</p></li>
+<li><p>GtkCombo and GtkOptionMenu => GtkComboBox with GtkTreeModel</p></li>
+<li><p>GtkItemFactory => GtkUIManager</p></li>
+<li><p>GtkOldEditable => GtkEditable</p></li>
+<li><p>GtkPixmap and GtkPreview => GtkImage with GdkPixbuf</p></li>
+<li><p>GtkText => GtkTextView with GtkTextBuffer</p></li>
+</ul>
+
+<p><strong>弃用方法清单</strong></p>
+
+<ul>
+<li>set<em>policy() => set</em>resizable</li>
+</ul>
+
+<p>这份列表可能不完全，如果你发现没有写在上头的弃用部件，请写信到<a href="mailto:php-gtk-doc@lists.php.net" title="php-gtk-doc">php-gtk-doc</a>告知。</p>
+
+<h3>GTK, Pango和它的<del>基</del>朋友们</h3>
+
+<p><strong>目录</strong></p>
+
+<p>当你在编写PHP-GTK程序或者是在查看手册的时候，你总会发现一些看起来非常神秘的缩写。以下是一些重要的缩写的概览：</p>
+
+<p><strong>PHP</strong></p>
+
+<p>PHP - PHP: 超文本处理器 - 是一个被广泛使用的专为Web开发通用脚本语言,可以嵌入到HTML中。</p>
+
+<p><strong>GTK</strong></p>
+
+<p>GTK - GIMP工具包（Gimp Tool Kit) - 是用来设计图形用户界面的库文件。 它支持运行在大多数的类Unix平台，Windows平台和帧缓冲设备爱上。</p>
+
+<p>GTK库本身包含了许多的图形组件的部件，例如 GtkButton 或者是 GtkTextView。</p>
+
+<p>GTK库依赖于GDK, Pango, ATK和GLib等其它库文件的支持。这些所有的库统一被称为GTK+。</p>
+
+<p><strong>GDK</strong></p>
+
+<p>GDK - GIMP绘图工具（Gimp Drawing Kit) - 是允许GTK+支持多窗口系统的抽象层。GDK为X11，Windows和Linux帧缓冲设备提供了绘图和窗口系统控件。</p>
+
+<p><strong>Pango</strong></p>
+
+<p>Pango是为多语言文字处理提供的库。它围绕代表一段文字的PangoLayout对象（原文为：It centers around the PangoLayout object, which represents a paragraph of text）。Pango为GtkTextView, GtkLabel, GtkEntry等一些显示文本的GTK+控件提供方法。</p>
+
+<p><strong>ATK</strong></p>
+
+<p>ATK即易访问性工具包（Accessibility Tool Kit）。它为图形用户界面的交互提供了一组通用接口访问技术。例如，一个屏幕阅读软件可以利用ATK发现交互界面上的文字然后向盲人用户朗读。</p>
+
+<p>得益于ATK框架，GTK+部件已内部支持访问（原文为GTK+ widgets hav built-in support for accessibility)。</p>
+
+<h2>打包部件</h2>
+
+<p><strong>目录</strong></p>
+
+<p>简介</p>
+
+<p>打包基本篇</p>
+
+<p>容器部件 - GtkHBox和GtkVBox不得不说的故事</p>
+
+<p>利用GtkTable制作表格布局</p>
+
+<p>固定布局</p>
+
+<h3>简介</h3>
+
+<p>本章教程将向大家展示多重方法在一个窗体中排列空间，并告诉大家如何选择正确的方法。</p>
+
+<p>如果你以前使用过VB或者是VC++设计过你的GUI界面的话，你将会好奇为什么你会在部件的位置需要一个教程（原文为you will wonder why you'd need a tutorial on widget placement）。直到现在，它只要像这样操作了（意及窗体布局）：设置窗体的大小，选择一个部件并使用(x, y)坐标系安放它，确定它的宽度和高度。其它的什么也不要做，整个过程非常的简单。你需要固定位置和大小，但是当窗口的大小发生变化后它们甚至还是在原来的位置上 - 它们不知道如何去适应窗体的变化。</p>
+
+<p>在GTK中，所有的东西都是动态的：当窗体大小发生改变时部件会自动调整他们的大小以适应新的窗口，除非你明确地告诉它们不要这样做。当然设置一个部件还是比较复杂的，不仅仅是固定它的大小和位置，但是你得到了一个灵活的窗口,可以几乎任何尺寸的大小,同时还好看。</p>
+
+<h3>打包基本篇</h3>
+
+<p>Gtk中有许多不同类型的部件，根据包含的子部件的数量可以分为：</p>
+
+<ul>
+<li><p>不包含子部件 - 一般的部件</p></li>
+<li><p>只包含一个部件: 箱部件</p></li>
+<li><p>包含两个或两个以上的部件：容器部件</p></li>
+</ul>
+
+<p>在大多数案例中你会以GtkWindow，一个箱部件，这个最基本的部件开始。这就意味着它既能容纳一个子部件。现在的情况是 - 对于一个程序来说一个部件实在是太少了。这个问题的解决办法就是容器部件，你只要再加一个容器部件到窗口上去就好了。对于容器部件来说，你能添加更多的部件，甚至是新的容器部件上去都可以。这就意味着容器部件能够嵌套使用，并且能在你的脑海中准确的形成想要的布局。</p>
+
+<p>不同的容器部件，例如GtkHBox, GtkVBox, GtkTable和GtkFixed，有不同的布局和排列控件的方法。每个部件实现的功能单一，需要混合使用才能实现更高级的布局。</p>
+
+<h3>容器部件 - GtkHBox和GtkVBox不得不说的故事</h3>
+
+<p>最简单而且经常会被我们用到的容器部件就是GtkBox部件了，包括GtkHBox和GtkVBox两个子部件。它们允许按照一排添加部件。GtkHBox部件能够使添加的部件在一条水平线上，而GtkVBox则是使它们保持在一条铅垂线上。</p>
+
+<p>通过pack<em>start() 或者是pack</em>end() 函数添加部件。 pack<em>start() 顺序添加部件，pack</em>end()逆序添加部件。</p>
+
+<p>通过pack<em>start() 和pack</em>end()的三个可选参数，你能够改变窗体的布局，具体可以参考手册。</p>
+
+<p><strong>示例7.1. 利用GtkVBox实现简单的动态布局</strong></p>
+
+<pre><code>&lt;?php
+$w = new GtkWindow();
+$w-&gt;set_title('GtkBox test');
+$w-&gt;connect_simple('destroy', array('gtk', 'main_quit'));
+
+$lbl = new GtkLabel('Your name:');
+$scrwnd = new GtkScrolledWindow();
+$txt = new GtkTextView();
+$scrwnd-&gt;add($txt);
+$btn = new GtkButton('Send');
+
+$vbox = new GtkVBox();
+$w-&gt;add($vbox);
+
+$vbox-&gt;pack_start($lbl, false);
+$vbox-&gt;pack_start($scrwnd, true, true);
+$vbox-&gt;pack_start($btn, false);
+
+$w-&gt;show_all();
+Gtk::main();
+?&gt;
+</code></pre>
+
+<p>运行范例代码并改变窗体大小：多行文本控件会自动调整自己的大小来充满窗体的所有空间，而不需要外加标签或者按钮空间。再打包进￥scrwnd的时候将第三个参数从true变为false后，看看会发生什么？</p>
+
+<p>GtkHButtonBox和GtkVButtonBox是GtkBox控件中比较特殊的子空间：他们的效果和之前的GtkHBox，GtkVBox是一样的，却别是它们只能添加GtkButton控件。它们的出现是为了弥补某些布局中需要排放按钮的需求。</p>
+
+<h3>利用GtkTable制作表格布局</h3>
+
+<p>虽然使用GtkBox控件建立动态布局非常简单，但是这样往往很难生成诸如交互控件中所有在左边的标签控件不管它们本身的内容，有同样的宽度。如果你需要表格布局，GtkTable是正确的选择。部件能够跨越多列或者多行，并且能够有不同的填充边距。</p>
+
+<p><strong>示例7.2. 表格布局</strong></p>
+
+<pre><code>&lt;?php
+$w = new GtkWindow();
+$w-&gt;set_title('GtkTable test');
+$w-&gt;connect_simple('destroy', array('gtk', 'main_quit'));
+
+$lbl1   = new GtkLabel('Email address:');
+$lbl2   = new GtkLabel('Id:');
+$lbl3   = new GtkLabel('Name:');
+$align3 = new GtkAlignment(0.0, 0.5, 0, 0);
+$align3-&gt;add($lbl3);
+$txt1   = new GtkEntry();
+$txt2   = new GtkEntry();
+$txt3   = new GtkEntry();
+
+$table  = new GtkTable(2, 2);
+$table-&gt;attach($lbl1  , 0, 1, 0, 1, 0);
+$table-&gt;attach($lbl2  , 0, 1, 1, 2, 0);
+$table-&gt;attach($align3, 0, 1, 2, 3, Gtk::FILL);
+$table-&gt;attach($txt1  , 1, 2, 0, 1);
+$table-&gt;attach($txt2  , 1, 2, 1, 2);
+$table-&gt;attach($txt3  , 1, 2, 2, 3);
+
+$w-&gt;add($table);
+$w-&gt;show_all();
+Gtk::main();
+?&gt;
+</code></pre>
+
+<p>当运行这个例子的时候，你会看到名为Id的标签控件是水平居中的。对大多数部件来说，默认是尽可能的填充所有的可用空间。然而对GtkLabel空间，它不是罪理想的：标签空间必须一边对其。正如set_jstify()函数只适合多行文本一样，我们需要使用GtkAlignment来适当的对齐标签 - 范例中的Name标签可以看到效果。</p>
+
+<h3>固定布局</h3>
+
+<p>这个容器部件没有自己的布局裸机，你不得不告诉每个部件应该放置在哪里。部件的大小还是会自动决定的，当然你也可以使用set<em>size</em>request()函数用一个确切的大小覆盖掉默认的设置。</p>
+
+<p>安放空间是非常简单的，按照如下操作固定它们：改变窗体的大小不会移动或改变部件的大小。你最好当你确定必须使用它的时候使用，通常来说动态容器部件是更好的选择。</p>
+
+<p><strong>示例7.3. 利用GtkFixed实现固定布局</strong></p>
+
+<pre><code>&lt;?php
+$w = new GtkWindow();
+$w-&gt;set_title('GtkFixed test');
+$w-&gt;connect_simple('destroy', array('gtk', 'main_quit'));
+
+$btn = new GtkButton('Button');
+$txt = new GtkEntry();
+
+$fixed = new GtkFixed();
+$w-&gt;add($fixed);
+
+$fixed-&gt;put($btn, 10, 100);
+$fixed-&gt;put($txt, 50, 10);
+$btn-&gt;set_size_request(150, -1);
+
+$w-&gt;show_all();
+Gtk::main();
+?&gt;
+</code></pre>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

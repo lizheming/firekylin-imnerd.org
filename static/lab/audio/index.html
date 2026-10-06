@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Recoder</title>
+    <script type="text/javascript" src="recorder.js"></script>
+    <script type="text/javascript" src="recorderWorker.js"></script>
+    <script type="text/javascript" src="SaeChannel.js"></script>
+    <script type="text/javascript">
+        channel = (function() {
+            var community = "privatevideo", root = "http://chatonline.sinaapp.com/", server=root+"?community="+community+"&act=";
+            return {
+                community: community,
+                server: root,
+                create: function(name) {
+                    $.getJSON(server+'create&name='+name, function(res) {
+                        if(!res.status) return false;
+                        ch = sae.Channel(res.msg);
+                        ch.onmessage = channel.onmessage;
+                        ch.onopen = channel.onopen;
+                        ch.onclose = channel.onclose;
+                    })
+                },
+                onmessage: function(msg) {
+                    if(msg.data == 'checkonline') return false;
+                    html.append($.parseJSON(msg.data), function(text) {
+                        $('.chatlist').append(text);
+                        $('.chatlist')[0].scrollTop = $('.chatlist')[0].scrollHeight;
+                        channel.users(function(users) {html.refresh(users.length)});
+                    });
+                },
+                onopen: function() {
+                    //$.post(server+"connected", {name:user.name});
+                },
+                onclose: function() {
+                    $.post(server+"disconnect", {name:user.name});
+                },
+                send: function(user) {
+                    $.ajax({
+                        url: server+'send',
+                        data: {name:user.name, text:user.text, uuid:user.uuid?user.uuid:''},
+                        type: 'POST',
+                        beforeSend: function() {
+                            $('#sendmessage').html('正在发送消息...');
+                        },
+                        error: function() {
+                            $('#sendmessage').html('发送失败请重新发送!');
+                            setTimeout('$(\'#sendmessage\').html(\'\')', 1000);
+                        },
+                        success: function(time) {
+                            $('#sendmessage').html('发送成功!');
+                            setTimeout('$(\'#sendmessage\').html(\'\')', 1000);
+                            $('.textarea').val('');
+                        }
+                    })
+                },
+                users: function(callback) {
+                    $.getJSON(server+"users", function(res) {
+                        if(!res.status) return false;
+                        if(callback) callback(res.msg);
+                    })
+                },
+                recent: function(callback, id, num) {
+                    var c = arguments[0],
+                        id=arguments[1]?'&end='+arguments[1]:'',
+                        num=arguments[2]?arguments[2]:30;
+                    $.getJSON(server+'recent'+id+'&num='+num, callback);
+                },
+                filter: function(query, callback) {
+                    $.get(server+'filter', {q: query, community: community}, function(o) {o = $.parseJSON(o);if (!o.status) callback(o.data)});
+                }
+            };
+        })();
+    </script>
+</head>
+<body>
+<video id="video" autoplay></video>
+<audio id="audio" autoplay></audio>
+<a href="#" id="save">录音</a>
+<script type="text/javascript">
+window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
+var audio_context = new AudioContext();
+
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+navigator.getUserMedia({video: true, audio: true}, startUserMedia, function(e) {
+  console.log('No live audio input: ' + e);
+});
+
+function startUserMedia(stream) {
+  var video = document.querySelector('video');
+  video.src = window.URL.createObjectURL(stream);
+  // create MediaStreamSource and GainNode
+  var input = audio_context.createMediaStreamSource(stream);
+  var volume = audio_context.createGainNode();
+  volume.gain.value = 0.7;
+
+  // connect them and pipe output
+  input.connect(volume);
+  volume.connect(audio_context.destination);
+
+  // connect recorder as well - see below
+  recorder = new Recorder(input);
+}
+
+document.querySelector('#save').onmousedown = function() {
+    this.innerHTML = '正在录音';
+    recorder.record();
+}
+document.querySelector('#save').onmouseup = function() {
+    this.innerHTML = '录音';
+    recorder.stop();
+    recorder.exportWAV(function(blob, filename){
+        var url = (window.URL || window.webkitURL).createObjectURL(blob);
+        var link = window.document.createElement('a');
+        link.href = url;
+        link.download = filename || 'output.wav';
+        var click = document.createEvent("Event");
+        click.initEvent("click", true, true);
+        link.dispatchEvent(click);
+    }, 'audio/amr');
+    recorder.clear();
+}
+</script>
+</body>
+</html>

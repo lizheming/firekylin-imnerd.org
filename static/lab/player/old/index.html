@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    	<meta charset="utf-8" content="" http-equiv="content-type" />
+        <title>红心电台</title>
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.9.0/jquery.min.js"></script>
+        <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery-ui/1.9.2/jquery-ui.min.js"></script>
+        <script type="text/javascript">
+			$(function(){
+				if(localStorage.song) {
+					$('#playlist ul').html('');
+					var song = localStorage.song.split(',');
+					for(i=0,len=song.length;i<len;i++) {
+						if(song[i].length>0) {
+							var _son = song[i].split('|');
+							var li = '<li id="'+_son[0]+'" onclick="play('+_son[0]+')">'+_son[1]+'</li>';
+							$('#playlist ul').append(li);		
+						}
+					}
+				}
+				$("#progressbar").progressbar({value:0}); //设置进度条的初始值。
+				var progress_val=$("#progressbar").progressbar("option","value"); //得到进度条的初始值。
+				$(".slider").slider({animate:true,value:progress_val}); //设置滑动效果为动画效果，设置滑动块的初始值。
+				$('.slider').bind('slide',function(event,ui){ //绑定滑动条的滑动事件。
+					$("#progressbar").progressbar("option","value",ui.value);
+				});
+				$('.slider').bind('slidestop', function(event, ui) {
+					var p = $('#progressbar').progressbar('option', 'value');
+					$('audio')[0].currentTime = p/100*$('audio')[0].duration;
+				});
+				$("#volumebar").progressbar({value: 60});
+				var volumebar_val = $('#volumebar').progressbar('option', 'value');
+				$('#volumebar').slider({animate:true,value:volumebar_val});
+				$('#volumebar').bind('slide', function(event, ui) {
+					$('#volumebar').progressbar('option','value',ui.value);
+				});
+				$('#volumebar').bind('slidestop',function(event, ui) {
+					var p = $('#volumebar').progressbar('option', 'value');
+					$('audio')[0].volume = p/100;
+				});
+				__m='Search...';
+				$('#search').val(__m);
+				$('#search').focus(function() {
+					if($('#search').val()==__m) {
+						$('#search').val('');
+					}
+				});
+				$('#search').blur(function(){
+					if($('#search').val() == '') {
+						$('#search').val(__m);
+					}
+					$('#searchbox #result').html('');
+					$('#searchbox #navi').html('');
+					$('#searchbox #page').val(1);
+				});
+				function search() {
+						$.ajax({
+							url:"http://www.xiami.com/app/nineteen/search/key/"+$('#search').val()+"/page/"+$('#page').val(),
+							type:"GET",
+							dataType:"jsonp",
+							success: function(data) {
+							  $("#searchbox #list").css('display','block'); 
+							  if(data.total > 8) {
+								  $('#searchbox #navi').html('<center>载入更多</center>');
+							  } else {
+							  	  $('#searchbox #navi').html('');  
+							  }
+							  $.each(data.results, function(i,item){
+								  $('<p onclick="add(\''+item.song_id+'\');">'+decodeURIComponent(item.song_name).replace('/\+/ig', ' ')+' - '+decodeURIComponent(item.artist_name)+'</p>').appendTo('#result');
+							  });
+							}
+						});	
+				}
+				$('#searchbox #button').click(function() {
+					if($('#search').val() == '') {
+						alert('Please type a keyword!');
+					} else {
+						$("#searchbox #result").html('');
+						search();
+					}	
+				});
+				$('#searchbox #navi').click(function() {
+					var page = parseInt($("#page").val());
+					$("#page").val(++page);
+					search();
+				});
+				$("#searchbox").keydown(function() {
+					var input = $('#search').is(':focus');
+					if (event.keyCode == "13" && input) {
+						$('#searchbox #button').click();
+					}
+				});
+				$('body').keydown(function() {
+					var input = $('#search').is(':focus');
+					if(event.keyCode == "39" && !input) {
+						$('#toward').click();
+					} else if(event.keyCode=="37" && !input) {
+						$('#back').click();
+					} else if(event.keyCode == "46" && !input) {
+						var d=$('#playlist .now'), ld = d.attr('id')+'|'+d.html();
+						$('#toward').click();
+						d.remove();
+						if(localStorage.song) {
+							localStorage.song = localStorage.song.replace(ld, '');
+							localStorage.song = localStorage.song.replace(',,', ',');
+						}
+					} else if(event.keyCode == "32" && !input) {
+						var play = $('#play');
+						if(play.length>0) {
+							play.click();	
+						} else {
+							$('#pause').click();
+						}
+					}
+				});
+            });
+			function add(id) {
+				if($('#playlist #'+id).length>0) {
+					alert('You have added it before!');
+				} else {
+					$.ajax({
+						url:'api.php?id='+id,
+						type:'GET',
+						dataType:'json',
+						success:function(song) {
+							$('#playlist ul').append('<li onclick="play('+id+')" id="'+id+'">'+song.title+' - '+song.artist+'</li>');
+							var __stor = id+'|'+song.title+' - '+song.artist;
+							if(!localStorage.song) {
+								localStorage.song = __stor;
+							} else {
+								localStorage.song += ','+__stor;
+							}
+						}
+					});
+				}
+				$('#search').blur();
+			}
+			function play(id) {
+				if($('audio')[0].currentTime != 0) {
+					$('audio')[0].pause();
+					$('audio')[0].currentTime = 0;
+				}
+					$.ajax({
+						url:'api.php?id='+id,
+						type:'GET',
+						dataType:'json',
+						async:false,
+						success:function(song) {
+								var url = 'music.php?id='+id+'&location='+song.location, audio = $('audio')[0];
+								audio.src = url;
+								$('#playbox #left img').attr('src', song.pic);
+								$('h2').html(song.title);
+								$('#artist').html(song.artist);
+								audio.play();
+								lyric(song.lyric);
+								$('title').html(song.title+'-'+song.artist);
+								audio.addEventListener('play', function() {
+									$('#pause').attr('id', 'play');
+								},false);
+								audio.addEventListener('timeupdate', function() {
+									var time = parseInt(audio.currentTime), sec = time%60, min = (time-sec)/60;
+									var lid = Math.round(audio.currentTime*100)/100;
+									if(sec<10) sec = 0+String(sec);
+									if(min < 10) min = 0+String(min);
+									$('#progress span').html(min+':'+sec);
+									$('#progressbar').progressbar('option', 'value', audio.currentTime/audio.duration*100);
+									var p = $('#lyric .now'), pt = p.attr('id'), pn = $('#lyric .now').next(), pnt = pn.attr('id');
+									if(audio.currentTime>pnt && pnt != '') {
+										var pf = $('#lyric p:first-child'), margin = parseInt(pf.css('margin-top'));
+										pf.css('margin-top', margin-25+'px');
+										p.removeClass('now');
+										pn.addClass('now');
+									}	
+								},false);
+								audio.addEventListener('ended', function() {
+									audio.currentTime = 0;
+									$('#toward').click();
+								},false);
+							}
+					});
+				$('#playlist .now').removeClass('now');
+				$('#playlist #'+id).addClass('now');
+			}
+			function lyric(url) {
+				$.ajax({
+					url:'lyric.php?url='+url,
+					type:'GET',
+					dataType:'jsonp',
+					success:function(lrc) {
+						if(lrc[0][0]==''&&lrc[0][0]!='0') {
+							$('#lyric').css('overflow-y', 'scroll');
+							$('#lyric').html('<p id="'+lrc[0][0]+'">'+lrc[0][1]+'</p>');
+						} else {
+							$('#lyric').css('overflow-y', 'hidden');
+							$('#lyric').html('<p id="'+lrc[0][0]+'" class="now">'+lrc[0][1]+'</p>');
+						}
+						lrc.shift();
+						$.each(lrc, function(i,item) {
+							var p = '<p id="'+item[0]+'">'+item[1]+'</p>';
+							$('#lyric').append(p);
+						});
+					}	
+				});
+			}
+        </script>
+    </head>
+    <body onLoad="$('#playlist li:first-child').click();">
+    	<div id="player">
+  			<div id="searchbox">
+            	<input type="text" id="search" value="" />
+                <input type="hidden" id="page" value="1">
+                <div id="button"></div>
+                <div id="list">
+                    <div id="result"></div>
+                    <div id="navi"></div>
+                </div>
+            </div>
+        	<div id="playlist">
+            	<ul>
+                    <li onclick="play(1769570445)" id="1769570445" class="now">That's My Goal - Shayne Ward</li>
+                	<li onclick="play(1769686818)" id="1769686818" class="">No Promises - Shayne Ward</li>
+                	<li onclick="play(2083305)" id="2083305">Breathless - Shayne Ward</li>
+                    <li onclick="play(2083327)" id="2083327">A Better Man - Shayne Ward</li>
+                    <li onclick="play(1770434215)" id="1770434215">Tik Tok - Ke$ha</li>
+                    <li onclick="play(1769629171)" id="1769629171" class="">If I Die Young - The Band Perry</li>
+                	<li onclick="play(1770086875)" id="1770086875">I Know - Irma</li>
+                </ul>         
+            </div>
+        	<div id="playbox">
+            	<div id="left">
+                	<img src="http://img.xiami.com/images/album/img63/23463/3850511328148815_2.jpg" width="150px" height="150px" alt="" />
+                </div>
+                <div id="right">
+                	<h2>That's My Goal</h2>
+                    <p>By<span id="artist">Shanye Ward</span></p>
+                    <div id="progress">
+                    	<span>00:00</span>
+                    	<div id="progressbar" class="slider"></div>
+                    </div>
+                    <div id="control">
+                    	<div class="button" id="back"></div>
+                        <div class="button" id="pause"></div>
+                        <div class="button" id="toward"></div>
+                        <div class="button" id="shuffle"></div>
+                        <div id="volume"></div>
+                        <div id="volumebar"></div>
+                    </div>
+                    <audio id="media"></audio>
+                </div>
+            </div>
+            <div id="lyric">
+            </div>
+        </div>
+        <div id="clear"></div>
+        <div id="copyright">
+        Design By <a href="http://phenoland.com" target="_blank" title="">Jclyn</a> | CopyRights © 2013 <a href="http://imnerd.org" target="_blank" title="">Austin</a> | <span id="the">Help</span>
+        </div>
+        <div id="help" class="display">
+        <div id="x">×</div>
+        <div id="content">
+        作者有话要说：
+        <p>亲爱的骚年们，本HTML5特制版红心电台只能使用Webkit内核浏览器，即Chrome，Maxthon，搜狗，360极速，猎豹浏览器等（部分浏览器需要转换为极速模式才能使用）</p>
+        <p>当然IE9和IE10也是完全没有问题的←_←壮哉我大IE啊！</p>
+        <p>非以上浏览器访问可能会出现无法播放的现象，如有此现象者，建议更换浏览器访问。</p>
+        <p>p.s.对Firefox和Opera的用户表示抱歉了，祈求HTML5协议赶快统一吧T_T</p>
+        <p>红心电台支持存取歌曲，添加到列表的歌曲保证在线存储。使用一段时间之后就是你自己的红心电台了，还不带广告哦！</p>
+        <p>对了，我们还支持快捷键的说：</p>
+        <p>←/→：上一首/下一首 | Space:播放/暂停 | Delete：删除当前播放曲目</p>
+        </div>
+        </div>
+        <script type="text/javascript">
+			function getRandom(n){return Math.floor(Math.random()*n+1)}
+			$('#control').on('click', '#play', function(e) {
+				$(this).attr('id', 'pause');
+				$('audio')[0].pause();
+			});
+			$('#control').on('click', '#pause', function(e) {
+				$(this).attr('id', 'play');
+				$('audio')[0].play();
+			});
+			$('#control').on('click', '#toward', function(e) {
+				var status = $('#control #circle').length, ap = $('#playlist li').length, now = getRandom(ap);
+				if(status>0) {
+					if($('#playlist .now').attr('id') != $('#playlist li:last-child').attr('id')) {
+						play($('#playlist .now').next().attr('id'));
+					} else {
+						play($('#playlist li:first-child').attr('id'));
+					}
+				} else {
+					play($('#playlist li')[now].id);
+				}
+			});
+			$('#control').on('click', '#circle', function(e) {
+				$(this).attr('id','shuffle');
+			});
+			$('#control').on('click', '#shuffle', function(e) {
+				$(this).attr('id', 'circle');
+			});
+			$('#control').on('click', '#back', function(e) {
+				var status = $('#control #circle').length, ap = $('#playlist li').length, now = getRandom(ap);
+				if(status > 0) {
+					if($('#playlist .now').attr('id') != $('#playlist li:first-child').attr('id')) {
+						play($('#playlist .now').prev().attr('id'));
+					} else {
+						play($('#playlist li:last-child').attr('id'));
+					}
+				} else {
+					play($('playlist li')[now].id);
+				}
+			});
+			$('#the').click(function() {
+				$('#help').removeClass('display');
+			});
+			$('#x').click(function() {
+				$('#help').addClass('display');	
+			});
+			if(!localStorage.log) {
+				$('#the').click();
+				localStorage.log = true;
+			}
+        </script>
+    </body>
+</html>

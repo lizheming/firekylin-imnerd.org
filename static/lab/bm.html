@@ -1,0 +1,207 @@
+<html>
+<head>
+	<style type="text/css">
+		html {
+			background:url("http://imnerd.blog.35.cn/files/2010/02/vf_p35.jpg") repeat scroll 0 0 transparent;
+			}
+		#description {
+		font-family:Microsoft Yahei,Microsoft Jhenghei;
+    font-size:14px;
+    margin:50px auto auto;
+    width:720px;
+		}
+		#description ha {
+			font-weight:bold;
+			float:right;
+			text-align:right;
+			color:#333399;
+			}
+	        #description p{
+	                background:url("http://imnerd.blog.35.cn/files/2010/02/unicode.png");
+	                text-indent:-900em;
+	                height:54px;
+	                width:300px;
+	        }
+		#set span {
+			float:right;
+			}
+		#example {
+			float:right;
+			text-align:right;
+			color:#333399;
+			}
+		#button {
+			margin-top:2px;
+			}
+		#button span{
+			float:right;
+			}
+		#footer {
+			font-family:microsoft yahei;
+      font-size:12px;
+      margin:35px auto auto;
+      text-align:center;
+      text-shadow:0 1px white;
+      width:720px;
+			}
+  </style>
+<script type="text/javascript">
+<!--
+function fir_decode()
+{
+  var strInput = document.getElementById("text1").value
+  var strDeCode = strInput
+  strRep = "\\"
+  strHaf = "%u"
+  while (-1!=strDeCode.indexOf(strRep))
+  {
+      strDeCode = strDeCode.replace(strRep,strHaf)
+      strDeCode = strDeCode.replace(' ','')
+      strDeCode = unescape(strDeCode)
+  }
+  document.getElementById("text1").value=strDeCode
+}
+
+
+function fir_encode()
+{
+  var strInput = document.getElementById("text1").value
+  var strEnCode = escape(strInput)
+  strRep = "\\"
+  strHaf = "%u"
+  while (-1!=strEnCode.indexOf(strHaf))
+  {
+      strEnCode = strEnCode.replace(strHaf,strRep)
+  }
+  while (-1!=strEnCode.indexOf("%25"))
+  {
+      strEnCode = strEnCode.replace("%25","\\")
+  }
+
+  document.getElementById("text1").value=strEnCode
+
+
+
+}
+
+function fir_decode2()
+{
+  var strInput = document.getElementById("text1").value
+  var strDeCode = strInput
+  strRep = "\\u"
+  strHaf = "\\"
+  while (-1!=strDeCode.indexOf(strRep))
+  {
+      strDeCode = strDeCode.replace(strRep,strHaf)
+      strDeCode = strDeCode.replace(' ','')
+      strDeCode = unescape(strDeCode)
+  }
+  document.getElementById("text1").value=strDeCode
+  fir_decode()
+}
+
+
+function fir_encode2()
+{
+  var strInput = document.getElementById("text1").value
+  var strEnCode = escape(strInput)
+  strRep = "\\"
+  strHaf = "\\u"
+  while (-1!=strEnCode.indexOf(strHaf))
+  {
+      strEnCode = strEnCode.replace(strHaf,strRep)
+  }
+  document.getElementById("text1").value=strEnCode
+  fir_encode()
+}
+
+function fir_decode3()
+{
+  var strInput = document.getElementById("text1").value
+  var strDeCode = strInput
+  strRep = document.getElementById("text2").value
+  strHaf = document.getElementById("text3").value
+  if ((''!=strRep)||(''!=strHaf))
+  {
+    while (-1!=strDeCode.indexOf(strRep))
+    {
+        strDeCode = strDeCode.replace(strRep,strHaf)
+        strDeCode = strDeCode.replace(' ','')
+        strDeCode = unescape(strDeCode)
+    }
+  }
+  document.getElementById("text1").value=strDeCode
+  fir_decode()
+}
+
+
+function fir_encode3()
+{
+  var strInput = document.getElementById("text1").value
+  var strEnCode = escape(strInput)
+  strRep = document.getElementById("text2").value
+  strHaf = document.getElementById("text3").value
+  if ((''!=strRep)||(''!=strHaf))
+  {
+    while (-1!=strEnCode.indexOf(strHaf))
+    {
+        strEnCode = strEnCode.replace(strHaf,strRep)
+    }
+  }
+  document.getElementById("text1").value=strEnCode
+  fir_encode()
+}
+
+
+--> 
+</script>
+<title>Unicode编译工具</title>
+</head>
+<body>
+	<div id="description">
+	<a href="http://imnerd.org/bm.html"><p>Unicode To UTF-8</p></a>
+<ha>
+	<ul style="list-style-type:none;list-style-image:none;">
+<li>大家好，欢迎大家使用苏洋版UTF-8——Unicode转码工具！</li>
+<li>此工具有两种工作模式：</li>
+<li>一、默认符号“\”{也就是说Unicode编码前缀是“\”这个的用此模式}</li>
+<li>二、自定义符号{也就是说此模式可以自定义Unicode编码前缀，默认前缀是“\u”哦！}</li>
+<li>祝大家使用愉快！</li>
+</ul>
+</ha>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div id="set">
+默认符号A"\":<input type="text"  id="text2"> <input type="button" onClick="fir_decode3()" value="自定义解码"> 
+<span>自定义符号B"\u":<input type="text" id="text3"> <input type="button" onClick="fir_encode3()" value="自定义编码"></span>
+</div>
+<textarea id="text1" style="width:720px;height:200px;"></textarea> 
+
+
+<br />
+<div id="button">
+<input type="button" onClick="fir_decode()" value="解码">
+<input type="button" onClick="fir_encode()" value="编码"> 
+<span>
+<input type="button" onClick="fir_decode2()" value="解码2"> 
+<input type="button" onClick="fir_encode2()" value="编码2">  
+</span>
+</div>
+<br />
+<div id="example">
+如何使用？<br />
+编码/解码方式一：CSS支持的UNICODE转义为类似“\6D4B\8BD5”的ASCII码。<br />
+编码/解码方式二：JS支持的UNICODE转义为类似“\u6D4B\u8BD5”的ASCII码。<br />
+</div>
+</div>
+<br /><br />
+<div id="footer">
+	Unicode to UTF-8&nbsp;|&nbsp;Created By <a href="http://promiseforever.com">SuYang</a>&nbsp;|&nbsp;Design By <a href="http://imnerd.org">GongZi</a>
+</div>
+</body>
+</html>

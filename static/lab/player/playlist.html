@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<style type="text/css">
+		.radius {
+			-webkit-border-radius:5px 5px 5px 5px;
+			-moz-border-radius:5px 5px 5px 5px;
+			-o-border-radius:5px 5px 5px 5px;
+			border-radius:5px 5px 5px 5px;
+		}
+		#playlist {
+			width:250px;
+			background:#C4753D;
+			padding:5px;
+			color:#FFF;
+		}
+		#playlist ul {
+			padding:0;
+			margin:0;
+			width:100%;
+			overflow-x:hidden;
+			max-height:150px;
+			overflow-y:auto;
+		}
+		#playlist li {
+			list-style-type: none;
+			line-height: 20px;
+			height:20px;
+			overflow-y:hidden;
+			padding: 0 5px;
+			margin: 5px 0;
+			cursor: pointer;
+			font-size: 13px;
+			background: #FF6503;
+			-webkit-border-radius:2px 2px 2px 2px;
+			-moz-border-radius:2px 2px 2px 2px;
+			-o-border-radius:2px 2px 2px 2px;
+			border-radius:2px 2px 2px 2px;
+			opacity:0.6;
+		}
+		#playlist li:hover {
+			opacity:1;
+		}
+		div.openyy {
+			cursor: pointer;
+			text-decoration: none;
+			font: 12px/1.2 "Helvetica Neue",Helvetica,Arial,sans-serif;
+			overflow: hidden;
+			display: block;
+			width: 250px;
+			height: 30px;
+			line-height: 30px;
+			white-space: nowrap;
+			background-color: #FF6503;
+			color: #fff;
+			border-bottom: #C4753D 1px solid;
+			text-align: center;
+			border-radius: 3px;
+			text-shadow: 0-1px 0 rgba(0, 0, 0, .2);
+			font-size: 14px
+		}
+		.openyy span {
+			float: left;
+			margin-left: 10px;
+			width: 210px;
+			overflow: hidden;
+			text-align: left
+		}
+		#play {
+			width: 0;
+			height: 0;
+			border:10px solid transparent;
+			border-left: 15px solid #FFF;
+			float: right;
+			margin-top: 5px
+		}
+		#pause {
+			width: 5px;
+			height: 20px;
+			border-left: 5px solid #FFF;
+			border-right: 5px solid #FFF;
+			float: right;
+			margin-top: 5px;
+			margin-right: 10px
+		}
+		#progress {
+			height: 30px;
+			background: #FF8F00;
+			position: absolute;
+			opacity: 0.5;-moz-opacity: 0.5;
+			filter: alpha(opacity = 50)
+		}
+	</style>
+</head>
+<body>
+<div id="playlist" class="radius">
+    <div class="openyy">
+	    <div id="progress"></div>
+	    <div id="box"></div>
+	    <span></span>
+	    <div id="play"></div>
+	</div>
+	<ul></ul>
+</div>
+<script src="http://lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js"></script>
+<script src="http://imnerd.org/usr/plugins/XiaMiPlayer/jplayer/jquery.jplayer.min.js"></script>
+<script>
+var w = window, d = document, s = w.location.search.substr(1), u = d.getElementsByTagName('ul')[0];
+s.split('&').forEach(function(i) {
+	var p = i.split('=');
+	switch(p[0]) {
+		case 'songs':
+			p[1].split(',').forEach(function(item) {
+				var l = document.createElement('li');
+				if( (/[a-z]/i).test(item) ){
+					var q = item.split('|');
+					l.setAttribute('data-url', q[0]);
+					l.setAttribute('data-title', q[1]); 
+					l.innerHTML = q[1];
+				} else {
+					$.getJSON('http://imnerd.org/lab/player/apiv2.php?id='+item+'&callback=?', function(data) {
+						l.setAttribute('data-id', data.id);
+						l.setAttribute('data-url', data.location);
+						l.setAttribute('data-title', data.title);
+						l.setAttribute('data-artist', data.artist);
+						l.setAttribute('data-lyric', data.lyric);
+						l.innerHTML = data.title + '-' + data.artist;
+					})
+
+				}
+				u.appendChild(l);
+			});
+		break;
+		case 'colors':
+			var t = p[1].split('|').map(function(item){return '#'+item;});
+			$('.openyy').css({'background':t[0], 'border-bottom-color':t[1]});
+			$('#progress').css('background', t[1]);
+			$('#playlist').css('background', t[1]);
+			$('#playlist li').css('background', t[0]);
+		break;
+	}
+});
+
+$(document).on('click', '#playlist li', function() {
+	box.setplay(this.getAttribute('data-url'));
+	box.play();
+})
+$(document).on('click', '#play', function() {
+	box.play();
+})
+$(document).on('click', '#pause', function() {
+	box.pause();
+})
+
+var box = {
+	setplay: function(url) {
+		box.clear();
+		var t = $('li[data-url="'+url+'"]');
+		$('#box').jPlayer({
+			ready: function(e) {
+				t.addClass('now');
+				//$('.openyy span').text(t.text());
+				$(this).jPlayer('setMedia', {mp3: url, wma: url, ogg: url, ape: url}).jPlayer('play');
+				/* lyric */
+				if(t.attr('data-lyric') != null) {
+					box.getlyric(t.attr('data-lyric'), function(lrc) {
+						var m = 0;
+						$('#box').on($.jPlayer.event.timeupdate, function(e) {
+							if(e.jPlayer.status.currentTime>lrc[m][0]) $('.openyy span').html(lrc[m][1]), m++;
+						});
+					})
+				}
+			},
+			preload: 'auto',
+			play: function() {
+				$('.penyy #play').attr('id', 'pause');
+			},
+			ended: function() {
+				t.next() != null ? t.next().click() : $('#playlist li:first-child').click();
+			},
+			swfPath: './box/',
+			supplied: 'mp3,wma,ogg,ape',
+			timeupdate: function(e) {
+				/* progress bar */
+				$('#progress').width(Math.round(e.jPlayer.status.currentPercentAbsolute/100*$('.openyy span').width()));
+			}
+		});		
+	},
+	play: function() {
+		$('.openyy #play').attr('id', 'pause');
+		$('#box').jPlayer('play');
+	},
+	pause: function() {
+		$('.openyy #pause').attr('id', 'play');
+		$('#box').jPlayer('pause');
+	},
+	clear: function() {
+		$('#box').jPlayer('destroy');
+	},
+	getlyric: function(url, callback) {
+		$.getJSON('http://imnerd.org/lab/player/lyric.php?url='+url+'&callback=?', function(res){callback(res)});
+	}
+}
+
+box.setplay($('#playlist li:first-child').attr('data-url'));
+</script>
+</body>
+</html>

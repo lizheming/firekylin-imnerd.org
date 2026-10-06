@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>mobile plyaer</title>
+    <meta name="format-detection" content="telephone=no" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://lib.baomitu.com/chimee-mobile-player/0.2.8/chimee-mobile-player.browser.css"
+    />
+    <script src="https://lib.baomitu.com/chimee-mobile-player/0.2.8/chimee-mobile-player.min.js"></script>
+  </head>
+  <body>
+    <div id="wrapper"></div>
+    <script>
+      new ChimeeMobilePlayer({
+        wrapper: "#wrapper", // video dom容器
+        src: "http://chimee.org/vod/1.mp4",
+        autoplay: true,
+        controls: true,
+        playsInline: true,
+        preload: "auto",
+        x5VideoPlayerFullscreen: true,
+        x5VideoOrientation: "landscape|portrait",
+        xWebkitAirplay: true,
+        muted: true,
+        // removeInnerPlugins: ['chimeeMobiControlbar', 'chimeeState'] // 需要移除的插件
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<style>
+#circle {
+  width: 50px;
+  height: 50px;
+  background: red;
+  border-radius: 50px;
+  position: absolute;
+	  left: 0;
+		  top: 50%;
+}
+</style>
+<div id="result"></div>
+<div id="circle"></div>
+<script>
+var v = 0;
+var s = 0;
+document.querySelector('#result').innerHTML = v;
+window.addEventListener('devicemotion', function(e) {
+	  var a = Math.round(e.acceleration.x*100)/100;
+	  var t = e.interval;
+	  s = s + v * t + 1/2 * a * t * t;
+	  v = v + a * t;
+	  var circle = document.querySelector('#circile');
+	  circle.style.left = parseInt(circle.style.left) + s + 'px';
+
+	  document.querySelector('#result').innerHTML = s;
+	  
+});
+
+//document.addEventListener('touchend', function() {
+//    alert('vibrate');
+//    navigator.vibrate(10000);
+//});
+</script>
+
