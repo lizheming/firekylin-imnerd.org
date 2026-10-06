@@ -1,0 +1,10 @@
+<% layout('./layout') %>
+<% const site = await firekylin.widget('Widget_Options'); %>
+<% block('title', () => { %>分类 - <%= site.title() %><% }) %>
+<% block('headers', () => { %><link rel="canonical" href="<%= site.siteUrl %>/categories"><% }) %>
+<% await blockAsync('content', async () => { const categories = await firekylin.widget('Widget_Metas_Category_List'); %>
+<article class="article-card taxonomy"><h1>分类</h1><div class="taxonomy-grid">
+  <% while (categories.next()) { const cate = categories.row; %><a href="/cate/<%= cate.pathname %>"><strong><%= cate.name %></strong><span><%= cate.count %> 篇文章</span></a>
+    <% if (cate.children) { cate.children.forEach(child => { %><a class="child" href="/cate/<%= child.pathname %>"><strong><%= child.name %></strong><span><%= child.count %> 篇文章</span></a><% }) } %>
+  <% } %>
+</div></article><% }) %>

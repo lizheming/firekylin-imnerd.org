@@ -1,0 +1,2 @@
+<div class="sticky top-16 z-10 hidden lg:block px-6 py-4 bg-primary-bg"><span class="text-lg font-semibold">本文目录</span></div>
+<div class="toc sticky-toc hidden lg:block px-6 pb-6"><nav id="toc-list"><span class="text-tertiary-text">正在生成…</span></nav></div>

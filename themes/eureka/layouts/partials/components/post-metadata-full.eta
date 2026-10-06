@@ -1,0 +1,8 @@
+<div class="flex flex-wrap flex-row items-center my-2 text-tertiary-text">
+  <div class="mr-6 my-2"><%~ include('../fontawesome', {icon: 'calendar', className: 'mr-1'}) %><span><%= firekylin.archive.date('YYYY-MM-DD') %></span></div>
+  <div class="mr-6 my-2"><a href="#comments"><%~ include('../fontawesome', {icon: 'comment', className: 'mr-1'}) %><%= firekylin.archive.commentsNum('%d 条评论') %></a></div>
+  <% if (firekylin.post.markdown_content) { %><div class="mr-6 my-2"><a href="#" id="markdown-source" data-filename="<%= firekylin.post.pathname %>.md"><%~ include('../fontawesome', {icon: 'book', className: 'mr-1'}) %>阅读 Markdown 格式</a></div><script type="application/json" id="markdown-data"><%~ JSON.stringify(firekylin.post.markdown_content).replace(/</g, '\\u003c') %></script><% } %>
+  <div class="mr-6 my-2"><%~ include('../fontawesome', {icon: 'pen', className: 'mr-1'}) %><span><%= firekylin.wordCount %> 字</span></div>
+  <div class="mr-6 my-2"><%~ include('../fontawesome', {icon: 'clock', className: 'mr-1'}) %><span><%= firekylin.readingMinutes %> 分钟阅读时长</span></div>
+  <% if (firekylin.post.cate && firekylin.post.cate.length) { %><div class="mr-6 my-2"><%~ include('../fontawesome', {icon: 'folder', className: 'mr-1'}) %><% firekylin.post.cate.forEach((cate, i) => { %><% if (i) { %>, <% } %><a href="/cate/<%= cate.pathname %>" class="hover:text-eureka"><%= cate.name %></a><% }) %></div><% } %>
+</div>

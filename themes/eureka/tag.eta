@@ -1,0 +1,8 @@
+<% layout('./layout') %>
+<% const site = await firekylin.widget('Widget_Options'); %>
+<% block('title', () => { %>标签 - <%= site.title() %><% }) %>
+<% block('headers', () => { %><link rel="canonical" href="<%= site.siteUrl %>/tags"><% }) %>
+<% await blockAsync('content', async () => { const tags = await firekylin.widget('Widget_Metas_Tag_Cloud'); %>
+<article class="article-card taxonomy"><h1>标签</h1><div class="tag-cloud">
+  <% while (tags.next()) { %><a href="/tag/<%= tags.pathname %>">#<%= tags.name %> <span><%= tags.count %></span></a><% } %>
+</div></article><% }) %>

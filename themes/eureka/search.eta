@@ -1,0 +1,11 @@
+<% layout('./layout') %>
+<% const archive = await firekylin.widget('Widget_Archive', {type: 'search'}); const site = await firekylin.widget('Widget_Options'); %>
+<% block('title', () => { %>站内搜索 - <%= site.title() %><% }) %>
+<% block('headers', () => { %><link rel="canonical" href="<%= site.siteUrl %>/search.html"><% }) %>
+<% await blockAsync('content', async () => { %><article class="article-card search-page"><h1>站内搜索</h1>
+  <form class="search-form" action="/search.html"><input type="search" name="keyword" value="<%= archive.keyword %>" maxlength="80" placeholder="输入关键字…" required><button type="submit">搜索</button></form>
+  <% if (archive.keyword) { %><p class="muted">“<%= archive.keyword %>” 找到 <%= archive.pagination.count %> 条结果</p><div class="search-results">
+    <% while (archive.next()) { %><section><h2><a href="<%= archive.permalink %>"><%= archive.title() %></a></h2><div class="summary"><%~ archive.row.summary %></div></section><% } %>
+    <% if (!archive.pagination.count) { %><p>没有找到相关内容，请换个关键词试试。</p><% } %>
+  </div><% } else { const hotTags = await firekylin.widget('Widget_Metas_Tag_Cloud', {limit: 8}); %><div class="tag-cloud hot-tags"><% while (hotTags.next()) { %><a href="?keyword=<%= encodeURIComponent(hotTags.title.val()) %>"><%= hotTags.title() %></a><% } %></div><% } %>
+</article><% if (archive.pagination) { %><%~ include('./inc/pagination', {pagination: archive.pagination}) %><% } %><% }) %>

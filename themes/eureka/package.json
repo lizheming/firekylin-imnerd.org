@@ -1,0 +1,68 @@
+{
+  "name": "eureka",
+  "version": "1.0.0",
+  "description": "A Firekylin port of the Hugo Eureka theme",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "postcss assets/css/eureka.css -c assets/css/postcss.config.js -o res/css/eureka.css && cp assets/js/eureka.js res/js/eureka.js && cp assets/fontawesome/all.svg res/fontawesome/all.svg"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.2.5",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "postcss-import": "^14.0.1",
+    "tailwindcss": "^3.3.2"
+  },
+  "firekylin": {
+    "widgets": "./widgets.js",
+    "widgetOverrides": ["Widget_Archive"]
+  },
+  "configElements": [
+    {
+      "type": "text",
+      "name": "headerTitle",
+      "label": "顶部导航标题",
+      "help": "留空时使用站点标题"
+    },
+    {
+      "type": "color",
+      "name": "accentColor",
+      "label": "主题强调色",
+      "help": "用于链接、按钮和当前导航项，默认 #38b2ac"
+    },
+    {
+      "type": "text",
+      "name": "footerText",
+      "label": "页脚文字",
+      "help": "留空时显示站点名称与当前年份"
+    },
+    {
+      "type": "html",
+      "name": "postCopyright",
+      "label": "文章版权信息",
+      "help": "显示在每篇文章正文之后"
+    },
+    {
+      "type": "text",
+      "name": "recentCommentsApi",
+      "label": "最近回复 API",
+      "help": "例如：https://example.com/api/comment?type=recent&count=10"
+    },
+    {
+      "type": "html",
+      "name": "friendLinks",
+      "label": "友情链接",
+      "help": "直接填写友情链接 HTML，例如多个 <li><a href=\"...\">名称</a></li>"
+    },
+    {
+      "type": "css",
+      "name": "customCSS",
+      "label": "自定义 CSS"
+    },
+    {
+      "type": "javascript",
+      "name": "customJS",
+      "label": "自定义 JavaScript"
+    }
+  ]
+}

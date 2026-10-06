@@ -1,0 +1,4 @@
+<%
+const viewBoxes = {adjust:'0 0 512 512', bars:'0 0 448 512', book:'0 0 448 512', calendar:'0 0 448 512', clock:'0 0 512 512', comment:'0 0 512 512', edit:'0 0 576 512', folder:'0 0 512 512', pen:'0 0 512 512', rss:'0 0 448 512', search:'0 0 512 512', user:'0 0 448 512'};
+const icon = firekylin.icon;
+%><span class="inline-svg<%= firekylin.className ? ' ' + firekylin.className : '' %>" aria-hidden="true"><svg viewBox="<%= viewBoxes[icon] || '0 0 512 512' %>"><use href="#<%= icon %>"></use></svg></span>

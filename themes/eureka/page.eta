@@ -1,0 +1,8 @@
+<% layout('./layout') %>
+<% const archive = await firekylin.widget('Widget_Archive', {type: 'page'}); const site = await firekylin.widget('Widget_Options'); archive.next(); %>
+<% block('title', () => { %><%= archive.have() ? archive.title() : '页面未找到' %> - <%= site.title() %><% }) %>
+<% block('headers', () => { %><% if (archive.have()) { %><link rel="canonical" href="<%= site.siteUrl + archive.permalink %>"><% } %><% }) %>
+<% block('content', () => { %><article class="article-card page-card">
+  <% if (archive.have()) { %><h1><%= archive.title() %></h1><div class="content"><%~ archive.content() %></div><% if (archive.allow('comment')) { %><%~ include('./inc/comment', {siteOptions: site}) %><% } %>
+  <% } else { %><h1>页面未找到</h1><div class="content"><p>没有找到这个页面。</p></div><% } %>
+</article><% }) %>

@@ -1,0 +1,4 @@
+<div class="text-center p-6 pin-b">
+  <p class="text-sm text-tertiary-text"><% if (firekylin.themeConfig.footerText) { %><%~ firekylin.themeConfig.footerText %><% } else { %>&copy; <%= firekylin.currentYear %> <%= firekylin.site.title() %><% } %> · Powered by <a href="https://firekylin.lithub.cc" rel="nofollow">Firekylin</a> &amp; <a href="https://github.com/wangchucheng/hugo-eureka" rel="nofollow" class="hover:text-eureka">Eureka</a></p>
+  <% if (firekylin.site.row.miitbeian) { %><p class="text-sm text-tertiary-text"><a href="https://beian.miit.gov.cn" target="_blank" rel="nofollow"><%= firekylin.site.row.miitbeian %></a></p><% } %>
+</div>

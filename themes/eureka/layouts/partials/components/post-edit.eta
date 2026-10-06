@@ -1,0 +1,1 @@
+<div class="my-4"><a class="edit-link hover:text-eureka" href="/admin/post/edit/<%= firekylin.post.id %>"><%~ include('../fontawesome', {icon: 'edit', className: 'mr-1'}) %>编辑本页</a></div>
