@@ -1,0 +1,194 @@
+<%
+const serverURL = 'https://imerd.comment.lithub.cc';
+const commentPath = firekylin.ctx.path.replace(/^\/(post|page)/, '');
+const page = Number.parseInt(firekylin.ctx.query.page, 10) || 1;
+const waline = await firekylin.widget('Widget_Custom_Waline@comments', {
+  path: commentPath, 
+  page, 
+  pageSize: 10,
+  serverURL: serverURL
+});
+const comments = waline.stack;
+const pagination = waline.pagination || {count: comments.length, totalPages: 1, pageSize: 20, currentPage: page};
+const apiURL = serverURL ? `${serverURL}/api` : '';
+const pad = number => String(number).padStart(2, '0');
+const formatTime = value => {
+  const date = new Date(Number(value));
+  return Number.isNaN(date.getTime()) ? '' : `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+};
+const avatarURL = comment => comment.avatar || `https://gravatar.loli.net/avatar/${comment.mail || ''}?d=mp`;
+%>
+
+<h2 class="text-lg font-semibold mb-4"><span class="comment-content comment-count"><%= pagination.count || 0 %></span> 评论</h2>
+<div class="content">
+  <div id="waline-comments" class="v" data-class="v">
+    <% if (apiURL) { %>
+    <div class="vpanel">
+      <div class="vavatar">
+        <svg viewBox="0 0 1024 1024" fill="#757f8a" xmlns="http://www.w3.org/2000/svg"><path d="M64 524C64 719.602 189.356 885.926 364.113 947.017 387.658 953 384 936.115 384 924.767V847.107C248.118 863.007 242.674 773.052 233.5 758.001 215 726.501 171.5 718.501 184.5 703.501 215.5 687.501 247 707.501 283.5 761.501 309.956 800.642 361.366 794.075 387.658 787.497 393.403 763.997 405.637 743.042 422.353 726.638 281.774 701.609 223 615.67 223 513.5 223 464.053 239.322 418.406 271.465 381.627 251.142 320.928 273.421 269.19 276.337 261.415 334.458 256.131 394.888 302.993 399.549 306.685 432.663 297.835 470.341 293 512.5 293 554.924 293 592.81 297.896 626.075 306.853 637.426 298.219 693.46 258.054 747.5 262.966 750.382 270.652 772.185 321.292 753.058 381.083 785.516 417.956 802 463.809 802 513.5 802 615.874 742.99 701.953 601.803 726.786 625.381 750.003 640 782.295 640 818.008V930.653C640.752 939.626 640 948.665 655.086 948.665 832.344 888.962 960 721.389 960 524 960 276.576 759.424 76 512 76S64 276.576 64 524Z"/></svg>
+      </div>
+      <div class="vwrap">
+        <p class="cancel-reply text-right" title="取消回复"><button type="button" class="cancel-reply-btn" aria-label="取消回复">×</button></p>
+        <div class="vedit"><textarea class="veditor vinput" placeholder="Just Go Go."></textarea></div>
+        <div class="vrow">
+          <div class="vcol vcol-30"><a aria-label="Markdown is supported" href="https://guides.github.com/features/mastering-markdown/" class="vicon" target="_blank" rel="noopener noreferrer"><svg class="markdown" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M14.85 3H1.15C.52 3 0 3.52 0 4.15v7.69C0 12.48.52 13 1.15 13h13.69c.64 0 1.15-.52 1.15-1.15v-7.7C16 3.52 15.48 3 14.85 3zM9 11H7V8L5.5 9.92 4 8v3H2V5h2l1.5 2L7 5h2v6zm2.99.5L9.5 8H11V5h2v3h1.5l-2.51 3.5z"/></svg></a></div>
+          <div class="vcol vcol-70 text-right"><button type="button" title="Cmd|Ctrl+Enter" class="vsubmit vbtn" data-login="使用 GitHub 登录回复" data-user="回复">使用 GitHub 登录回复</button></div>
+        </div>
+        <div class="vinput vpreview" style="display:none"></div><div class="vmark"></div>
+      </div>
+    </div>
+    <% } else { %><p class="muted">Waline 评论服务尚未配置。</p><% } %>
+
+    <div class="vcards">
+      <% comments.forEach(comment => { %>
+      <div class="vcard" id="<%= comment.objectId %>">
+        <img class="vimg" src="<%= avatarURL(comment) %>" alt="">
+        <div class="vh">
+          <div class="vhead">
+            <% if (comment.link) { %><a class="vnick" rel="nofollow noopener noreferrer" href="<%= comment.link %>" target="_blank"><%= comment.nick %></a><% } else { %><span class="vnick"><%= comment.nick %></span><% } %>
+            <% if (comment.browser) { %><span class="vsys"><%= comment.browser %></span><% } %><% if (comment.os) { %><span class="vsys"><%= comment.os %></span><% } %>
+          </div>
+          <div class="vmeta"><span class="vtime"><%= formatTime(comment.time) %></span><button type="button" class="vat">回复</button></div>
+          <div class="vcontent" data-expand="查看更多..."><%~ comment.comment %></div>
+          <div class="vreply-wrapper"></div>
+          <div class="vquote">
+            <% (comment.children || []).forEach(child => { %>
+            <div class="vcard" id="<%= child.objectId %>">
+              <img class="vimg" src="<%= avatarURL(child) %>" alt="">
+              <div class="vh">
+                <div class="vhead"><% if (child.link) { %><a class="vnick" rel="nofollow noopener noreferrer" href="<%= child.link %>" target="_blank"><%= child.nick %></a><% } else { %><span class="vnick"><%= child.nick %></span><% } %><% if (child.browser) { %><span class="vsys"><%= child.browser %></span><% } %><% if (child.os) { %><span class="vsys"><%= child.os %></span><% } %></div>
+                <div class="vmeta"><span class="vtime"><%= formatTime(child.time) %></span><button type="button" class="vat">回复</button></div>
+                <div class="vcontent" data-expand="查看更多..."><%~ child.comment %></div><div class="vreply-wrapper"></div>
+              </div>
+            </div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+    <%~ include('./pagination', {pagination}) %>
+  </div>
+</div>
+
+<% if (apiURL) { %>
+<script>
+(() => {
+  const apiURL = <%~ JSON.stringify(apiURL).replace(/</g, '\\u003c') %>;
+  const cacheKey = 'comment_cache';
+  const escapeHTML = value => String(value || '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+
+  function getCache() {
+    try {
+      const cache = JSON.parse(localStorage.getItem(cacheKey) || '{}');
+      Object.keys(cache).forEach(key => {
+        cache[key] = (cache[key] || []).filter(comment => Date.now() - comment.time < 600000);
+        if (!cache[key].length) delete cache[key];
+      });
+      if (Object.keys(cache).length) localStorage.setItem(cacheKey, JSON.stringify(cache));
+      else localStorage.removeItem(cacheKey);
+      return cache;
+    } catch (error) { return {}; }
+  }
+
+  function setCache(comment) {
+    const cache = getCache();
+    cache[location.pathname] = cache[location.pathname] || [];
+    cache[location.pathname].push(comment);
+    localStorage.setItem(cacheKey, JSON.stringify(cache));
+  }
+
+  async function getUserInfo() {
+    if (!localStorage.WALINE_TOKEN) return null;
+    const response = await fetch(`${apiURL}/token`, {headers: {Authorization: `Bearer ${localStorage.WALINE_TOKEN}`}});
+    if (!response.ok) return null;
+    return (await response.json()).data;
+  }
+
+  function renderUser(user) {
+    document.querySelectorAll('.vpanel > .vavatar').forEach(avatar => {
+      avatar.replaceChildren();
+      const link = document.createElement('a');
+      link.className = 'vlink'; link.target = '_blank'; link.rel = 'noopener noreferrer';
+      link.href = `${apiURL.replace(/\/api$/, '/ui')}?token=${encodeURIComponent(localStorage.WALINE_TOKEN)}`;
+      const image = document.createElement('img');
+      image.src = user.avatar || `//seccdn.libravatar.org/avatar/${user.mailMd5}?s=220&r=X&d=mm`; image.alt = user.nick || '';
+      const logout = document.createElement('button');
+      logout.type = 'button'; logout.className = 'vlogout'; logout.textContent = '×';
+      link.appendChild(image); avatar.append(link, logout);
+    });
+    document.querySelectorAll('.vsubmit').forEach(button => { button.textContent = button.dataset.user; });
+  }
+
+  function commentHTML(comment) {
+    const date = new Date(Number(comment.time));
+    const time = Number.isNaN(date.getTime()) ? '' : date.toISOString().slice(0, 19).replace('T', ' ');
+    const nick = comment.link ? `<a class="vnick" rel="nofollow noopener noreferrer" href="${escapeHTML(comment.link)}" target="_blank">${escapeHTML(comment.nick)}</a>` : `<span class="vnick">${escapeHTML(comment.nick)}</span>`;
+    return `<div class="vcard" id="${escapeHTML(comment.objectId)}"><img class="vimg" src="${escapeHTML(comment.avatar || `https://gravatar.loli.net/avatar/${comment.mail || ''}?d=mp`)}" alt=""><div class="vh"><div class="vhead">${nick}<span class="vsys">${escapeHTML(comment.browser)}</span><span class="vsys">${escapeHTML(comment.os)}</span></div><div class="vmeta"><span class="vtime">${time}</span><button type="button" class="vat">回复</button></div><div class="vcontent" data-expand="查看更多...">${comment.comment || ''}</div><div class="vreply-wrapper"></div>${comment.rid ? '' : '<div class="vquote"></div>'}</div></div>`;
+  }
+
+  function showComment(comment) {
+    if (comment.rid) {
+      const root = document.getElementById(String(comment.rid));
+      root?.querySelector(':scope > .vh > .vquote')?.insertAdjacentHTML('beforeend', commentHTML(comment));
+    } else document.querySelector('.vcards').insertAdjacentHTML('afterbegin', commentHTML(comment));
+    const count = document.querySelector('.comment-count');
+    count.textContent = String((parseInt(count.textContent, 10) || 0) + 1);
+  }
+
+  async function submit(button) {
+    const panel = button.closest('.vpanel');
+    const editor = panel.querySelector('.veditor');
+    if (!editor.value.trim()) return editor.focus();
+    button.disabled = true;
+    try {
+      const response = await fetch(`${apiURL}/comment`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.WALINE_TOKEN}`},
+        body: JSON.stringify({comment: editor.value, nick: '', mail: '', link: '', ua: navigator.userAgent, url: location.pathname, rid: panel.dataset.rid || undefined, pid: panel.dataset.pid || undefined})
+      });
+      const result = await response.json();
+      if (!response.ok || result.errno) throw new Error(result.errmsg || '评论提交失败');
+      setCache(result.data); showComment(result.data); editor.value = '';
+      window.dispatchEvent(new CustomEvent('comment', {detail: result.data}));
+    } catch (error) { alert(error.message); }
+    finally { button.disabled = false; }
+  }
+
+  function reply(button) {
+    const parent = button.closest('.vcard');
+    const root = parent.closest('.vquote')?.closest('.vcard') || parent;
+    const wrapper = parent.querySelector('.vreply-wrapper');
+    wrapper.innerHTML = document.querySelector('.v > .vpanel').outerHTML;
+    const panel = wrapper.querySelector('.vpanel');
+    panel.dataset.rid = root.id; panel.dataset.pid = parent.id;
+    const editor = panel.querySelector('textarea');
+    editor.value = `[@${parent.querySelector('.vnick').textContent}](#${parent.id}): `; editor.focus();
+  }
+
+  (getCache()[location.pathname] || []).forEach(comment => { if (!document.getElementById(String(comment.objectId))) showComment(comment); });
+  getUserInfo().then(user => { if (user) renderUser(user); }).catch(() => {});
+  document.addEventListener('click', event => {
+    if (event.target.closest('.vlogout')) { delete localStorage.WALINE_TOKEN; location.reload(); return; }
+    const submitButton = event.target.closest('.vsubmit');
+    if (submitButton) {
+      if (submitButton.textContent === submitButton.dataset.user) submit(submitButton);
+      else {
+        const width = 900, height = 600;
+        const popup = window.open(`${apiURL}/oauth?type=github&redirect=/ui/profile`, '_blank', `width=${width},height=${height},left=${(innerWidth-width)/2},top=${(innerHeight-height)/2}`);
+        const receiver = ({data}) => {
+          if (!data || data.type !== 'userInfo') return;
+          window.removeEventListener('message', receiver);
+          if (data.data.token) { popup?.close(); localStorage.WALINE_TOKEN = data.data.token; renderUser(data.data); }
+        };
+        window.addEventListener('message', receiver);
+      }
+      return;
+    }
+    const replyButton = event.target.closest('.vat');
+    if (replyButton) { reply(replyButton); return; }
+    event.target.closest('.cancel-reply-btn')?.closest('.vreply-wrapper')?.replaceChildren();
+  });
+})();
+</script>
+<% } %>

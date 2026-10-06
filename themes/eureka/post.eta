@@ -2,7 +2,7 @@
 <% const archive = await firekylin.widget('Widget_Archive', {type: 'post'}); const site = await firekylin.widget('Widget_Options'); archive.next(); const post = archive.row; const plainText = archive.content().replace(/<[^>]+>/g, '').replace(/&[^;]+;/g, ' ').trim(); const wordCount = Array.from(plainText.replace(/\s+/g, '')).length; const readingMinutes = Math.max(1, Math.ceil(wordCount / 400)); const ageDays = Math.max(0, Math.floor((Date.now() - new Date(post.update_time || post.create_time).getTime()) / 86400000)); %>
 <% block('title', () => { %><%= archive.title() %> - <%= site.title() %><% }) %>
 <% block('headers', () => { %><link rel="canonical" href="<%= site.siteUrl + archive.permalink %>"><meta property="og:type" content="article"><meta property="og:title" content="<%= archive.title() %>"><meta property="og:url" content="<%= site.siteUrl + archive.permalink %>"><% }) %>
-<% block('content', () => { %>
+<% await blockAsync('content', async () => { %>
 <div class="grid grid-cols-2 lg:grid-cols-8 gap-4 lg:pt-12">
   <article class="article-card col-span-2 lg:col-span-6 bg-secondary-bg rounded px-6 py-8">
     <header class="article-header"><h1 class="font-bold text-3xl text-primary-text"><%= archive.title() %></h1><%~ include('./layouts/partials/components/post-metadata-full', {archive, post, wordCount, readingMinutes, spriteUrl: site.themeUrl('res/fontawesome/all.svg')}) %></header>
@@ -22,7 +22,7 @@
       <div><% if (post.prev && post.prev.title) { %><span>上一篇</span><a href="/post/<%= post.prev.pathname %>.html"><%= post.prev.title %></a><% } %></div>
       <div><% if (post.next && post.next.title) { %><span>下一篇</span><a href="/post/<%= post.next.pathname %>.html"><%= post.next.title %></a><% } %></div>
     </nav><% } %>
-    <% if (archive.allow('comment')) { %><%~ include('./inc/comment', {siteOptions: site}) %><% } %>
+    <% if (archive.allow('comment')) { %><%~ await includeAsync('./inc/comment', {siteOptions: site}) %><% } %>
   </article>
   <aside class="col-span-2" aria-label="文章目录"><%~ include('./layouts/partials/components/post-toc') %></aside>
 </div>

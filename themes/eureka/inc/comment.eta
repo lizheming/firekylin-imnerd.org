@@ -1,11 +1,11 @@
 <div id="comments" class="comments" data-type="<%= firekylin.siteOptions.row.comment.type %>" data-thread-key="<%= firekylin.think.md5(firekylin.ctx.get('pathname')) %>" data-url="<%= firekylin.siteOptions.siteUrl + firekylin.ctx.url %>">
-  <h2>评论</h2>
+  <% if (firekylin.siteOptions.row.comment.type !== 'waline') { %><h2>评论</h2><% } %>
   <% if (firekylin.siteOptions.row.comment.name) { const identifier = firekylin.think.md5(firekylin.ctx.param('pathname')); %>
     <% if (firekylin.siteOptions.row.comment.type === 'disqus') { %><div id="disqus_thread" data-url="<%= firekylin.siteOptions.siteUrl + firekylin.ctx.url %>" data-identifier="<%= identifier %>" data-name="<%= firekylin.siteOptions.row.comment.name %>">评论加载中…</div>
     <% } else if (firekylin.siteOptions.row.comment.type === 'hypercomments') { %><div id="hypercomments_widget" data-url="<%= firekylin.siteOptions.siteUrl + firekylin.ctx.url %>" data-identifier="<%= identifier %>" data-name="<%= firekylin.siteOptions.row.comment.name %>"></div>
     <% } else if (firekylin.siteOptions.row.comment.type === 'changyan') { %><div id="SOHUCS" sid="<%= identifier %>" data-name="<%= firekylin.siteOptions.row.comment.name %>"></div>
     <% } else if (firekylin.siteOptions.row.comment.type === 'gitalk') { %><div id="gitalk-container" data-identifier="<%= identifier %>" data-name="<%= firekylin.siteOptions.row.comment.name %>"></div>
-    <% } else if (firekylin.siteOptions.row.comment.type === 'waline') { %><div id="waline-container" data-name="<%= firekylin.siteOptions.row.comment.name %>"></div>
+    <% } else if (firekylin.siteOptions.row.comment.type === 'waline') { %><%~ await includeAsync('./waline') %>
     <% } else if (firekylin.siteOptions.row.comment.type === 'valine') { %><div id="valine-container" data-name="<%= firekylin.siteOptions.row.comment.name %>"></div>
     <% } else { %><%~ firekylin.siteOptions.row.comment.name %><% } %>
   <% } else { %><p class="muted">评论功能尚未配置。</p><% } %>
