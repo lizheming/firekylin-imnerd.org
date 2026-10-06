@@ -1,0 +1,12 @@
+{
+  "name": "firekylin-blog",
+  "private": true,
+  "scripts": {
+    "start": "firekylin",
+    "dev": "firekylin -D",
+    "build": "node ./scripts/build-static.js"
+  },
+  "dependencies": {
+    "firekylin": "latest"
+  }
+}
