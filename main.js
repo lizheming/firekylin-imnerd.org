@@ -1,2 +1,3 @@
-delete require.cache[require.resolve('firekylin')];
-module.exports = require('firekylin');
+const Firekylin = require('firekylin');
+
+module.exports = Firekylin({});
