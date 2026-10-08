@@ -1,5 +1,5 @@
 <% layout('./layout') %>
-<% const archive = await firekylin.widget('Widget_Archive', {type: 'archive'}); const site = await firekylin.widget('Widget_Options'); %>
+<% const archive = await firekylin.widget('Widget_Archive_Eureka', {type: 'archive'}); const site = await firekylin.widget('Widget_Options'); %>
 <% block('title', () => { %>归档 - <%= site.title() %><% }) %>
 <% block('headers', () => { %><link rel="canonical" href="<%= site.siteUrl %>/archives"><% }) %>
 <% block('content', () => { %><article class="article-card collection"><h1>归档</h1>

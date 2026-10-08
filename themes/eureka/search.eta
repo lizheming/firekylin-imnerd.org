@@ -1,5 +1,5 @@
 <% layout('./layout') %>
-<% const archive = await firekylin.widget('Widget_Archive', {type: 'search'}); const site = await firekylin.widget('Widget_Options'); %>
+<% const archive = await firekylin.widget('Widget_Archive_Eureka', {type: 'search'}); const site = await firekylin.widget('Widget_Options'); %>
 <% block('title', () => { %>站内搜索 - <%= site.title() %><% }) %>
 <% block('headers', () => { %><link rel="canonical" href="<%= site.siteUrl %>/search.html"><% }) %>
 <% await blockAsync('content', async () => { %><article class="article-card search-page"><h1>站内搜索</h1>

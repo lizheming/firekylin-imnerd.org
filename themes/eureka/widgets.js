@@ -18,5 +18,5 @@ module.exports = function () {
     }
   }
 
-  return {Widget_Archive: EurekaArchive};
+  return {Widget_Archive_Eureka: EurekaArchive};
 };

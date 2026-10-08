@@ -1,6 +1,6 @@
 <% layout('../layout') %>
 <%
-const archive = await firekylin.widget('Widget_Archive', {type: 'page'});
+const archive = await firekylin.widget('Widget_Archive_Eureka', {type: 'page'});
 const slides = await firekylin.widget('Widget_Custom_Slides', {
   page: firekylin.ctx.query.page,
   pageSize: 12

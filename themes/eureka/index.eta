@@ -1,5 +1,5 @@
 <% layout('./layout') %>
-<% const archive = await firekylin.widget('Widget_Archive', {type: 'index'}); const site = await firekylin.widget('Widget_Options'); %>
+<% const archive = await firekylin.widget('Widget_Archive_Eureka', {type: 'index'}); const site = await firekylin.widget('Widget_Options'); %>
 <% block('title', () => { %><% if (archive.is('tag')) { %>标签：<%= archive.archiveTitle %> - <% } else if (archive.is('cate')) { %>分类：<%= archive.archiveTitle %> - <% } %><%= site.title() %><% }) %>
 <% block('headers', () => { %><link rel="canonical" href="<%= site.siteUrl + firekylin.ctx.url %>"><% }) %>
 <% await blockAsync('content', async () => { %>

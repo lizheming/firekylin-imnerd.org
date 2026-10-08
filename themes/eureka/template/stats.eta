@@ -1,6 +1,6 @@
 <% layout('../layout') %>
 <%
-const archive = await firekylin.widget('Widget_Archive', {type: 'page'});
+const archive = await firekylin.widget('Widget_Archive_Eureka', {type: 'page'});
 const postArchive = await firekylin.widget('Widget_Custom_Archive', {type: 'archive'});
 const site = await firekylin.widget('Widget_Options');
 archive.next();

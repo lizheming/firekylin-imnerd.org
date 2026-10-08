@@ -3,7 +3,7 @@
   const douban = await firekylin.widget('Widget_Custom_Douban', {
     pageSize: 50,
   });
-  const archive = await firekylin.widget('Widget_Archive', {type: 'page'}); 
+  const archive = await firekylin.widget('Widget_Archive_Eureka', {type: 'page'}); 
   const site = await firekylin.widget('Widget_Options'); 
   archive.next(); 
 %>
