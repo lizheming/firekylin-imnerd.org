@@ -8,5 +8,8 @@
   },
   "dependencies": {
     "firekylin": "^2.5.3"
+  },
+  "overrides": {
+    "think-loader": "1.2.4"
   }
 }
