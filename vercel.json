@@ -20,6 +20,7 @@
           "data/**",
           "themes/**",
           "uploads/**",
+          "widgets/**",
           "node_modules/mathjax/**"
         ]
       }
