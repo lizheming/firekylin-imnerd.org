@@ -1,3 +1,1 @@
-const Firekylin = require('firekylin');
-
-module.exports = Firekylin({});
+module.exports = require('firekylin');
