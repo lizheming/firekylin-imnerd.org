@@ -7,7 +7,8 @@
     "build": "node ./scripts/build-static.js"
   },
   "dependencies": {
-    "firekylin": "^2.10.1"
+    "firekylin": "git+https://github.com/firekylin/firekylin.git#4980d4bb2212f57c8f476bdcc2196bc7f7afd3bb",
+    "firekylin-plugin-comment-import": "^1.0.0"
   },
   "overrides": {
     "think-loader": "1.2.4"
