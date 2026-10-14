@@ -8,8 +8,7 @@
   },
   "dependencies": {
     "firekylin": "^2.10.3",
-    "firekylin-plugin-comment-import": "^1.0.0",
-    "firekylin-plugin-backup": "^1.0.0"
+    "firekylin-plugin-comment-import": "^1.0.0"
   },
   "overrides": {
     "think-loader": "1.2.4"
