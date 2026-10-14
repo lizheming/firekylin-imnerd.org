@@ -49,10 +49,6 @@
   ],
   "crons": [
     {
-      "path": "/crontab/sync_comment",
-      "schedule": "0 0 * * *"
-    },
-    {
       "path": "/admin/cron/rss",
       "schedule": "0 0 * * *"
     }
