@@ -11,6 +11,10 @@ const {
 } = process.env;
 
 module.exports = {
+  plugins: [
+    require('firekylin-plugin-comment-import'),
+    require('firekylin-plugin-friend-links'),
+  ],
   widgets: [
     './widgets/index.js'
   ],
