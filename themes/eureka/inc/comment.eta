@@ -1,3 +1,1 @@
-<div id="comments" class="comments" data-type="<%= firekylin.siteOptions.row.comment.type %>" data-thread-key="<%= firekylin.think.md5(firekylin.ctx.get('pathname')) %>" data-url="<%= firekylin.siteOptions.siteUrl + firekylin.ctx.url %>">
-  <%~ await includeAsync('./waline') %>
-</div>
+<%~ firekylin.comment() %>
