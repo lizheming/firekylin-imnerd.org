@@ -7,7 +7,7 @@
     "build": "node ./scripts/build-static.js"
   },
   "dependencies": {
-    "firekylin": "2.10.2"
+    "firekylin": "2.10.6"
   },
   "overrides": {
     "think-loader": "1.2.4"
