@@ -7,9 +7,11 @@
     "build": "node ./scripts/build-static.js"
   },
   "dependencies": {
-    "firekylin": "2.10.6",
+    "firekylin": "2.11.0",
     "firekylin-plugin-comment-import": "1.0.0",
-    "firekylin-plugin-friend-links": "1.0.0"
+    "firekylin-plugin-friend-links": "1.0.0",
+    "firekylin-plugin-say": "1.0.0",
+    "firekylin-plugin-markdown-route": "1.0.0"
   },
   "overrides": {
     "think-loader": "1.2.4"
