@@ -21,6 +21,7 @@
           "themes/**",
           "uploads/**",
           "widgets/**",
+          "node_modules/mhchemparser/**/*",
           "node_modules/@mathjax/mathjax-newcm-font/**/*"
         ]
       }
