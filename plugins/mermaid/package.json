@@ -1,0 +1,9 @@
+{
+  "name": "firekylin-plugin-mermaid",
+  "version": "1.0.0",
+  "main": "plugin.js",
+  "firekylin": {
+    "type": "plugin",
+    "id": "mermaid"
+  }
+}

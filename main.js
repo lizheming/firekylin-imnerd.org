@@ -1,8 +1,4 @@
-const plugins = [
-  require('firekylin-plugin-comment-import'),
-  require('firekylin-plugin-friend-links'),
-  require('firekylin-plugin-say'),
-  require('firekylin-plugin-markdown-route'),
-];
+const Firekylin = require('firekylin');
+Firekylin.config = require('./firekylin.config');
 
-module.exports = require('firekylin');
+module.exports = Firekylin;
