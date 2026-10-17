@@ -21,7 +21,7 @@
           "themes/**",
           "uploads/**",
           "widgets/**",
-          "node_modules/mathjax/**"
+          "node_modules/@mathjax/mathjax-newcm-font/**/*"
         ]
       }
     },
