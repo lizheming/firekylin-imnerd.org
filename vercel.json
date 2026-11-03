@@ -17,12 +17,14 @@
       "config": {
         "includeFiles": [
           "firekylin.config.js",
+          "widgets/**",
           "data/**",
           "themes/**",
           "uploads/**",
-          "widgets/**",
-          "node_modules/mhchemparser/**/*",
-          "node_modules/@mathjax/mathjax-newcm-font/**/*"
+          "node_modules/firekylin/firekylin.pgsql",
+          "node_modules/firekylin/firekylin.sql",
+          "node_modules/@mathjax/mathjax-newcm-font/**/*",
+          "node_modules/mhchemparser/**/*"
         ]
       }
     },
