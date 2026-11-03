@@ -36,8 +36,7 @@ module.exports = {
     "port": "5432",
     "prefix": "fk_",
     ssl: {
-      minVersion: 'TLSv1.2',
-      rejectUnauthorized: true
+      rejectUnauthorized: false,
     }
   }
 };
