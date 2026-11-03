@@ -41,3 +41,7 @@ module.exports = {
     }
   }
 };
+
+// Firekylin marketplace plugin imports (for Vercel bundling)
+require('firekylin-plugin-ai-provider-openai');
+// End Firekylin marketplace plugin imports

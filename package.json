@@ -12,7 +12,8 @@
     "firekylin-plugin-friend-links": "1.0.0",
     "firekylin-plugin-markdown-route": "1.0.0",
     "firekylin-plugin-say": "1.0.0",
-    "firekylin-plugin-ai-provider-deepseek": "1.0.0"
+    "firekylin-plugin-ai-provider-deepseek": "1.0.0",
+    "firekylin-plugin-ai-provider-openai": "1.2.0"
   },
   "overrides": {
     "think-loader": "1.2.4"
