@@ -7,13 +7,13 @@
     "build": "node ./scripts/build-static.js"
   },
   "dependencies": {
-    "firekylin": "2.17.1",
+    "firekylin": "2.18.0",
     "firekylin-plugin-comment-import": "1.0.0",
     "firekylin-plugin-friend-links": "1.0.0",
     "firekylin-plugin-markdown-route": "1.0.0",
     "firekylin-plugin-say": "1.0.0",
-    "firekylin-plugin-ai-provider-deepseek": "1.0.0",
-    "firekylin-plugin-ai-provider-openai": "1.2.0"
+    "firekylin-plugin-ai-provider-deepseek": "1.3.0",
+    "firekylin-plugin-ai-provider-openai": "1.4.0"
   },
   "overrides": {
     "think-loader": "1.2.4"
